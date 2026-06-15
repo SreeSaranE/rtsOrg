@@ -1,0 +1,11 @@
+<div class="input-container">
+    <span class="input-label">{{ label }}</span>
+
+    <input
+        [type]="type"
+        [placeholder]="placeholder"
+        [value]="value"
+        [class]="cls"
+        (input)="onInput($event)"
+    />
+</div>

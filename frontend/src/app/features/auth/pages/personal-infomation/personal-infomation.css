@@ -1,0 +1,35 @@
+.content{
+    display: grid;
+    padding-top: 9rem;
+    gap: 10px;
+}
+
+#header{
+    font-size: 40px;
+    font-family: 'Playfair Display', serif;
+    justify-self: center;
+}
+
+.inputField,
+.createAccount{
+    justify-self: center;
+}
+
+.role-selector{
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    gap: 20px;
+    justify-self: center;
+}
+
+.role-selector label{
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+}
+
+p{
+    font-size: small;
+    justify-self: center;
+}

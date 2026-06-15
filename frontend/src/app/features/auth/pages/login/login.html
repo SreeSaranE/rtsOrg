@@ -1,0 +1,31 @@
+<div class = "content">
+
+    <p id="header">Welcome back</p>
+
+    <app-input-field class="inputField"
+        cls = "email"
+        label="Email"
+        placeholder="Enter Email"
+        [(value)]="email">
+    </app-input-field>
+
+    <app-input-field class="inputField"
+        cls = "password"
+        label="Password"
+        placeholder="Enter password"
+        type="password"
+        [(value)]="password">
+    </app-input-field>
+    <p id="forgetPass">Forget Your password?</p>
+
+    <app-button class= "loginButton"
+        cls = "login"
+        label = "Login"
+        (clicked)="login()">
+    </app-button>
+
+    <p id="register">Don't have Account.
+        <span (click)="register()">Register</span>
+    </p>
+
+</div>

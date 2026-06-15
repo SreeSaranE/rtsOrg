@@ -1,0 +1,55 @@
+<div class="content">
+
+    <p id="header">Create an account</p>
+
+    <div class="role-selector">
+        <label>
+            <input type="radio" name="role" value="hr" [(ngModel)]="role">
+            HR
+        </label>
+
+        <label>
+            <input type="radio" name="role" value="recruiter" [(ngModel)]="role">
+            Recruiter
+        </label>
+
+        <label>
+            <input type="radio" name="role" value="recruiter" [(ngModel)]="role">
+            Interviewer
+        </label>
+
+        <label>
+            <input type="radio" name="role" value="candidate" [(ngModel)]="role">
+            Candidate
+        </label>
+    </div>
+
+    <app-input-field class="inputField"
+        cls="username"
+        label="Username"
+        placeholder="Enter username"
+        [(value)]="username">
+    </app-input-field>
+
+    <app-input-field class="inputField"
+        cls="password"
+        label="Password"
+        placeholder="Enter password"
+        type="password"
+        [(value)]="password">
+    </app-input-field>
+
+    <app-input-field class="inputField"
+        cls="password"
+        label="Password"
+        placeholder="Renter password"
+        type="password"
+        [(value)]="rePassword">
+    </app-input-field>
+
+    <app-button class="createAccount"
+        cls="createAccount"
+        label="Next"
+        (clicked)="createAccount()">
+    </app-button>
+</div>
