@@ -7,7 +7,7 @@
 }
 
 #header {
-    font-size: 2rem;
+    font-size: 40px;
     justify-self: center;
     margin-bottom: 10px;
     font-family: 'Playfair Display', serif;
@@ -73,5 +73,13 @@ p {
 }
 
 .role-selector input[type="radio"] {
+    cursor: pointer;
+}
+
+#signin span{
+    color: rgb(129, 145, 239);
+}
+#signin span:hover{
+    text-decoration: underline;
     cursor: pointer;
 }
