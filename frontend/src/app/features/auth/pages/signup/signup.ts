@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import { ButtonComponent } from '../../../../shared/components/button/button';
 import { InputField } from '../../../../shared/components/input-field/input-field';
-import { Router, RouterOutlet } from '@angular/router';
+import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-signup',
-  imports: [FormsModule, ButtonComponent, InputField, RouterOutlet],
+  imports: [FormsModule, ButtonComponent, InputField],
   templateUrl: './signup.html',
   styleUrl: './signup.css',
 })

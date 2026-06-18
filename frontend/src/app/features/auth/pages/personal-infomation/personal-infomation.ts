@@ -34,4 +34,8 @@ export class PersonalInfomation {
             rePassword: this.rePassword
         });
     }
+
+    signupPage(){
+        this.router.navigate(['./signup']);
+    }
 }

@@ -7,14 +7,9 @@
 }
 
 #header {
-    margin: 0;
     font-size: 40px;
     font-family: 'Playfair Display', serif;
     text-align: center;
-}
-
-.inputField {
-    width: 350px;
 }
 
 .role-selector {

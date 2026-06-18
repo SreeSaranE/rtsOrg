@@ -14,6 +14,7 @@ export class ButtonComponent {
 
   @Input() label = '';
   @Input() cls = '';
+  
 
   @Output() clicked = new EventEmitter<void>();
 
