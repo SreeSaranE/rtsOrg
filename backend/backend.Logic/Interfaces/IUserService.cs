@@ -1,8 +1,9 @@
-﻿using System;
+﻿using backend.data.DTOs;
+using backend.Models;
+using backend.Models.DTOs;
+using System;
 using System.Collections.Generic;
 using System.Text;
-using backend.Models;
-using backend.data.DTOs;
 
 namespace backend.Service.Interfaces
 {
@@ -10,6 +11,6 @@ namespace backend.Service.Interfaces
     {
         public Task<bool> RegisterUser(RegisterDto dto);
 
-        public Task<User?> Login(LoginDto dto);
+        public Task<LoginResponseDto> Login(LoginDto dto);
     }
 }

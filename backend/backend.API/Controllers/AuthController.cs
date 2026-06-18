@@ -1,13 +1,13 @@
 ﻿using backend.data.DTOs;
-using backend.data.Interfaces;
 using backend.Service.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace backend.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class AuthController: ControllerBase
+    public class AuthController : ControllerBase
     {
         private readonly IUserService _userService;
 
@@ -21,7 +21,7 @@ namespace backend.API.Controllers
         {
             var result = await _userService.RegisterUser(dto);
 
-            if(!result)
+            if (!result)
             {
                 return BadRequest("Email already exist.");
             }
@@ -40,12 +40,18 @@ namespace backend.API.Controllers
             }
             return Ok(new
             {
-                user.Id,
+                user.Token,
                 user.Name,
                 user.Email,
                 user.Role
             });
+        }
 
+        [Authorize]
+        [HttpGet("profile")]
+        public IActionResult Profile()
+        {
+            return Ok("You are authenticated");
         }
     }
 }

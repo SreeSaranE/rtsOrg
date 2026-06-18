@@ -1,6 +1,7 @@
 ﻿using backend.data.DTOs;
 using backend.data.Interfaces;
 using backend.Models;
+using backend.Models.DTOs;
 using backend.Service.Interfaces;
 
 namespace backend.Service.Services
@@ -9,10 +10,12 @@ namespace backend.Service.Services
     {
 
         private readonly IUserRepository _userRepository;
+        private readonly IJwtService _jwtService;
 
-        public UserService(IUserRepository userRepository)
+        public UserService(IUserRepository userRepository, IJwtService jwtService)
         {
             _userRepository = userRepository;
+            _jwtService = jwtService;
         }
 
         public async Task<bool> RegisterUser(RegisterDto dto)
@@ -36,7 +39,7 @@ namespace backend.Service.Services
             return true;
         }
 
-        public async Task<User?> Login(LoginDto dto)
+        public async Task<LoginResponseDto> Login(LoginDto dto)
         {
             var user = await _userRepository.GetByEmail(dto.Email);
 
@@ -46,11 +49,18 @@ namespace backend.Service.Services
             }
             bool isValidPassword =
                 BCrypt.Net.BCrypt.Verify(dto.Password, user.PasswordHash);
+
             if (!isValidPassword)
             {
                 return null;
             }
-            return user;
+            return new LoginResponseDto
+            {
+                Token = _jwtService.GenerateToken(user),
+                Name = user.Name,
+                Email = user.Email,
+                Role = user.Role
+            };
         }
     }
 }
