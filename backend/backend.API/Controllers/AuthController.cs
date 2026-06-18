@@ -51,7 +51,35 @@ namespace backend.API.Controllers
         [HttpGet("profile")]
         public IActionResult Profile()
         {
-            return Ok("You are authenticated");
+            var userId = User.FindFirst(
+                System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+
+            var email = User.FindFirst(
+                System.Security.Claims.ClaimTypes.Email)?.Value;
+
+            var role = User.FindFirst(
+                System.Security.Claims.ClaimTypes.Role)?.Value;
+
+            return Ok(new
+            {
+                UserId = userId,
+                Email = email,
+                Role = role
+            });
+        }
+
+        [Authorize(Roles = "Candidate")]
+        [HttpGet("candidate-dashboard")]
+        public IActionResult CandidateDashboard()
+        {
+            return Ok("Wlecome Candidate!");
+        }
+
+        [Authorize(Roles = "Recruiter")]
+        [HttpGet("recruiter-dashboard")]
+        public IActionResult RecruiterDashboard()
+        {
+            return Ok("Welcome Recruiter");
         }
     }
 }

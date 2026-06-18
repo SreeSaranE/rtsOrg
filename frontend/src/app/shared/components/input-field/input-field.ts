@@ -15,7 +15,6 @@ export class InputField {
   @Input() type: 'text' | 'password' | 'email' = 'text';
   @Input() value = '';
   @Input() cls = '';
-  @Input() minLen = '0';
 
   @Output() valueChange = new EventEmitter<string>();
 
