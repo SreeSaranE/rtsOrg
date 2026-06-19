@@ -1,18 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { AuthService } from './auth-service';
 
-export interface LoginRequest {
-  email: string;
-  password: string;
-}
-
-export interface LoginResponse {
-  token: string;
-  name: string;
-  email: string;
-  role: string;
+export interface RegisterRequest {
+  Name: string;
+  Email: string;
+  Password: string;
+  Role: string;
 }
 
 @Injectable({
@@ -23,7 +17,6 @@ export class AuthRegisterService {
   private apiUrl = 'https://localhost:7034/api/auth';
 
   constructor(
-    private authSerice: AuthService,
     private http: HttpClient
   ){}
 
@@ -32,4 +25,10 @@ export class AuthRegisterService {
         `${this.apiUrl}/email?email=${encodeURIComponent(email)}`
       )
   };
+
+  register(data: RegisterRequest): Observable<string>{
+    return this.http.post(
+      `${this.apiUrl}/register`, data, { responseType: 'text' }
+    )
+  }
 }

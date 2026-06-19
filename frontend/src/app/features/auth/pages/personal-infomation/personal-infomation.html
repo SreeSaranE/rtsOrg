@@ -73,6 +73,10 @@
             [(value)]="rePassword">
         </app-input-field>
 
+        @if (!showValid) {
+            <p class="error">{{ contextText }}</p>
+        }
+
         <div class="button-group">
 
             <app-button

@@ -4,6 +4,7 @@ import { InputField } from '../../../../shared/components/input-field/input-fiel
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { AuthRegisterService } from '../../../../core/service/auth/auth-register-service';
+import { SharedService } from '../../shared/shared-service';
 
 @Component({
   selector: 'app-signup',
@@ -15,7 +16,8 @@ export class Signup {
   
   constructor(
     private router: Router,
-    private authRegisterService: AuthRegisterService
+    private authRegisterService: AuthRegisterService,
+    private sharedService: SharedService
   ){}
 
   emailValid = true;
@@ -47,6 +49,7 @@ export class Signup {
         this.contextText = "Email already exists"
         this.showValid = false;
       } else {
+        this.sharedService.email = this.email;
         this.router.navigate(['./personal-information'])
       }
     });
