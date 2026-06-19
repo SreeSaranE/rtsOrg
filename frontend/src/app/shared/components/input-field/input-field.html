@@ -1,11 +1,13 @@
-<div class="input-container">
+<div [class]="showValid ? 'input-container correct' : 'input-container wrong'">
+
     <span class="input-label">{{ label }}</span>
 
     <input
+        #inputElement
         [type]="type"
         [placeholder]="placeholder"
-        [value]="value"
-        [class]="cls"
-        (input)="onInput($event)"
+        [(ngModel)]="value"
+        (ngModelChange)="onValueChange($event, inputElement)"
     />
+
 </div>

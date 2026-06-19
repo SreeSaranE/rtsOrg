@@ -23,7 +23,13 @@ namespace backend.data.Repositories
         public async Task<User?> GetByEmail(string email)
         {
             return await _context.Users
-                .FirstOrDefaultAsync(u => u.Email == email);
+                .FirstOrDefaultAsync(u => u.Email.ToLower() == email.ToLower());
+        }
+
+        public async Task<bool> CheckEmail(string email)
+        {
+            return await _context.Users
+                .AnyAsync(u => u.Email.ToLower() == email.ToLower());
         }
 
         public async Task AddUser(User user)

@@ -18,6 +18,12 @@ namespace backend.Service.Services
             _jwtService = jwtService;
         }
 
+        public async Task<bool> CheckEmail(string email)
+        {
+            bool user = await _userRepository.CheckEmail(email);
+            return user;
+        }
+
         public async Task<bool> RegisterUser(RegisterDto dto)
         {
             var existUser = await _userRepository.GetByEmail(dto.Email);

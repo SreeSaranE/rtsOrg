@@ -20,12 +20,24 @@ export class Login {
   email: string = '';
   password: string = '';
 
+  emailValid = true;
+  showValid = true;
+  contextText: string = ''
+
   login() {
 
     if (!this.email || !this.password){
-      console.log('Enter Valid Details');
+      this.contextText = "Enter Valid Details";
+      this.showValid = false;
       return;
     }
+
+    if (!this.emailValid){
+      this.contextText = "Invalid email address";
+      this.showValid = false;
+      this.showValid = false;
+      return;
+    } 
 
     this.authService.login({
       email: this.email,
@@ -35,12 +47,12 @@ export class Login {
         localStorage.setItem(
           'token', response.token
         )
-        console.log('Login Success');
 
       this.router.navigate(['/dashboard']);
       },
       error: (error) => {
-        console.log('Login Failed');
+        this.contextText = "Incorrect email or password";
+        this.showValid = false;
         console.log(error);
       }
     });

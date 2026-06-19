@@ -1,30 +1,39 @@
-<div class = "content">
+<div class="content">
 
-    <p id="header">Welcome back</p>
+    <p id="header">Welcome Back</p>
 
-    <app-input-field class="inputField"
-        cls = "email"
+    <app-input-field
+        class="inputField"
+        [showValid] = showValid
         label="Email"
         placeholder="Enter Email"
-        [(value)]="email">
+        type="email"
+        [(value)]="email"
+        (validChange)="emailValid = $event">
     </app-input-field>
 
-    <app-input-field class="inputField"
-        cls = "password"
+    <app-input-field
+        class="inputField"
         label="Password"
-        placeholder="Enter password"
+        placeholder="Enter Password"
         type="password"
         [(value)]="password">
     </app-input-field>
-    <p id="forgetPass">Forget Your password?</p>
 
-    <app-button class= "loginButton"
-        cls = "login"
-        label = "Login"
+    @if (!showValid) {
+        <p class="error">{{ contextText }}</p>
+    }
+
+    <p id="forgetPass">Forgot your password?</p>
+
+    <app-button
+        class="loginButton"
+        label="Login"
         (clicked)="login()">
     </app-button>
 
-    <p id="register">Don't have Account.
+    <p id="register">
+        Don't have an account?
         <span (click)="register()">Register</span>
     </p>
 

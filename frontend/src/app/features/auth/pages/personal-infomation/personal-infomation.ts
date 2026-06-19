@@ -3,6 +3,7 @@ import { ButtonComponent } from '../../../../shared/components/button/button';
 import { InputField } from '../../../../shared/components/input-field/input-field';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { using } from 'rxjs';
 
 @Component({
   selector: 'app-personal-infomation',
@@ -10,11 +11,13 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './personal-infomation.html',
   styleUrl: './personal-infomation.css',
 })
-export class PersonalInfomation {
+export class PersonalInfomation{
 
   constructor(private router: Router){}
 
     enter = true;
+    showValid = true;
+    contextText: string = ''
 
     role = '';
 
@@ -23,7 +26,15 @@ export class PersonalInfomation {
     rePassword = '';
 
     selectRole() {
+
+        if(!this.role){
+            this.contextText = "Choose role";
+            this.showValid = false;
+            return;
+        }
+        this.showValid = true;
         this.enter = !this.enter;
+        console.log(this.role);
     }
 
     createAccount() {

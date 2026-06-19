@@ -9,6 +9,9 @@ namespace backend.Service.Interfaces
 {
     public interface IUserService
     {
+
+        public Task<bool> CheckEmail(string email);
+
         public Task<bool> RegisterUser(RegisterDto dto);
 
         public Task<LoginResponseDto> Login(LoginDto dto);

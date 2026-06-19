@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ConfirmationDialog } from '../../shared/components/confirmation-dialog/confirmation-dialog';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -9,9 +10,12 @@ import { ConfirmationDialog } from '../../shared/components/confirmation-dialog/
 })
 export class Dashboard {
   showLogoutDialog = false;
+  constructor(
+    private router: Router
+  ){}
 
   logout() {
-    console.log('User logged out');
+    this.router.navigate(['./login']);
     this.showLogoutDialog = false;
   }
 

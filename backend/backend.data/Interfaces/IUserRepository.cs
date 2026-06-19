@@ -1,4 +1,5 @@
-﻿using backend.Models;
+﻿using backend.data.DTOs;
+using backend.Models;
 
 namespace backend.data.Interfaces
 {
@@ -7,6 +8,8 @@ namespace backend.data.Interfaces
         Task<User?> GetById(int id);
 
         Task<User?> GetByEmail(string email);
+
+        Task<bool> CheckEmail(string email);
 
         Task AddUser(User user);
 

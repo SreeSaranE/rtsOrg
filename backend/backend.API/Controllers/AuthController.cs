@@ -47,6 +47,13 @@ namespace backend.API.Controllers
             });
         }
 
+
+        [HttpGet("email")]
+        public async Task<ActionResult<bool>> CheckEmail([FromQuery] string email)
+        {
+            return Ok(await _userService.CheckEmail(email));
+        }
+
         [Authorize]
         [HttpGet("profile")]
         public IActionResult Profile()
