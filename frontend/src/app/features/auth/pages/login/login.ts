@@ -8,7 +8,7 @@ import { AuthService } from '../../../../core/service/auth/auth-service';
   selector: 'app-login',
   imports: [ButtonComponent, InputField],
   templateUrl: './login.html',
-  styleUrl: './login.css',
+  styleUrl: './login.css'
 })
 export class Login {
 
