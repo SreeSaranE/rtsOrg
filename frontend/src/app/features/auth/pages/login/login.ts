@@ -3,10 +3,11 @@ import { ButtonComponent } from '../../../../shared/components/button/button';
 import { InputField } from '../../../../shared/components/input-field/input-field';
 import { Router } from '@angular/router';
 import { AuthLoginService } from '../../../../core/service/auth/auth-login-service';
+import { NavigationService } from '../../../../core/service/navigation/navigation-service';
 
 @Component({
   selector: 'app-login',
-  imports: [ButtonComponent, InputField],
+  imports: [ButtonComponent, InputField,],
   templateUrl: './login.html',
   styleUrl: './login.css'
 })
@@ -14,7 +15,8 @@ export class Login {
 
   constructor(
     private router: Router,
-    private authLoginService: AuthLoginService
+    private authLoginService: AuthLoginService,
+    private navigationService: NavigationService
   ){}
 
   email: string = '';
@@ -47,8 +49,9 @@ export class Login {
         localStorage.setItem(
           'token', response.token
         )
-
-      this.router.navigate(['/dashboard']);
+      
+      this.navigationService.navigateByRole();
+      
       },
       error: (error) => {
         this.contextText = "Incorrect email or password";
