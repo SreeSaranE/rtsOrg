@@ -32,6 +32,10 @@ export class NavigationService {
         this.router.navigate(['/candidate/dashboard']);
         break;
 
+      case 'interviewer':
+        this.router.navigate(['/interviewer/dashboard']);
+        break;
+
       default:
         this.router.navigate(['/login']);
     }

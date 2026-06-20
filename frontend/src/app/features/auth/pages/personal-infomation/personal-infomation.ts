@@ -6,6 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { AuthRegisterService } from '../../../../core/service/auth/auth-register-service';
 import { SharedService } from '../../shared/shared-service';
 import { AuthLoginService } from '../../../../core/service/auth/auth-login-service';
+import { NavigationService } from '../../../../core/service/navigation/navigation-service';
 
 @Component({
   selector: 'app-personal-infomation',
@@ -19,7 +20,8 @@ export class PersonalInfomation implements OnInit{
         private router: Router,
         private authRegisterService: AuthRegisterService,
         private authLoginService: AuthLoginService,
-        private sharedService: SharedService
+        private sharedService: SharedService,
+        private navigationService: NavigationService
     ){}
 
     ngOnInit(){
@@ -37,6 +39,8 @@ export class PersonalInfomation implements OnInit{
     username = '';
     password = '';
     rePassword = '';
+
+    registerStatus: boolean = false;
 
     selectRole() {
 
@@ -79,17 +83,31 @@ export class PersonalInfomation implements OnInit{
             Role: this.role
         }).subscribe({
             next: () => {
-                this.authLoginService.login({
-                    email: this.email,
-                    password: this.password
-                })
-                this.router.navigate(['./dashboard'])
+                this.confirmLogin();
             },
             error: (err) => {
                 console.log(err.status);
                 console.log(err.error);
             }
         })
+    }
+
+    confirmLogin(){
+    if(this.registerStatus){
+            this.authLoginService.login({
+            email: this.email,
+            password: this.password
+            }).subscribe({
+            next: (response) => {
+                localStorage.setItem('token', response.token)
+                this.navigationService.navigateByRole();
+            },
+            error: (error) => {
+                this.showValid = false;
+                console.log(error);
+            }
+            });
+        }
     }
 
     signupPage(){

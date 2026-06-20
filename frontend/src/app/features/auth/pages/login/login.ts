@@ -17,7 +17,7 @@ export class Login {
     private router: Router,
     private authLoginService: AuthLoginService,
     private navigationService: NavigationService
-  ){}
+  ) { }
 
   email: string = '';
   password: string = '';
@@ -28,30 +28,26 @@ export class Login {
 
   login() {
 
-    if (!this.email || !this.password){
+    if (!this.email || !this.password) {
       this.contextText = "Enter Valid Details";
       this.showValid = false;
       return;
     }
 
-    if (!this.emailValid){
+    if (!this.emailValid) {
       this.contextText = "Invalid email address";
       this.showValid = false;
       this.showValid = false;
       return;
-    } 
+    }
 
     this.authLoginService.login({
       email: this.email,
       password: this.password
     }).subscribe({
       next: (response) => {
-        localStorage.setItem(
-          'token', response.token
-        )
-      
-      this.navigationService.navigateByRole();
-      
+        localStorage.setItem('token', response.token)
+        this.navigationService.navigateByRole();
       },
       error: (error) => {
         this.contextText = "Incorrect email or password";
@@ -61,7 +57,7 @@ export class Login {
     });
   }
 
-  register(){
+  register() {
     this.router.navigate(['/signup'])
   }
 }
