@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { ButtonComponent } from '../../../../shared/components/button/button';
 import { InputField } from '../../../../shared/components/input-field/input-field';
 import { Router } from '@angular/router';
-import { AuthService } from '../../../../core/service/auth/auth-service';
+import { AuthLoginService } from '../../../../core/service/auth/auth-login-service';
 
 @Component({
   selector: 'app-login',
@@ -14,7 +14,7 @@ export class Login {
 
   constructor(
     private router: Router,
-    private authService: AuthService
+    private authLoginService: AuthLoginService
   ){}
 
   email: string = '';
@@ -39,7 +39,7 @@ export class Login {
       return;
     } 
 
-    this.authService.login({
+    this.authLoginService.login({
       email: this.email,
       password: this.password
     }).subscribe({

@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { AuthRegisterService } from '../../../../core/service/auth/auth-register-service';
 import { SharedService } from '../../shared/shared-service';
-import { AuthService } from '../../../../core/service/auth/auth-service';
+import { AuthLoginService } from '../../../../core/service/auth/auth-login-service';
 
 @Component({
   selector: 'app-personal-infomation',
@@ -18,7 +18,7 @@ export class PersonalInfomation implements OnInit{
     constructor(
         private router: Router,
         private authRegisterService: AuthRegisterService,
-        private authService: AuthService,
+        private authLoginService: AuthLoginService,
         private sharedService: SharedService
     ){}
 
@@ -47,7 +47,6 @@ export class PersonalInfomation implements OnInit{
         }
         this.showValid = true;
         this.enter = !this.enter;
-        console.log(this.role);
     }
 
     createAccount() {
@@ -80,7 +79,7 @@ export class PersonalInfomation implements OnInit{
             Role: this.role
         }).subscribe({
             next: () => {
-                this.authService.login({
+                this.authLoginService.login({
                     email: this.email,
                     password: this.password
                 })
