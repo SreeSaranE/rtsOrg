@@ -40,8 +40,6 @@ export class PersonalInfomation implements OnInit{
     password = '';
     rePassword = '';
 
-    registerStatus: boolean = false;
-
     selectRole() {
 
         if(!this.role){
@@ -83,7 +81,6 @@ export class PersonalInfomation implements OnInit{
             Role: this.role
         }).subscribe({
             next: () => {
-                this.registerStatus = true;
                 this.confirmLogin();
             },
             error: (err) => {
@@ -94,21 +91,19 @@ export class PersonalInfomation implements OnInit{
     }
 
     confirmLogin(){        
-        if(this.registerStatus){
-                this.authLoginService.login({
-                email: this.email,
-                password: this.password
-                }).subscribe({
-                next: (response) => {
-                    localStorage.setItem('token', response.token)
-                    this.navigationService.navigateByRole();
-                },
-                error: (error) => {
-                    this.showValid = false;
-                    console.log(error);
-                }
-                });
+        this.authLoginService.login({
+        email: this.email,
+        password: this.password
+        }).subscribe({
+        next: (response) => {
+            localStorage.setItem('token', response.token)
+            this.navigationService.navigateByRole();
+        },
+        error: (error) => {
+            this.showValid = false;
+            console.log(error);
         }
+        });  
     }
 
     signupPage(){

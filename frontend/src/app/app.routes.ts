@@ -10,9 +10,9 @@ import { CandidateDashboard } from './features/candidate/dashboard/dashboard';
 import { RecruiterDashboard } from './features/recruiter/dashboard/dashboard';
 import { InterviewerDashboard } from './features/interviewer/dashboard/dashboard';
 import { authGuard } from './core/guard/auth-guard';
-import { NotFound } from './features/not-found/not-found';
+import { NotFound } from './pages/not-found/not-found';
 import { roleGuard } from './core/guard/role-guard';
-import { Unauthorized } from './features/unauthorized/unauthorized';
+import { Unauthorized } from './pages/unauthorized/unauthorized';
 
 export const routes: Routes = [
     {path: '', component: StartupComponent},

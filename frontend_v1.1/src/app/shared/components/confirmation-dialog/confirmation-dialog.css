@@ -1,0 +1,66 @@
+.overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.dialog {
+    background: white;
+    padding: 0 20px 20px 20px;
+    border-radius: 30px;
+    min-width: 350px;
+    color: black;
+}
+
+#title {
+    font-size: 22px;
+    font-weight: 500;
+    font-family: "Google Sans Flex", sans-serif;
+}
+
+.actions {
+    margin-top: 20px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    padding: 5px 15px;
+}
+
+.confirm-btn {
+    background: #2387f2;
+    color: white;
+}
+
+.cancel-btn {
+    background: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
+}
+
+.style-btn {
+    border-radius: 20px;
+    font-size: 15px;
+    padding: 8px 15px;
+    border-width: 2px;
+    border-color: #828282;
+}
+
+.confirm-btn.style-btn:hover {
+    background-color: rgb(243, 51, 51);
+    color: white;
+    cursor: pointer;
+}
+
+.cancel-btn.style-btn:hover {
+    background-color: rgb(209, 209, 209);
+    color: white;
+    cursor: pointer;
+}
+
+hr {
+    border: none;
+    height: 1px;
+    background-color: rgb(61, 61, 61);
+}
