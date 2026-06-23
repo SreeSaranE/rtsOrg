@@ -1,4 +1,6 @@
-﻿namespace backend.Models.DTOs
+﻿using backend.Models.Enum;
+
+namespace backend.Models.DTOs
 {
     public class Register
     {
@@ -8,7 +10,7 @@
 
         public string Password { get; set; } = string.Empty;
 
-        public string Role { get; set; } = string.Empty;
+        public Role Role { get; set; }
         public bool IsActive { get; set; }
     }
 }

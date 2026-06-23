@@ -2,6 +2,7 @@
 using backend.Data.Interfaces;
 using backend.Models.DTOs;
 using backend.Models.DataBase;
+using backend.Models.Enum;
 
 namespace backend.Business.Services
 {
