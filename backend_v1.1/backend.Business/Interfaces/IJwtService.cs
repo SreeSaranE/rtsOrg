@@ -1,6 +1,6 @@
-﻿using backend.Models;
+﻿using backend.Models.DataBase;
 
-namespace backend.Service.Interfaces
+namespace backend.Business.Interfaces
 {
     public interface IJwtService
     {

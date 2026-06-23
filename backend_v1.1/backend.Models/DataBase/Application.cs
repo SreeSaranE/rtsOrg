@@ -7,7 +7,7 @@
         public int JobId { get; set; }
         public int CandidateId { get; set; }
 
-        public DateTime AppliedDate { get; set; }
+        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
         public int? ModifiedBy { get; set; }
         public DateTime? ModifiedAt { get; set; }

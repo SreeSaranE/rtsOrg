@@ -1,0 +1,38 @@
+.content {
+    display: grid;
+    height: 12rem;
+    padding-top: 9rem;
+}
+
+.inputField{
+    padding-bottom: 20px;
+    justify-self: center;
+}
+
+.loginButton {
+    padding: 10px;
+    justify-self: center;
+}
+
+p{
+    font-size: small;
+    justify-self: center;
+}
+
+#header{
+    font-size: 40px;
+    font-family: 'Playfair Display', serif;
+}
+
+#register span{
+    color: rgb(129, 145, 239);
+}
+#register span:hover{
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.error{
+    color: red;
+    padding: 0 0;
+}

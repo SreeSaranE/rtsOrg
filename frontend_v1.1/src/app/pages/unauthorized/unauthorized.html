@@ -1,1 +1,13 @@
-<p>unauthorized works!</p>
+<div class="content">
+    <p id="error">401 Unauthorized</p>
+    <p id="title"><br>Oops, Unauthorized response</p>
+
+    <p id="context">Looks like you aren't authorized for this page.<br>
+        Click button below to go to home page.</p>
+
+    <app-button
+        class="btn"
+        label='Back to Homepage'
+        (clicked) = "navigateHome()">
+    </app-button>
+</div>

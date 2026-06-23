@@ -1,0 +1,39 @@
+﻿using backend.Business.Interfaces;
+using backend.Models.DTOs;
+using Microsoft.AspNetCore.Mvc;
+
+namespace backend.API.Controllers
+{
+    [ApiController]
+    [Route("api/[controller]")]
+    public class AuthController : Controller
+    {
+        private readonly IUserService _service;
+
+        public AuthController(IUserService service)
+        {
+            _service = service;
+        }
+
+        [HttpPost("login")]
+        public async Task<IActionResult> Login([FromBody] Login dto)
+        {
+            var user = await _service.Login(dto.Email);
+            if (user)
+            {
+                return Ok("Login");
+            }
+            return Unauthorized("No Email");
+        }
+
+        [HttpPost("register")]
+        public async Task<IActionResult> Register([FromBody] Register dto)
+        {
+            var result = await _service.RegisterUser(dto);
+            if (!result)
+            {
+                return BadRequest("Login Failed");
+            }return Ok("User registered Successfully");
+        }
+    }
+}

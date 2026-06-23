@@ -10,9 +10,8 @@
         public string Phone { get; set; } = string.Empty;
         public string? Resume { get; set; }
         public string? Status { get; set; }
-
-        public DateTime CreatedDate { get; set; }
-
+        public int CreatedBy { get; set; }
+        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
         public int? ModifiedBy { get; set; }
         public DateTime? ModifiedAt { get; set; }
 

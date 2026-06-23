@@ -4,12 +4,13 @@ import { HrDashboard } from './features/hr/hr-dashboard/hr-dashboard';
 import { InterviewerDashboard } from './features/interviewer/interviewer-dashboard/interviewer-dashboard';
 import { RecruiterDashboard } from './features/recruiter/recruiter-dashboard/recruiter-dashboard';
 import { CandidateDashboard } from './features/candidate/candidate-dashboard/candidate-dashboard';
-import { Login } from './features/auth/login/login';
-import { Signup } from './features/auth/signup/signup';
+import { Login } from './features/auth/pages/login/login';
+import { Signup } from './features/auth/pages/signup/signup';
 import { Unauthorized } from './pages/unauthorized/unauthorized';
 import { NotFound } from './pages/not-found/not-found';
 import { authGuard } from './core/gurad/auth-guard';
 import { roleGuard} from './core/gurad/role-guard';
+import { Settings } from './pages/settings/settings';
 
 export const routes: Routes = [
     {path: "", component: AdminDashboard},
@@ -19,6 +20,7 @@ export const routes: Routes = [
     {path: "candidate", component: CandidateDashboard, canActivate: [authGuard, roleGuard]},
     {path: "login", component: Login},
     {path: "signup", component: Signup},
+    {path: "settings", component: Settings},
 
     {path: "unauthorized", component: Unauthorized},
     {path: "**", component: NotFound}
