@@ -3,8 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 export interface LoginRequest {
-  email: string;
-  password: string;
+  Email: string;
+  Password: string;
 }
 
 export interface LoginResponse {
@@ -22,7 +22,7 @@ export class LoginService {
 
   private apiUrl = 'https://localhost:7033/api/auth';
 
-  login(data: LoginRequest): Observable<LoginResponse> {
+  login(data: LoginRequest): Observable<LoginResponse> {    
     return this.http.post<LoginResponse>(
       `${this.apiUrl}/login`, data
     )

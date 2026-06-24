@@ -15,6 +15,7 @@ namespace backend.API.Controllers
             _service = service;
         }
 
+
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody]  Login dto)
         {
@@ -36,6 +37,7 @@ namespace backend.API.Controllers
             );
         }
 
+
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] Register dto)
         {
@@ -44,6 +46,13 @@ namespace backend.API.Controllers
             {
                 return BadRequest("Login Failed");
             }return Ok("User registered Successfully");
+        }
+
+
+        [HttpGet("email")]
+        public async Task<IActionResult> CheckEmail([FromQuery] string email)
+        {
+            return Ok(await _service.CheckEmail(email));
         }
     }
 }

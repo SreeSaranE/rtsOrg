@@ -6,5 +6,6 @@ namespace backend.Business.Interfaces
     {
         public Task<LoginResponse> Login(Login dto);
         public Task<bool> RegisterUser(Register dto);
+        public Task<bool> CheckEmail(string email);
     }
 }

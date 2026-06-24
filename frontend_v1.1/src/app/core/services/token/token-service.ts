@@ -6,11 +6,11 @@ import { jwtDecode } from 'jwt-decode';
 })
 export class TokenService {
 
-  getToken(): string | null{
-    return localStorage.getItem('token')
+  getToken(): string | null{    
+    return localStorage.getItem('Token')
   }
 
-  getDecodedToken(){
+  getDecodedToken(){    
     const token = this.getToken()
 
     if(!token) return null
@@ -43,6 +43,7 @@ export class TokenService {
   }
 
   getRole(): string | null {
+    
     const token: any = this.getDecodedToken();
 
     return token

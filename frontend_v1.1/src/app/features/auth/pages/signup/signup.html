@@ -1,1 +1,28 @@
-<P>blaa blaa blaaaaaaaaaaaaaaaaa</P>
+<div class="content">
+
+    <p id="header">Join Us</p>
+
+    <app-input-field
+        [showValid] = hideValid
+        label="Email"
+        placeholder="Enter email"
+        type="email"
+        [(value)]="email"
+        (validChange)="emailValid = $event">
+    </app-input-field>
+
+    @if (!hideValid) {
+        <p class="error">{{ contextText }}</p>
+    }
+
+    <app-button class="signupButton"
+        cls="signup"
+        label="Sign Up"
+        (clicked)="signup()">
+    </app-button>
+
+    <p id="signin">Already have an Account?
+        <span (click)="signIn()">Sign In</span>
+    </p>
+
+</div>

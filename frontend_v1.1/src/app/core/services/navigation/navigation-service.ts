@@ -14,15 +14,8 @@ export class NavigationService {
 
   navigateByRole(){
     
-    const isActive = this.tokenService.isActive()
     const role = this.tokenService.getRole()
-
-    if(!isActive && (role != null)){
-      console.log("Your account still hasn't been verified by admin");
-      this.router.navigate(['/verification'])
-      return;
-    }
-
+    
     switch (role) {
       case 'Admin':
         this.router.navigate(['/admin']);
@@ -44,7 +37,7 @@ export class NavigationService {
         this.router.navigate(['/interviewer']);
         break;
 
-      default:
+      default:        
         this.router.navigate(['/login']);
     }
   }

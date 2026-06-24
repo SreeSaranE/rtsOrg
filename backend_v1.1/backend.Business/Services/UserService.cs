@@ -74,5 +74,10 @@ namespace backend.Business.Services
             await _repository.AddUser(user);
             return true;
         }
+
+        public async Task<bool> CheckEmail(string email)
+        {
+            return await _repository.CheckEmail(email);
+        }
     }
 }
