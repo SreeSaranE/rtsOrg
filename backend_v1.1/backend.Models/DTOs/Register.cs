@@ -10,7 +10,7 @@ namespace backend.Models.DTOs
 
         public string Password { get; set; } = string.Empty;
 
-        public Role Role { get; set; }
+        public String Role { get; set; } = String.Empty;
         public bool IsActive { get; set; }
     }
 }

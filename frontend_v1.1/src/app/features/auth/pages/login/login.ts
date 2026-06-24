@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { ButtonComponent } from '../../../../shared/components/button/button';
 import { InputField } from '../../../../shared/components/input-field/input-field';
 import { Router } from '@angular/router';
+import { LoginService } from '../../../../core/services/login/login-service';
+import { NavigationService } from '../../../../core/services/navigation/navigation-service';
 
 @Component({
   selector: 'app-login',
@@ -12,7 +14,9 @@ import { Router } from '@angular/router';
 export class Login {
 
   constructor(
-    private router: Router
+    private router: Router,
+    private loginService: LoginService,
+    private navigationService: NavigationService
   ){}
 
   email: string = '';
@@ -23,7 +27,18 @@ export class Login {
   contextText: string = ''
 
   login(){
-
+    this.loginService.login({
+      email: "SARAN@gmail.com",
+      password: "111"
+    }).subscribe({
+      next: (response) => {
+        localStorage.setItem('token', response.token)
+        this.navigationService.navigateByRole()
+      },
+      error: (error) => {
+        console.log(error);
+      }
+    });
   }
 
   register(){

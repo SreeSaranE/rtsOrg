@@ -11,6 +11,7 @@ import { NotFound } from './pages/not-found/not-found';
 import { authGuard } from './core/gurad/auth-guard';
 import { roleGuard} from './core/gurad/role-guard';
 import { Settings } from './pages/settings/settings';
+import { Verification } from './pages/verification/verification';
 
 export const routes: Routes = [
     {path: "", component: AdminDashboard},
@@ -23,5 +24,6 @@ export const routes: Routes = [
     {path: "settings", component: Settings},
 
     {path: "unauthorized", component: Unauthorized},
+    {path: "verification", component: Verification},
     {path: "**", component: NotFound}
 ];

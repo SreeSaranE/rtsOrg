@@ -16,14 +16,18 @@ namespace backend.API.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<IActionResult> Login([FromBody] Login dto)
+        public async Task<IActionResult> Login([FromBody]  Login dto)
         {
-            var user = await _service.Login(dto.Email);
-            if (user)
+            var user = await _service.Login(dto);
+            if (user == null)
             {
-                return Ok("Login");
+                return Unauthorized("No Email");
             }
-            return Unauthorized("No Email");
+            return Ok(new
+                {
+                    user.Token
+                }
+            );
         }
 
         [HttpPost("register")]

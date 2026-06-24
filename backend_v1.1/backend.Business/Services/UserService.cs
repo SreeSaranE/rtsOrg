@@ -19,13 +19,25 @@ namespace backend.Business.Services
             _jwtService = jwtService;
         }
 
-        public async Task<bool> Login(string email)
+        public async Task<LoginResponse> Login(Login dto)
         {
-            var data = await _repository.GetByEmail(email);
-            if (data == null)
+            var user = await _repository.GetByEmail(dto.Email);
+            if (user == null)
+            {                
+                return null;
+            }
+
+            bool isValidPassword = 
+                BCrypt.Net.BCrypt.Verify(dto.Password, user.PasswordHash);
+            if (!isValidPassword)
             {
-                return false;
-            }return true;
+                return null;
+            }
+
+            return new LoginResponse
+            {
+                Token = _jwtService.GenerateToken(user),
+            };      
         }
 
         public async Task<bool> RegisterUser(Register dto)
@@ -37,12 +49,16 @@ namespace backend.Business.Services
                 return false;
             }
 
+            UserRole role = Enum.Parse<UserRole>(dto.Role);
+
+            int roleId = (int)role;
+
             var user = new User
             {
                 Name = dto.Name,
                 Email = dto.Email,
                 PasswordHash = BCrypt.Net.BCrypt.HashPassword(dto.Password),
-                Role = dto.Role,
+                Role = roleId,
                 IsActive = dto.IsActive
             };
 
