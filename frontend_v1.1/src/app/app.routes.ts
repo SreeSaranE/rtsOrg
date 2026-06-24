@@ -15,10 +15,18 @@ import { Verification } from './pages/verification/verification';
 
 export const routes: Routes = [
     {path: "", component: AdminDashboard},
-    {path: "hr", component: HrDashboard, canActivate: [authGuard, roleGuard]},
-    {path: "recruiter", component: RecruiterDashboard, canActivate: [authGuard, roleGuard]},
-    {path: "interviewer", component: InterviewerDashboard, canActivate: [authGuard, roleGuard]},
-    {path: "candidate", component: CandidateDashboard, canActivate: [authGuard, roleGuard]},
+
+    {path: "admin", component: AdminDashboard,
+        canActivate: [authGuard, roleGuard], data: {role: 'Admin'}},
+    {path: "hr", component: HrDashboard,
+        canActivate: [authGuard, roleGuard], data: {role: 'HR'}},
+    {path: "recruiter", component: RecruiterDashboard,
+        canActivate: [authGuard, roleGuard], data: {role: 'Recruiter'}},
+    {path: "interviewer", component: InterviewerDashboard,
+        canActivate: [authGuard, roleGuard], data: {role: 'Interviewer'}},
+    {path: "candidate", component: CandidateDashboard,
+        canActivate: [authGuard, roleGuard], data: {role: 'Candidate'}},
+
     {path: "login", component: Login},
     {path: "signup", component: Signup},
     {path: "settings", component: Settings},

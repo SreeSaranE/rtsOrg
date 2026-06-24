@@ -24,19 +24,28 @@ namespace backend.Business.Services
             var user = await _repository.GetByEmail(dto.Email);
             if (user == null)
             {                
-                return null;
+                return new LoginResponse
+                {
+                    Token = "",
+                    State = "incorrectEmail"
+                };
             }
 
             bool isValidPassword = 
                 BCrypt.Net.BCrypt.Verify(dto.Password, user.PasswordHash);
             if (!isValidPassword)
             {
-                return null;
+                return new LoginResponse
+                {
+                    Token = "",
+                    State = "incorrectPassword"
+                };
             }
 
             return new LoginResponse
             {
                 Token = _jwtService.GenerateToken(user),
+                State = "Login Success"
             };      
         }
 

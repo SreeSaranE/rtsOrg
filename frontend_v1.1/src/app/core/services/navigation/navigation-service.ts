@@ -13,16 +13,39 @@ export class NavigationService {
   ){}
 
   navigateByRole(){
+    
     const isActive = this.tokenService.isActive()
-    if(!isActive){
+    const role = this.tokenService.getRole()
+
+    if(!isActive && (role != null)){
       console.log("Your account still hasn't been verified by admin");
+      this.router.navigate(['/verification'])
       return;
     }
-    console.log("You are good to go");
-    
-    const role = this.tokenService.getRole()
-    if (!role) return;
-    console.log(role);
 
+    switch (role) {
+      case 'Admin':
+        this.router.navigate(['/admin']);
+        break;
+
+      case 'Recruiter':
+        this.router.navigate(['/recruiter']);
+        break;
+
+      case 'HR':
+        this.router.navigate(['/hr']);
+        break;
+
+      case 'Candidate':
+        this.router.navigate(['/candidate']);
+        break;
+
+      case 'Interviewer':
+        this.router.navigate(['/interviewer']);
+        break;
+
+      default:
+        this.router.navigate(['/login']);
+    }
   }
 }

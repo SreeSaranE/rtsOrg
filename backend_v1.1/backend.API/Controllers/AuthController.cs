@@ -19,10 +19,16 @@ namespace backend.API.Controllers
         public async Task<IActionResult> Login([FromBody]  Login dto)
         {
             var user = await _service.Login(dto);
-            if (user == null)
+            if (user.State == "incorrectEmail")
             {
                 return Unauthorized("No Email");
             }
+
+            if (user.State == "incorrectPassword")
+            {
+                return Unauthorized("Incorrect Password");
+            }
+
             return Ok(new
                 {
                     user.Token

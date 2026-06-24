@@ -28,7 +28,7 @@ export class Login {
 
   login(){
     this.loginService.login({
-      email: "SARAN@gmail.com",
+      email: "aswin@gmail.com",
       password: "111"
     }).subscribe({
       next: (response) => {
@@ -36,7 +36,7 @@ export class Login {
         this.navigationService.navigateByRole()
       },
       error: (error) => {
-        console.log(error);
+        console.log(error.error);
       }
     });
   }

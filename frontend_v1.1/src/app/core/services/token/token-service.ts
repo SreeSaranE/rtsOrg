@@ -6,7 +6,7 @@ import { jwtDecode } from 'jwt-decode';
 })
 export class TokenService {
 
-  getToken(){
+  getToken(): string | null{
     return localStorage.getItem('token')
   }
 
