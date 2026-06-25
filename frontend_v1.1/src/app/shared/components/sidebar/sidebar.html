@@ -1,0 +1,24 @@
+
+<nav class="sidebar">
+
+    <p id="title">{{title}}</p>
+
+    <hr>
+
+    @for (item of naviList; track $index) {
+        <li class="lis">
+            <app-button
+                class="navbarBtn"
+                label={{item}}
+                minWidth= "200px"
+                maxWidth="220px"
+                bgColor= "transparent"
+                color="var(--text-primary)"
+                position="left"
+                leftPad="20px"
+                (clicked)="clickBtn(item)"
+            ></app-button>
+        </li>
+    }
+
+</nav>

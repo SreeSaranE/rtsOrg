@@ -1,8 +1,4 @@
 ﻿using backend.Models.DataBase;
-using backend.Models.DTOs;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace backend.Data.Interfaces
 {

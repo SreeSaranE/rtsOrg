@@ -59,16 +59,21 @@ namespace backend.API.Controllers
             return Ok(await _service.CheckEmail(email));
         }
 
-        [HttpGet("id")]
-        public async Task<IActionResult> GetId([FromQuery] string email)
-        {
-            return Ok(await _service.getId(email));
-        }
-
         [HttpGet("users")]
         public async Task<IActionResult> GetAllUsers()
         {
             return Ok(await _adminService.GetAllUsers());
+        }
+
+        [HttpPut("user/{id}/status")]
+        public async Task<IActionResult> AlterUserStatus(int id)
+        {
+            var result = await _adminService.AlterUserStatus(id);
+
+            if (!result)
+                return NotFound();
+
+            return Ok(result);
         }
     }
 }

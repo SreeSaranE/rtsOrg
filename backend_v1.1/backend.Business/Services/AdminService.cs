@@ -16,5 +16,10 @@ namespace backend.Business.Services
         {
             return await _adminRepository.GetAllUsers();
         }
+
+        public async Task<bool> AlterUserStatus(int id)
+        {
+            return await _adminRepository.AlterUserStatus(id);
+        }
     }
 }

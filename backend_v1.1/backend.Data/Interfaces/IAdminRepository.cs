@@ -6,5 +6,7 @@ namespace backend.Data.Interfaces
     public interface IAdminRepository
     {
         Task<IReadOnlyList<UserDetails>> GetAllUsers();
+
+        Task<bool> AlterUserStatus(int id);
     }
 }

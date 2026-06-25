@@ -1,6 +1,15 @@
 <app-button
     class="logout"
     label="Logout Account"
-    (clicked)="logout()">
-
+    (clicked)="openLogoutDialog()">
 </app-button>
+
+<app-confirmation-dialog
+    [isOpen]="showLogoutDialog"
+    title="Logout"
+    message="Are you sure you want to logout?"
+    confirmText="Logout"
+    cancelText="Stay"
+    (confirmed)="logout()"
+    (cancelled)="cancelLogout()">
+</app-confirmation-dialog>

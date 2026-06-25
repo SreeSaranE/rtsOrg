@@ -80,14 +80,5 @@ namespace backend.Business.Services
         {
             return await _repository.CheckEmail(email);
         }
-
-        public async Task<int> getId(string email)
-        {
-            var userId = await _repository.GetByEmail(email);
-            if(userId != null)
-            return userId.UserId;
-
-            return 0;
-        }
     }
 }

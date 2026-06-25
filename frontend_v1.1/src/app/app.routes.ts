@@ -14,6 +14,7 @@ import { Settings } from './pages/settings/settings';
 import { Verification } from './pages/verification/verification';
 import { PersonalDetails } from './features/auth/pages/personal-details/personal-details';
 import { Startup } from './pages/startup/startup';
+import { Sidebar } from './shared/components/sidebar/sidebar';
 
 export const routes: Routes = [
     {path: "", component: Startup},
@@ -33,6 +34,8 @@ export const routes: Routes = [
     {path: "signup", component: Signup},
     {path: "personal-details", component: PersonalDetails},
     {path: "settings", component: Settings},
+
+    {path: "side", component: Sidebar},
 
     {path: "unauthorized", component: Unauthorized},
     {path: "verification", component: Verification},

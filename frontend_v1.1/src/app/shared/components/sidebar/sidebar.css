@@ -1,0 +1,16 @@
+.sidebar{
+    background-color: var(--sidebar-bg);
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 250px;
+}
+
+#title{
+    padding-left: 20px;
+}
+
+.lis{
+    padding-left: 10px;
+}

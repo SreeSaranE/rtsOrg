@@ -10,7 +10,5 @@ namespace backend.Business.Interfaces
         public Task<bool> RegisterUser(Register dto);
 
         public Task<bool> CheckEmail(string email);
-
-        public Task<int> getId(string email);
     }
 }
