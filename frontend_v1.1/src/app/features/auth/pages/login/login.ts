@@ -22,11 +22,25 @@ export class Login {
   email: string = '';
   password: string = '';
 
-  emailValid = true;
-  showValid = true;
+  emailValid: boolean = true;
+  hideValid: boolean = true;
   contextText: string = ''
 
   login(){
+
+    if (!this.email || !this.password) {
+      this.contextText = "Enter Valid Details";
+      this.hideValid = false;
+      return;
+    }
+
+    if (!this.emailValid) {
+      this.contextText = "Invalid email address";
+      this.hideValid = false;
+      this.hideValid = false;
+      return;
+    }
+
     this.loginService.login({
       Email: this.email,
       Password: this.password
@@ -36,6 +50,8 @@ export class Login {
         this.navigationService.navigateByRole()
       },
       error: (error) => {
+        this.contextText = "Incorrect email or password";
+        this.hideValid = false;
         console.log(error.error);
       }
     });

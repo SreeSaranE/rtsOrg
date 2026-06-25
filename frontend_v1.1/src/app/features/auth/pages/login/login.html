@@ -4,7 +4,7 @@
 
     <app-input-field
         class="inputField"
-        [showValid] = showValid
+        [showValid] = hideValid
         label="Email"
         placeholder="Enter Email"
         type="email"
@@ -20,7 +20,7 @@
         [(value)]="password">
     </app-input-field>
 
-    @if (!showValid) {
+    @if (!hideValid) {
         <p class="error">{{ contextText }}</p>
     }
 

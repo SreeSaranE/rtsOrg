@@ -1,4 +1,5 @@
 ﻿using backend.Models.DataBase;
+using backend.Models.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -14,9 +15,5 @@ namespace backend.Data.Interfaces
         Task<bool> CheckEmail(string email);
 
         Task AddUser(User user);
-
-        //Task UpdateUser(User user);
-
-        //Task DeleteUser(int id);
     }
 }

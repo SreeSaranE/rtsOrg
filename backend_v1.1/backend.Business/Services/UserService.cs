@@ -53,6 +53,7 @@ namespace backend.Business.Services
         {
             var existUser = await _repository.GetByEmail(dto.Email);
 
+            Console.WriteLine(existUser);
             if (existUser != null)
             {
                 return false;
@@ -78,6 +79,15 @@ namespace backend.Business.Services
         public async Task<bool> CheckEmail(string email)
         {
             return await _repository.CheckEmail(email);
+        }
+
+        public async Task<int> getId(string email)
+        {
+            var userId = await _repository.GetByEmail(email);
+            if(userId != null)
+            return userId.UserId;
+
+            return 0;
         }
     }
 }

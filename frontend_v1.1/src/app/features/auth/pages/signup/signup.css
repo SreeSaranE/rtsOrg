@@ -1,20 +1,27 @@
 .content {
     display: grid;
-    justify-content: center;
-    align-items: center;
-    padding-top: 150px;
-    gap: 10px;
+    height: 12rem;
+    padding-top: 9rem;
 }
 
-#header {
-    font-size: 40px;
-    margin-bottom: 10px;
-    font-family: 'Playfair Display', serif;
+.inputField{
+    padding-bottom: 20px;
+    justify-self: center;
+}
+
+.signupButton {
+    padding: 10px;
+    justify-self: center;
 }
 
 p {
     font-size: small;
     justify-self: center;
+}
+
+#header {
+    font-size: 40px;
+    font-family: 'Playfair Display', serif;
 }
 
 #signin span{

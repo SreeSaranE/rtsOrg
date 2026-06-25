@@ -95,13 +95,13 @@ export class PersonalDetails implements OnInit{
         })
     }
 
-    confirmLogin(){        
+    confirmLogin(){
         this.loginService.login({
         Email: this.email,
         Password: this.password
         }).subscribe({
         next: (response) => {
-            localStorage.setItem('token', response.token)
+            localStorage.setItem('Token', response.token)
             this.navigationService.navigateByRole();
         },
         error: (error) => {

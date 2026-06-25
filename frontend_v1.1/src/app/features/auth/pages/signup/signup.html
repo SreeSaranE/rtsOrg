@@ -3,6 +3,7 @@
     <p id="header">Join Us</p>
 
     <app-input-field
+        class="inputField"
         [showValid] = hideValid
         label="Email"
         placeholder="Enter email"
@@ -15,7 +16,8 @@
         <p class="error">{{ contextText }}</p>
     }
 
-    <app-button class="signupButton"
+    <app-button
+        class="signupButton"
         cls="signup"
         label="Sign Up"
         (clicked)="signup()">

@@ -9,10 +9,14 @@ namespace backend.API.Controllers
     public class AuthController : Controller
     {
         private readonly IUserService _service;
+        private readonly IAdminService _adminService;
 
-        public AuthController(IUserService service)
+        public AuthController(
+            IUserService service,
+            IAdminService adminService)
         {
             _service = service;
+            _adminService = adminService;
         }
 
 
@@ -53,6 +57,18 @@ namespace backend.API.Controllers
         public async Task<IActionResult> CheckEmail([FromQuery] string email)
         {
             return Ok(await _service.CheckEmail(email));
+        }
+
+        [HttpGet("id")]
+        public async Task<IActionResult> GetId([FromQuery] string email)
+        {
+            return Ok(await _service.getId(email));
+        }
+
+        [HttpGet("users")]
+        public async Task<IActionResult> GetAllUsers()
+        {
+            return Ok(await _adminService.GetAllUsers());
         }
     }
 }

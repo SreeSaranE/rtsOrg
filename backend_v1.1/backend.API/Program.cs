@@ -20,6 +20,10 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
+
+builder.Services.AddScoped<IAdminRepository,  AdminRepository>();
+builder.Services.AddScoped<IAdminService, AdminService>();
+
 builder.Services.AddScoped<IJwtService, JwtService>();
 
 builder.Services.AddAuthentication(

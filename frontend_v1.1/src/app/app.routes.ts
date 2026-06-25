@@ -13,9 +13,10 @@ import { roleGuard} from './core/gurad/role-guard';
 import { Settings } from './pages/settings/settings';
 import { Verification } from './pages/verification/verification';
 import { PersonalDetails } from './features/auth/pages/personal-details/personal-details';
+import { Startup } from './pages/startup/startup';
 
 export const routes: Routes = [
-    
+    {path: "", component: Startup},
 
     {path: "admin", component: AdminDashboard,
         canActivate: [authGuard, roleGuard], data: {role: 'Admin'}},

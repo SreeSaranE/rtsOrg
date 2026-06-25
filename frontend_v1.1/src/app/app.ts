@@ -14,5 +14,6 @@ export class App {
 
   constructor(
     private readonly themeSerice: ThemeService,
-  ){}
+  ){
+  }
 }
