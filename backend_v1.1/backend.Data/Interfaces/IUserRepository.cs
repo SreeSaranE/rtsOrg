@@ -15,6 +15,6 @@ namespace backend.Data.Interfaces
 
         Task<IReadOnlyList<UserDetails>> GetAllUsers();
 
-        Task<bool> AlterUserStatus(Guid id);
+        Task AlterUserStatus(User user);
     }
 }

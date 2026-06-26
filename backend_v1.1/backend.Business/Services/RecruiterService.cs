@@ -31,5 +31,21 @@ namespace backend.Business.Services
             await _jobRepository.AddJob(jobData);
             return true;
         }
+
+        public async Task<Boolean> AlterJobStatus(Guid jobId)
+        {
+            var job = await _jobRepository.GetJobById(jobId);
+            if(job == null) return false;
+            await _jobRepository.AlterJobStatus(job);
+            return true;
+        }
+
+        public async Task<Boolean> DeleteJob(Guid jobId)
+        {
+            var job = await _jobRepository.GetJobById(jobId);
+            if( job == null ) return false;
+            await _jobRepository.DeleteJob(job);
+            return true;
+        }
     }
 }

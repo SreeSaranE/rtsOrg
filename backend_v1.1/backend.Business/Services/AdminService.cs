@@ -19,7 +19,10 @@ namespace backend.Business.Services
 
         public async Task<bool> AlterUserStatus(Guid id)
         {
-            return await _repository.AlterUserStatus(id);
+            var user = await _repository.GetById(id);
+            if (user == null) return false;
+            await _repository.AlterUserStatus(user);
+            return true;
         }
     }
 }

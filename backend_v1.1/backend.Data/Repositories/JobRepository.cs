@@ -25,14 +25,25 @@ namespace backend.Data.Repositories
         {
             var job = await _context.Jobs.
                 FirstOrDefaultAsync(x => (x.Name == name && x.Dept == dept));
-            Console.WriteLine("stat"+job);
-            if (job == null)
-            {
-                Console.WriteLine("Null" + job);
-                return false;
-            }
+            if (job == null) return false;
             return true;
         }
 
+        public async Task<Job> GetJobById(Guid id)
+        {
+            return await _context.Jobs.FindAsync(id);
+        }
+
+        public async Task AlterJobStatus(Job job)
+        {
+            job.JobStatus = !job.JobStatus;
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task DeleteJob(Job job)
+        {
+            _context.Jobs.Remove(job);
+            await _context.SaveChangesAsync();
+        }
     }
 }

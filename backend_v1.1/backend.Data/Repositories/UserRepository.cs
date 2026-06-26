@@ -53,14 +53,10 @@ namespace backend.Data.Repositories
                 }).ToListAsync();
         }
 
-        public async Task<bool> AlterUserStatus(Guid id)
+        public async Task AlterUserStatus(User user)
         {
-            var user = await GetById(id);
-            if (user == null) return false;
-
             user.IsActive = !user.IsActive;
             await _context.SaveChangesAsync();
-            return true;
         }
     }
 }

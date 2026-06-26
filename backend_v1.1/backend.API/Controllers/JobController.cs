@@ -23,10 +23,20 @@ namespace backend.API.Controllers
             return BadRequest("Job Already present");
         }
 
-        [HttpPost("test")]
-        public async Task<IActionResult> test()
+        [HttpPut("edit/{jobId}/status")]
+        public async Task<IActionResult> AlterJobStatus(Guid jobId)
         {
-            return Ok("HEE");
+            var result = await _recruiterService.AlterJobStatus(jobId);
+            if (result) return Ok("Job status Updated");
+            return NotFound("No job found");
+        }
+
+        [HttpPut("delete/{jobId}")]
+        public async Task<IActionResult> DeleteJob(Guid jobId) 
+        {
+            var result = await _recruiterService.DeleteJob(jobId);
+            if (result) return Ok("Job deleted");
+            return NotFound("No job found");
         }
     }
-}
+} 
