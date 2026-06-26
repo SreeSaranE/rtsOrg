@@ -19,12 +19,12 @@ namespace backend.Business.Services
             _jwtService = jwtService;
         }
 
-        public async Task<LoginResponse> Login(Login dto)
+        public async Task<UserLoginResponse> Login(UserLogin dto)
         {
             var user = await _repository.GetByEmail(dto.Email);
             if (user == null)
             {                
-                return new LoginResponse
+                return new UserLoginResponse
                 {
                     Token = "",
                     State = "incorrectEmail"
@@ -35,21 +35,21 @@ namespace backend.Business.Services
                 BCrypt.Net.BCrypt.Verify(dto.Password, user.PasswordHash);
             if (!isValidPassword)
             {
-                return new LoginResponse
+                return new UserLoginResponse
                 {
                     Token = "",
                     State = "incorrectPassword"
                 };
             }
 
-            return new LoginResponse
+            return new UserLoginResponse
             {
                 Token = _jwtService.GenerateToken(user),
                 State = "Login Success"
             };      
         }
 
-        public async Task<bool> RegisterUser(Register dto)
+        public async Task<bool> RegisterUser(UserRegister dto)
         {
             var existUser = await _repository.GetByEmail(dto.Email);
 
@@ -79,6 +79,15 @@ namespace backend.Business.Services
         public async Task<bool> CheckEmail(string email)
         {
             return await _repository.CheckEmail(email);
+        }
+
+        public async Task<bool> DeleteUser(Guid userId)
+        {
+            var user = await _repository.GetById(userId);
+            if (user == null) return false;
+
+            await _repository.DeleteUser(user);
+            return true;
         }
     }
 }

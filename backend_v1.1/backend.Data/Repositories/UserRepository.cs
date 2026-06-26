@@ -58,5 +58,11 @@ namespace backend.Data.Repositories
             user.IsActive = !user.IsActive;
             await _context.SaveChangesAsync();
         }
+
+        public async Task DeleteUser(User user)
+        {
+            _context.Users.Remove(user);
+            await _context.SaveChangesAsync();
+        }
     }
 }

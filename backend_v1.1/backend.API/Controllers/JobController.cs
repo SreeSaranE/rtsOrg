@@ -15,7 +15,7 @@ namespace backend.API.Controllers
         }
 
         [HttpPost("addjob")]
-        public async Task<IActionResult> AddJob([FromBody] AddJob job)
+        public async Task<IActionResult> AddJob([FromBody] JobRegister job)
         {
             var result = await _recruiterService.AddJob(job);
             if(result) return Ok("Job Added");
@@ -31,6 +31,12 @@ namespace backend.API.Controllers
             return NotFound("No job found");
         }
 
+        [HttpGet("jobs")]
+        public async Task<IActionResult> GetAllJobs()
+        {
+            return Ok(await _recruiterService.GetAllJobs());
+        }
+
         [HttpPut("delete/{jobId}")]
         public async Task<IActionResult> DeleteJob(Guid jobId) 
         {
@@ -39,4 +45,4 @@ namespace backend.API.Controllers
             return NotFound("No job found");
         }
     }
-} 
+}

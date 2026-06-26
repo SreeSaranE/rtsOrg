@@ -24,5 +24,13 @@ namespace backend.Business.Services
             await _repository.AlterUserStatus(user);
             return true;
         }
+
+        public async Task<bool> DeleteUser(Guid userId)
+        {
+            var user = await _repository.GetById(userId);
+            if(user == null) return false;
+            await _repository.DeleteUser(user);
+            return true;
+        }
     }
 }

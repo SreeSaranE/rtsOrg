@@ -1,8 +1,6 @@
-﻿using backend.Models.Enum;
-
-namespace backend.Models.DTOs
+﻿namespace backend.Models.DTOs
 {
-    public class Register
+    public class UserRegister
     {
         public string Name { get; set; } = string.Empty;
 
@@ -11,6 +9,7 @@ namespace backend.Models.DTOs
         public string Password { get; set; } = string.Empty;
 
         public String Role { get; set; } = String.Empty;
+
         public bool IsActive { get; set; }
     }
 }

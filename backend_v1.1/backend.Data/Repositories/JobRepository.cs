@@ -1,6 +1,7 @@
 ﻿using backend.Data.Context;
 using backend.Data.Interfaces;
 using backend.Models.DataBase;
+using backend.Models.DTOs;
 using Microsoft.EntityFrameworkCore;
 
 
@@ -32,6 +33,20 @@ namespace backend.Data.Repositories
         public async Task<Job> GetJobById(Guid id)
         {
             return await _context.Jobs.FindAsync(id);
+        }
+
+        public async Task<IReadOnlyList<JobDetails>> GetAllJob()
+        {
+            return await _context.Jobs
+                .Select(j => new  JobDetails
+                {
+                    JobId = j.JobId,
+                    Name = j.Name,
+                    Dept = j.Dept,
+                    JobStatus = j.JobStatus,
+                    CreatedBy = j.CreatedBy,
+                    CreatedAt = j.CreatedAt,
+                }).ToListAsync();
         }
 
         public async Task AlterJobStatus(Job job)

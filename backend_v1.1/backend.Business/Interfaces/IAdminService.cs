@@ -7,5 +7,7 @@ namespace backend.Business.Interfaces
         public Task<IReadOnlyList<UserDetails>> GetAllUsers();
 
         public Task<bool> AlterUserStatus(Guid id);
+
+        public Task<bool> DeleteUser(Guid userId);
     }
 }

@@ -9,19 +9,11 @@ namespace backend.API.Controllers
     public class AuthController : Controller
     {
         private readonly IUserService _service;
-        private readonly IAdminService _adminService;
-
-        public AuthController(
-            IUserService service,
-            IAdminService adminService)
-        {
-            _service = service;
-            _adminService = adminService;
-        }
-
+        public AuthController(IUserService service)
+            { _service = service; }
 
         [HttpPost("login")]
-        public async Task<IActionResult> Login([FromBody]  Login dto)
+        public async Task<IActionResult> Login([FromBody]  UserLogin dto)
         {
             var user = await _service.Login(dto);
             if (user.State == "incorrectEmail")
@@ -43,7 +35,7 @@ namespace backend.API.Controllers
 
 
         [HttpPost("register")]
-        public async Task<IActionResult> Register([FromBody] Register dto)
+        public async Task<IActionResult> Register([FromBody] UserRegister dto)
         {
             var result = await _service.RegisterUser(dto);
             if (!result)
@@ -59,21 +51,5 @@ namespace backend.API.Controllers
             return Ok(await _service.CheckEmail(email));
         }
 
-        [HttpGet("users")]
-        public async Task<IActionResult> GetAllUsers()
-        {
-            return Ok(await _adminService.GetAllUsers());
-        }
-
-        [HttpPut("user/{id}/status")]
-        public async Task<IActionResult> AlterUserStatus(Guid id)
-        {
-            var result = await _adminService.AlterUserStatus(id);
-
-            if (!result)
-                return NotFound();
-
-            return Ok(result);
-        }
     }
 }

@@ -11,6 +11,8 @@ namespace backend.Data.Interfaces
 
         public Task<Job> GetJobById(Guid jobId);
 
+        public Task<IReadOnlyList<JobDetails>> GetAllJob();
+
         public Task AlterJobStatus(Job job);
 
         public Task DeleteJob(Job job);

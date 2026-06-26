@@ -16,5 +16,7 @@ namespace backend.Data.Interfaces
         Task<IReadOnlyList<UserDetails>> GetAllUsers();
 
         Task AlterUserStatus(User user);
+
+        Task DeleteUser(User user);
     }
 }

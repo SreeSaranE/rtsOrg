@@ -2,13 +2,10 @@
 using backend.Data.Interfaces;
 using backend.Models.DataBase;
 using backend.Models.DTOs;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace backend.Business.Services
 {
-    public class RecruiterService: IRecruiterService
+    public class RecruiterService : IRecruiterService
     {
         private readonly IJobRepository _jobRepository;
         public RecruiterService(IJobRepository repository)
@@ -16,11 +13,11 @@ namespace backend.Business.Services
             _jobRepository = repository;
         }
 
-        public async Task<Boolean> AddJob(AddJob job)
+        public async Task<Boolean> AddJob(JobRegister job)
         {
             var existJob = await _jobRepository.CheckJob(job.Name, job.Dept);
 
-            if(existJob) return false;
+            if (existJob) return false;
 
             var jobData = new Job
             {
@@ -35,15 +32,20 @@ namespace backend.Business.Services
         public async Task<Boolean> AlterJobStatus(Guid jobId)
         {
             var job = await _jobRepository.GetJobById(jobId);
-            if(job == null) return false;
+            if (job == null) return false;
             await _jobRepository.AlterJobStatus(job);
             return true;
+        }
+
+        public async Task<IReadOnlyList<JobDetails>> GetAllJobs()
+        {
+            return await _jobRepository.GetAllJob();
         }
 
         public async Task<Boolean> DeleteJob(Guid jobId)
         {
             var job = await _jobRepository.GetJobById(jobId);
-            if( job == null ) return false;
+            if (job == null) return false;
             await _jobRepository.DeleteJob(job);
             return true;
         }
