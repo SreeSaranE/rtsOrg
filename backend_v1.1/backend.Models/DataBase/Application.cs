@@ -2,14 +2,14 @@
 {
     public class Application
     {
-        public int ApplicationId { get; set; }
+        public Guid ApplicationId { get; set; } = Guid.NewGuid();
 
-        public int JobId { get; set; }
-        public int CandidateId { get; set; }
+        public Guid JobId { get; set; }
+        public Guid CandidateId { get; set; }
 
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
-        public int? ModifiedBy { get; set; }
+        public Guid? ModifiedBy { get; set; }
         public DateTime? ModifiedAt { get; set; }
 
         // Navigation Properties

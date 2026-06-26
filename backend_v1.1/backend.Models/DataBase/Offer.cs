@@ -2,17 +2,17 @@
 {
     public class Offer
     {
-        public int OfferId { get; set; }
+        public Guid OfferId { get; set; } = Guid.NewGuid();
 
-        public int CandidateId { get; set; }
+        public Guid CandidateId { get; set; }
 
-        public decimal Salary { get; set; }
+        public decimal Salary { get; set; } = decimal.Zero;
         public string? Status { get; set; }
 
-        public int? CreatedBy { get; set; }
+        public Guid? CreatedBy { get; set; }
         public DateTime? CreatedAt { get; set; } = DateTime.UtcNow;
 
-        public int? ModifiedBy { get; set; }
+        public Guid? ModifiedBy { get; set; }
         public DateTime? ModifiedAt { get; set; }
 
         // Navigation Property

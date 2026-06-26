@@ -6,20 +6,20 @@ namespace backend.Business.Services
 {
     public class AdminService : IAdminService
     {
-        private readonly IAdminRepository _adminRepository;
-        public AdminService(IAdminRepository adminRepository)
+        private readonly IUserRepository _repository;
+        public AdminService(IUserRepository repository)
         {
-            _adminRepository = adminRepository;
+            _repository = repository;
         }
 
         public async Task<IReadOnlyList<UserDetails>> GetAllUsers()
         {
-            return await _adminRepository.GetAllUsers();
+            return await _repository.GetAllUsers();
         }
 
-        public async Task<bool> AlterUserStatus(int id)
+        public async Task<bool> AlterUserStatus(Guid id)
         {
-            return await _adminRepository.AlterUserStatus(id);
+            return await _repository.AlterUserStatus(id);
         }
     }
 }

@@ -2,6 +2,7 @@
 using backend.Data.Interfaces;
 using backend.Models.DataBase;
 using backend.Models.DTOs;
+using backend.Models.Enum;
 using Microsoft.EntityFrameworkCore;
 
 namespace backend.Data.Repositories
@@ -15,7 +16,7 @@ namespace backend.Data.Repositories
             _context = context;
         }
 
-        public async Task<User?> GetById(int id)
+        public async Task<User?> GetById(Guid id)
         {
             return await _context.Users.FindAsync(id);
         }
@@ -36,6 +37,30 @@ namespace backend.Data.Repositories
         {
             await _context.Users.AddAsync(user);
             await _context.SaveChangesAsync();
+        }
+
+        public async Task<IReadOnlyList<UserDetails>> GetAllUsers()
+        {
+            return await _context.Users
+                .Select(u => new UserDetails
+                {
+                    UserId = u.UserId,
+                    Name = u.Name,
+                    Email = u.Email,
+                    Role = ((UserRole)u.Role).ToString(),
+                    IsActive = u.IsActive,
+                    CreatedAt = u.CreatedAt
+                }).ToListAsync();
+        }
+
+        public async Task<bool> AlterUserStatus(Guid id)
+        {
+            var user = await GetById(id);
+            if (user == null) return false;
+
+            user.IsActive = !user.IsActive;
+            await _context.SaveChangesAsync();
+            return true;
         }
     }
 }

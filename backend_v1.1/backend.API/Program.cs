@@ -19,10 +19,11 @@ builder.Services.AddDbContext<AppDbContext>(options =>
         builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
-builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IJobRepository, JobRepository>();
 
-builder.Services.AddScoped<IAdminRepository,  AdminRepository>();
+builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IAdminService, AdminService>();
+builder.Services.AddScoped<IRecruiterService, RecruiterService>();
 
 builder.Services.AddScoped<IJwtService, JwtService>();
 

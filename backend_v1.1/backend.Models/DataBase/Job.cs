@@ -2,16 +2,16 @@
 {
     public class Job
     {
-        public int JobId { get; set; }
+        public Guid JobId { get; set; } = Guid.NewGuid();
 
         public string Name { get; set; } = string.Empty;
         public string Dept { get; set; } = string.Empty;
-        public string JobStatus { get; set; } = string.Empty;
+        public Boolean JobStatus { get; set; } = true;
 
-        public int? CreatedBy { get; set; }
-        public DateTime? CreatedAt { get; set; } = DateTime.UtcNow;
+        public Guid CreatedBy { get; set; }
+        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
-        public int? ModifiedBy { get; set; }
+        public Guid? ModifiedBy { get; set; }
         public DateTime? ModifiedAt { get; set; }
 
         // Foreign Key

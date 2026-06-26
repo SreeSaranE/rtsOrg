@@ -1,7 +1,4 @@
 ﻿using backend.Models.DTOs;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace backend.Business.Interfaces
 {
@@ -9,6 +6,6 @@ namespace backend.Business.Interfaces
     {
         public Task<IReadOnlyList<UserDetails>> GetAllUsers();
 
-        public Task<bool> AlterUserStatus(int id);
+        public Task<bool> AlterUserStatus(Guid id);
     }
 }

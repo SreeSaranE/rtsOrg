@@ -2,20 +2,20 @@
 {
     public class Interview
     {
-        public int InterviewId { get; set; }
+        public Guid InterviewId { get; set; } = Guid.NewGuid();
 
-        public int CandidateId { get; set; }
-        public int InterviewerId { get; set; }
+        public Guid CandidateId { get; set; }
+        public Guid InterviewerId { get; set; }
 
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
 
         public string? Result { get; set; }
 
-        public int? CreatedBy { get; set; }
+        public Guid? CreatedBy { get; set; }
         public DateTime? CreatedAt { get; set; } = DateTime.UtcNow;
 
-        public int? ModifiedBy { get; set; }
+        public Guid? ModifiedBy { get; set; }
         public DateTime? ModifiedAt { get; set; }
 
         // Navigation Properties

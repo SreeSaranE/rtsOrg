@@ -66,7 +66,7 @@ namespace backend.API.Controllers
         }
 
         [HttpPut("user/{id}/status")]
-        public async Task<IActionResult> AlterUserStatus(int id)
+        public async Task<IActionResult> AlterUserStatus(Guid id)
         {
             var result = await _adminService.AlterUserStatus(id);
 
