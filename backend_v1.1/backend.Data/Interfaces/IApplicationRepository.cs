@@ -1,4 +1,5 @@
-﻿using backend.Models.DataBase;
+﻿using backend.Data.Repositories;
+using backend.Models.DataBase;
 
 namespace backend.Data.Interfaces
 {
@@ -11,6 +12,10 @@ namespace backend.Data.Interfaces
         Task<JobApplication?> GetApplicationById(Guid applicationId);
 
         Task UpdateStage();
+
+        Task<IReadOnlyList<CandidateApplicationDTO>> CandidateApplications(Guid candId);
+
+        Task AddApplicationHistory(ApplicationHistory data);
 
         Task DeleteApplication(JobApplication application);
     }

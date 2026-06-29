@@ -23,7 +23,7 @@
 
         // Navigation Properties
         public ICollection<JobApplication> jobApplications { get; set; } = new List<JobApplication>();
-        public ICollection<Interview> Interviews { get; set; } = new List<Interview>();
+        
         public ICollection<Offer> Offers { get; set; } = new List<Offer>();
     }
 }

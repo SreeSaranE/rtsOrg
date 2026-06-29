@@ -1,5 +1,6 @@
 ﻿using backend.Business.Interfaces;
 using backend.Data.Interfaces;
+using backend.Data.Repositories;
 using backend.Models.DataBase;
 using backend.Models.DTOs;
 using backend.Models.Enum;
@@ -27,16 +28,34 @@ namespace backend.Business.Services
             return true;
         }
 
-        public async Task<bool> UpdateApplication(UpdateStageDTO stage)
+        public async Task<int> UpdateApplicationStage(UpdateStageDTO stage)
         {
             var applicaiton = await _applicationRepository.GetApplicationById(stage.ApplicationId);
-            if (applicaiton != null)
+            if (applicaiton == null) return 2;
+
+            int stageId = (int)Enum.Parse<ApplicationStage>(stage.Stage);
+
+            if (stageId == applicaiton.Stage) return 3;
+
+
+            int oldStage = applicaiton.Stage;
+            var historyData = new ApplicationHistory
             {
-                int stageId = (int)Enum.Parse<CandidateStage>(stage.Stage);
-                applicaiton.Stage = stageId;
-                await _applicationRepository.UpdateStage();
-                return true;
-            }return false;
+                ApplicationId = stage.ApplicationId,
+                NewStage = stageId,
+                OldStage = oldStage,
+                CreatedBy = stage.ModifiedBy
+            };
+            await _applicationRepository.AddApplicationHistory(historyData);
+
+            applicaiton.Stage = stageId;
+            await _applicationRepository.UpdateStage();
+            return 1;
+        }
+
+         public async Task<IReadOnlyList<CandidateApplicationDTO>> GetCandidateApplications(Guid candId)
+        {
+            return await _applicationRepository.CandidateApplications(candId);
         }
 
         public async Task<bool> DeleteApplication(Guid applicationId)

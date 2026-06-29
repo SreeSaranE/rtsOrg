@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using backend.Data.Context;
 
@@ -11,9 +12,11 @@ using backend.Data.Context;
 namespace backend.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260629080804_application3")]
+    partial class application3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -53,7 +56,7 @@ namespace backend.Data.Migrations
 
                     b.HasIndex("ApplicationId");
 
-                    b.ToTable("ApplicationHistory", (string)null);
+                    b.ToTable("ApplicationHistory");
                 });
 
             modelBuilder.Entity("backend.Models.DataBase.Candidate", b =>
@@ -112,7 +115,7 @@ namespace backend.Data.Migrations
 
                     b.HasKey("CandidateId");
 
-                    b.ToTable("Candidates", (string)null);
+                    b.ToTable("Candidates");
                 });
 
             modelBuilder.Entity("backend.Models.DataBase.Interview", b =>
@@ -154,7 +157,7 @@ namespace backend.Data.Migrations
 
                     b.HasIndex("JobApplicationId");
 
-                    b.ToTable("Interviews", (string)null);
+                    b.ToTable("Interviews");
                 });
 
             modelBuilder.Entity("backend.Models.DataBase.Job", b =>
@@ -190,7 +193,7 @@ namespace backend.Data.Migrations
 
                     b.HasIndex("CreatedBy");
 
-                    b.ToTable("Jobs", (string)null);
+                    b.ToTable("Jobs");
                 });
 
             modelBuilder.Entity("backend.Models.DataBase.JobApplication", b =>
@@ -223,7 +226,7 @@ namespace backend.Data.Migrations
 
                     b.HasIndex("JobId");
 
-                    b.ToTable("JobApplications", (string)null);
+                    b.ToTable("JobApplications");
                 });
 
             modelBuilder.Entity("backend.Models.DataBase.Offer", b =>
@@ -258,7 +261,7 @@ namespace backend.Data.Migrations
 
                     b.HasIndex("CandidateId");
 
-                    b.ToTable("Offers", (string)null);
+                    b.ToTable("Offers");
                 });
 
             modelBuilder.Entity("backend.Models.DataBase.User", b =>
@@ -299,7 +302,7 @@ namespace backend.Data.Migrations
 
                     b.HasKey("UserId");
 
-                    b.ToTable("Users", (string)null);
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("backend.Models.DataBase.ApplicationHistory", b =>

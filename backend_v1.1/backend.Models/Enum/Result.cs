@@ -2,9 +2,9 @@
 {
     public enum Result
     {
-        Passes = 0,
-        Failed = 1,
-        OnHold = 2,
-        NotStarted = 3
+        NotStarted = 0,
+        Passes = 1,
+        Failed = 2,
+        OnHold = 3,
     }
 }

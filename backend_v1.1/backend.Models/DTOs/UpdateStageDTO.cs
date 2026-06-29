@@ -4,5 +4,6 @@
     {
         public Guid ApplicationId { get; set; }
         public string Stage { get; set; } = string.Empty;
+        public Guid ModifiedBy { get; set; }
     }
 }

@@ -6,16 +6,14 @@
 
         public Guid ApplicationId { get; set; }
 
-        public string? OldStatus { get; set; }
-        public string? NewStatus { get; set; }
-
-        public Guid? CreatedBy { get; set; }
+        public int? OldStage { get; set; }
+        public int NewStage { get; set; } = 1;
+        public Guid CreatedBy { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
-
         public Guid? ModifiedBy { get; set; }
         public DateTime? ModifiedAt { get; set; }
 
         // Navigation Property
-        public JobApplication jobApplication { get; set; } = null!;
+        public JobApplication? JobApplication { get; set; } = null!;
     }
 }

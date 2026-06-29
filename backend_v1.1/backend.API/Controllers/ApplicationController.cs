@@ -26,8 +26,17 @@ namespace backend.API.Controllers
         [HttpPost("updatestage")]
         public async Task<IActionResult> UpdateStage([FromBody] UpdateStageDTO stage)
         {
-            var result = await _applicationService.UpdateApplication(stage);
-            return Ok("Done");
+            var result = await _applicationService.UpdateApplicationStage(stage);
+            if (result == 1) return Ok("Done");
+            else if (result == 2) return NotFound("Application Not Found");
+            return BadRequest("Application is already in that stage");
+        }
+
+        [HttpGet("candidate/{candId}")]
+        public async Task<IActionResult> GetCadidateApplications(Guid candId)
+        {
+            var result = await _applicationService.GetCandidateApplications(candId);
+            return Ok(result);
         }
 
         [HttpPut("delete/{applicationId}")]

@@ -1,4 +1,6 @@
-﻿using backend.Models.DTOs;
+﻿using backend.Data.Repositories;
+using backend.Models.DataBase;
+using backend.Models.DTOs;
 
 namespace backend.Business.Interfaces
 {
@@ -6,7 +8,9 @@ namespace backend.Business.Interfaces
     {
         Task<bool> AddApplication(Guid jobId, Guid candId);
 
-        Task<bool> UpdateApplication(UpdateStageDTO stage);
+        Task<int> UpdateApplicationStage(UpdateStageDTO stage);
+
+        Task<IReadOnlyList<CandidateApplicationDTO>> GetCandidateApplications(Guid candId);
 
         Task<bool> DeleteApplication(Guid applicationId);
 
