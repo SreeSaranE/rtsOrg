@@ -1,4 +1,4 @@
-﻿namespace backend.Data.Repositories
+﻿namespace backend.Models.DTOs
 {
     public class CandidateApplicationDTO
     {

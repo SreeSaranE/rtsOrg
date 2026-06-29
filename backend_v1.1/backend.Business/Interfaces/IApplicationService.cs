@@ -1,6 +1,4 @@
-﻿using backend.Data.Repositories;
-using backend.Models.DataBase;
-using backend.Models.DTOs;
+﻿using backend.Models.DTOs;
 
 namespace backend.Business.Interfaces
 {

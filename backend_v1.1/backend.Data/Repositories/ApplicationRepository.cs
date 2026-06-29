@@ -2,7 +2,6 @@
 using backend.Data.Interfaces;
 using backend.Models.DataBase;
 using backend.Models.DTOs;
-using backend.Models.Enum;
 using Microsoft.EntityFrameworkCore;
 
 namespace backend.Data.Repositories
@@ -31,7 +30,7 @@ namespace backend.Data.Repositories
         }
 
         public async Task UpdateStage()
-        {  await _context.SaveChangesAsync(); }
+        { await _context.SaveChangesAsync(); }
 
         public async Task<IReadOnlyList<CandidateApplicationDTO>> CandidateApplications(Guid candId)
         {

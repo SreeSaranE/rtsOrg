@@ -10,7 +10,7 @@
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
 
-        public string? Result { get; set; }
+        public int Result { get; set; } = 1;
 
         public Guid CreatedBy { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;

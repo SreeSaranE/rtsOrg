@@ -1,5 +1,5 @@
-﻿using backend.Data.Repositories;
-using backend.Models.DataBase;
+﻿using backend.Models.DataBase;
+using backend.Models.DTOs;
 
 namespace backend.Data.Interfaces
 {

@@ -1,13 +1,12 @@
 ﻿using backend.Business.Interfaces;
 using backend.Data.Interfaces;
-using backend.Data.Repositories;
 using backend.Models.DataBase;
 using backend.Models.DTOs;
 using backend.Models.Enum;
 
 namespace backend.Business.Services
 {
-    public class ApplicationService: IApplicationService
+    public class ApplicationService : IApplicationService
     {
         private readonly IApplicationRepository _applicationRepository;
         public ApplicationService(IApplicationRepository repository)
@@ -53,7 +52,7 @@ namespace backend.Business.Services
             return 1;
         }
 
-         public async Task<IReadOnlyList<CandidateApplicationDTO>> GetCandidateApplications(Guid candId)
+        public async Task<IReadOnlyList<CandidateApplicationDTO>> GetCandidateApplications(Guid candId)
         {
             return await _applicationRepository.CandidateApplications(candId);
         }
@@ -61,7 +60,7 @@ namespace backend.Business.Services
         public async Task<bool> DeleteApplication(Guid applicationId)
         {
             var application = await _applicationRepository.GetApplicationById(applicationId);
-            if(application == null) return false;
+            if (application == null) return false;
 
             await _applicationRepository.DeleteApplication(application);
             return true;
