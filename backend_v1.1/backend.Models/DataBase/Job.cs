@@ -18,6 +18,6 @@
         public User Creator { get; set; } = null!;
 
         // Navigation Property
-        public ICollection<Application> Applications { get; set; } = new List<Application>();
+        public ICollection<JobApplication> jobApplications { get; set; } = new List<JobApplication>();
     }
 }

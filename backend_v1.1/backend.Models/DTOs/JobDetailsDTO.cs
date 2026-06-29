@@ -1,6 +1,6 @@
 ﻿namespace backend.Models.DTOs
 {
-    public class JobDetails
+    public class JobDetailsDTO
     {
         public Guid JobId { get; set; } = Guid.NewGuid();
         public string Name { get; set; } = string.Empty;

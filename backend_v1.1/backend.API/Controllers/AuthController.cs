@@ -13,7 +13,7 @@ namespace backend.API.Controllers
             { _service = service; }
 
         [HttpPost("login")]
-        public async Task<IActionResult> Login([FromBody]  UserLogin dto)
+        public async Task<IActionResult> Login([FromBody]  UserLoginDTO dto)
         {
             var user = await _service.Login(dto);
             if (user.State == "incorrectEmail")
@@ -35,7 +35,7 @@ namespace backend.API.Controllers
 
 
         [HttpPost("register")]
-        public async Task<IActionResult> Register([FromBody] UserRegister dto)
+        public async Task<IActionResult> Register([FromBody] UserRegisterDTO dto)
         {
             var result = await _service.RegisterUser(dto);
             if (!result)

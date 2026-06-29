@@ -11,9 +11,9 @@ namespace backend.Data.Context
         public DbSet<User> Users { get; set; }
         public DbSet<Candidate> Candidates { get; set; }
         public DbSet<Job> Jobs { get; set; }
-        public DbSet<Application> Applications { get; set; }
+        public DbSet<JobApplication> JobApplications { get; set; }
         public DbSet<Interview> Interviews { get; set; }
-        public DbSet<History> History { get; set; }
+        public DbSet<ApplicationHistory> ApplicationHistory { get; set; }
         public DbSet<Offer> Offers { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -27,15 +27,15 @@ namespace backend.Data.Context
                 .HasForeignKey(j => j.CreatedBy);
 
             // Application -> Job
-            modelBuilder.Entity<Application>()
+            modelBuilder.Entity<JobApplication>()
                 .HasOne(a => a.Job)
-                .WithMany(j => j.Applications)
+                .WithMany(j => j.jobApplications)
                 .HasForeignKey(a => a.JobId);
 
             // Application -> Candidate
-            modelBuilder.Entity<Application>()
+            modelBuilder.Entity<JobApplication>()
                 .HasOne(a => a.Candidate)
-                .WithMany(c => c.Applications)
+                .WithMany(c => c.jobApplications)
                 .HasForeignKey(a => a.CandidateId);
 
             // Interview -> Candidate
@@ -50,17 +50,21 @@ namespace backend.Data.Context
                 .WithMany(u => u.InterviewsConducted)
                 .HasForeignKey(i => i.InterviewerId);
 
-            // History -> Candidate
-            modelBuilder.Entity<History>()
-                .HasOne(h => h.Candidate)
-                .WithMany(c => c.Histories)
-                .HasForeignKey(h => h.CandidateId);
+            modelBuilder.Entity<ApplicationHistory>()
+                .HasOne(h => h.jobApplication)
+                .WithMany(a => a.ApplicationHistory)
+                .HasForeignKey(h => h.ApplicationId);
 
             // Offer -> Candidate
             modelBuilder.Entity<Offer>()
                 .HasOne(o => o.Candidate)
                 .WithMany(c => c.Offers)
                 .HasForeignKey(o => o.CandidateId);
+
+
+            modelBuilder.Entity<Offer>()
+                .Property(o => o.Salary)
+                .HasPrecision(18, 2);
         }
     }
 }

@@ -12,7 +12,7 @@ namespace backend.Business.Services
             _repository = repository;
         }
 
-        public async Task<IReadOnlyList<UserDetails>> GetAllUsers()
+        public async Task<IReadOnlyList<UserDetailsDTO>> GetAllUsers()
         {
             return await _repository.GetAllUsers();
         }

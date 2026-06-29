@@ -13,7 +13,7 @@ namespace backend.API.Controllers
         { _candidateService = candidateService; }
 
         [HttpPost("register")]
-        public async Task<IActionResult> RegisterCandidate(CandidateRegister dto)
+        public async Task<IActionResult> RegisterCandidate(CandidateRegisterDTO dto)
         {
             var result = await _candidateService.RegisterCandidate(dto);
             if (result) return Ok("Candidate added successfully");
@@ -35,7 +35,7 @@ namespace backend.API.Controllers
         }
 
         [HttpPost("update")]
-        public async Task<IActionResult> UpdateCandidate([FromBody] CandidateDetails dto)
+        public async Task<IActionResult> UpdateCandidate([FromBody] CandidateDetailsDTO dto)
         {
             var result = await _candidateService.UpdateCandidate(dto);
             if (result) return Ok("Candidate updated successfully");

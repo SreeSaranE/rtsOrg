@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using backend.Data.Context;
 
@@ -11,9 +12,11 @@ using backend.Data.Context;
 namespace backend.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260629043701_UPDATECANDIDATE1")]
+    partial class UPDATECANDIDATE1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -22,19 +25,19 @@ namespace backend.Data.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("backend.Models.DataBase.ApplicationHistory", b =>
+            modelBuilder.Entity("backend.Models.DataBase.Application", b =>
                 {
-                    b.Property<Guid>("ApplicationHistoryId")
+                    b.Property<Guid>("ApplicationId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("ApplicationId")
+                    b.Property<Guid>("CandidateId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid?>("CreatedBy")
+                    b.Property<Guid>("JobId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime?>("ModifiedAt")
@@ -43,17 +46,16 @@ namespace backend.Data.Migrations
                     b.Property<Guid?>("ModifiedBy")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("NewStatus")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int?>("Stage")
+                        .HasColumnType("int");
 
-                    b.Property<string>("OldStatus")
-                        .HasColumnType("nvarchar(max)");
+                    b.HasKey("ApplicationId");
 
-                    b.HasKey("ApplicationHistoryId");
+                    b.HasIndex("CandidateId");
 
-                    b.HasIndex("ApplicationId");
+                    b.HasIndex("JobId");
 
-                    b.ToTable("ApplicationHistory");
+                    b.ToTable("Applications");
                 });
 
             modelBuilder.Entity("backend.Models.DataBase.Candidate", b =>
@@ -113,6 +115,40 @@ namespace backend.Data.Migrations
                     b.HasKey("CandidateId");
 
                     b.ToTable("Candidates");
+                });
+
+            modelBuilder.Entity("backend.Models.DataBase.History", b =>
+                {
+                    b.Property<Guid>("HistoryId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("CandidateId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("CreatedBy")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("ModifiedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("ModifiedBy")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("NewStatus")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("OldStatus")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("HistoryId");
+
+                    b.HasIndex("CandidateId");
+
+                    b.ToTable("History");
                 });
 
             modelBuilder.Entity("backend.Models.DataBase.Interview", b =>
@@ -193,39 +229,6 @@ namespace backend.Data.Migrations
                     b.ToTable("Jobs");
                 });
 
-            modelBuilder.Entity("backend.Models.DataBase.JobApplication", b =>
-                {
-                    b.Property<Guid>("JobApplicationId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("CandidateId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid>("JobId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime?>("ModifiedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid?>("ModifiedBy")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<int?>("Stage")
-                        .HasColumnType("int");
-
-                    b.HasKey("JobApplicationId");
-
-                    b.HasIndex("CandidateId");
-
-                    b.HasIndex("JobId");
-
-                    b.ToTable("JobApplications");
-                });
-
             modelBuilder.Entity("backend.Models.DataBase.Offer", b =>
                 {
                     b.Property<Guid>("OfferId")
@@ -248,7 +251,6 @@ namespace backend.Data.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<decimal>("Salary")
-                        .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("Status")
@@ -302,15 +304,34 @@ namespace backend.Data.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("backend.Models.DataBase.ApplicationHistory", b =>
+            modelBuilder.Entity("backend.Models.DataBase.Application", b =>
                 {
-                    b.HasOne("backend.Models.DataBase.JobApplication", "jobApplication")
-                        .WithMany("ApplicationHistory")
-                        .HasForeignKey("ApplicationId")
+                    b.HasOne("backend.Models.DataBase.Candidate", "Candidate")
+                        .WithMany("Applications")
+                        .HasForeignKey("CandidateId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("jobApplication");
+                    b.HasOne("backend.Models.DataBase.Job", "Job")
+                        .WithMany("Applications")
+                        .HasForeignKey("JobId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Candidate");
+
+                    b.Navigation("Job");
+                });
+
+            modelBuilder.Entity("backend.Models.DataBase.History", b =>
+                {
+                    b.HasOne("backend.Models.DataBase.Candidate", "Candidate")
+                        .WithMany("Histories")
+                        .HasForeignKey("CandidateId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Candidate");
                 });
 
             modelBuilder.Entity("backend.Models.DataBase.Interview", b =>
@@ -343,25 +364,6 @@ namespace backend.Data.Migrations
                     b.Navigation("Creator");
                 });
 
-            modelBuilder.Entity("backend.Models.DataBase.JobApplication", b =>
-                {
-                    b.HasOne("backend.Models.DataBase.Candidate", "Candidate")
-                        .WithMany("jobApplications")
-                        .HasForeignKey("CandidateId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("backend.Models.DataBase.Job", "Job")
-                        .WithMany("jobApplications")
-                        .HasForeignKey("JobId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Candidate");
-
-                    b.Navigation("Job");
-                });
-
             modelBuilder.Entity("backend.Models.DataBase.Offer", b =>
                 {
                     b.HasOne("backend.Models.DataBase.Candidate", "Candidate")
@@ -375,21 +377,18 @@ namespace backend.Data.Migrations
 
             modelBuilder.Entity("backend.Models.DataBase.Candidate", b =>
                 {
+                    b.Navigation("Applications");
+
+                    b.Navigation("Histories");
+
                     b.Navigation("Interviews");
 
                     b.Navigation("Offers");
-
-                    b.Navigation("jobApplications");
                 });
 
             modelBuilder.Entity("backend.Models.DataBase.Job", b =>
                 {
-                    b.Navigation("jobApplications");
-                });
-
-            modelBuilder.Entity("backend.Models.DataBase.JobApplication", b =>
-                {
-                    b.Navigation("ApplicationHistory");
+                    b.Navigation("Applications");
                 });
 
             modelBuilder.Entity("backend.Models.DataBase.User", b =>

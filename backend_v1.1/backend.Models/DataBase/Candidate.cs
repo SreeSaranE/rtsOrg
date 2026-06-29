@@ -9,8 +9,7 @@
         public string PasswordHash { get; set; } = string.Empty;
         public string? Phone { get; set; } = string.Empty;
         public string? Resume { get; set; }
-        public int? Stage { get; set; }
-        public bool? Status { get; set; } = true;
+        public bool? ActiveStatus { get; set; } = true;
         public DateOnly? DateOdBirth { get; set; }
         public string? Skills { get; set; } = string.Empty;
         public string? Summary { get; set; } = string.Empty;
@@ -23,9 +22,8 @@
         public DateTime? ModifiedAt { get; set; }
 
         // Navigation Properties
-        public ICollection<Application> Applications { get; set; } = new List<Application>();
+        public ICollection<JobApplication> jobApplications { get; set; } = new List<JobApplication>();
         public ICollection<Interview> Interviews { get; set; } = new List<Interview>();
-        public ICollection<History> Histories { get; set; } = new List<History>();
         public ICollection<Offer> Offers { get; set; } = new List<Offer>();
     }
 }

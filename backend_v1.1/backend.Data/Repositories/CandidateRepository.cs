@@ -3,24 +3,17 @@ using backend.Data.Interfaces;
 using backend.Models.DataBase;
 using backend.Models.DTOs;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace backend.Data.Repositories
 {
-    public class CandidateRepository: ICandidateRepository
+    public class CandidateRepository : ICandidateRepository
     {
         private readonly AppDbContext _context;
         public CandidateRepository(AppDbContext context)
-        {
-            _context = context;
-        }
+        { _context = context; }
 
         public async Task<Candidate?> GetCandidateById(Guid candId)
-        {
-            return await _context.Candidates.FindAsync(candId);
-        }
+        { return await _context.Candidates.FindAsync(candId); }
 
         public async Task<Candidate?> GetCandidateByEmail(string email)
         {
@@ -29,18 +22,17 @@ namespace backend.Data.Repositories
                 c => c.Email.ToLower() == email.ToLower());
         }
 
-        public async Task<IReadOnlyList<CandidateDetails>> GetAllCandidates()
+        public async Task<IReadOnlyList<CandidateDetailsDTO>> GetAllCandidates()
         {
             return await _context.Candidates
-                .Select(c => new CandidateDetails
+                .Select(c => new CandidateDetailsDTO
                 {
                     CandidateId = c.CandidateId,
                     Name = c.Name,
                     Email = c.Email,
                     Phone = c.Phone,
                     Resume = c.Resume,
-                    Stage = c.Stage,
-                    Status = c.Status,
+                    ActiveStatus = c.ActiveStatus,
                     DateOdBirth = c.DateOdBirth,
                     Skills = c.Skills,
                     Summary = c.Summary,
@@ -57,9 +49,7 @@ namespace backend.Data.Repositories
         }
 
         public async Task UpdateCandidate()
-        {
-            _context.SaveChanges();
-        }
+        { _context.SaveChanges(); }
 
         public async Task DeleteCandidate(Candidate candidate)
         {

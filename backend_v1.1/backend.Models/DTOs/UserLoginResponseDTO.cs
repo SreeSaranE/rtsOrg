@@ -1,6 +1,6 @@
 ﻿namespace backend.Models.DTOs
 {
-    public class UserLoginResponse
+    public class UserLoginResponseDTO
     {
         public string Token { get; set; } = string.Empty;
         public string State { get; set; } = string.Empty;

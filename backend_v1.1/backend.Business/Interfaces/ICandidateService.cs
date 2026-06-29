@@ -1,18 +1,14 @@
-﻿using backend.Models.DataBase;
-using backend.Models.DTOs;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using backend.Models.DTOs;
 
 namespace backend.Business.Interfaces
 {
     public interface ICandidateService
     {
-        public Task<bool> RegisterCandidate(CandidateRegister dto);
+        public Task<bool> RegisterCandidate(CandidateRegisterDTO dto);
 
-        public Task<IReadOnlyList<CandidateDetails>> GetAllCandidatets();
+        public Task<IReadOnlyList<CandidateDetailsDTO>> GetAllCandidatets();
 
-        public Task<bool> UpdateCandidate(CandidateDetails dto);
+        public Task<bool> UpdateCandidate(CandidateDetailsDTO dto);
 
         public Task<bool> DeleteCandidate(Guid candId);
     }

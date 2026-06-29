@@ -9,7 +9,7 @@ namespace backend.Data.Interfaces
 
         Task<Candidate?> GetCandidateByEmail(string email);
 
-        Task<IReadOnlyList<CandidateDetails>> GetAllCandidates();
+        Task<IReadOnlyList<CandidateDetailsDTO>> GetAllCandidates();
 
         Task RegisterCandidate(Candidate candidate);
 

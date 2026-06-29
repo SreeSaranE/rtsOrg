@@ -35,10 +35,10 @@ namespace backend.Data.Repositories
             return await _context.Jobs.FindAsync(id);
         }
 
-        public async Task<IReadOnlyList<JobDetails>> GetAllJob()
+        public async Task<IReadOnlyList<JobDetailsDTO>> GetAllJob()
         {
             return await _context.Jobs
-                .Select(j => new  JobDetails
+                .Select(j => new  JobDetailsDTO
                 {
                     JobId = j.JobId,
                     Name = j.Name,

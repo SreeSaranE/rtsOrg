@@ -39,10 +39,10 @@ namespace backend.Data.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task<IReadOnlyList<UserDetails>> GetAllUsers()
+        public async Task<IReadOnlyList<UserDetailsDTO>> GetAllUsers()
         {
             return await _context.Users
-                .Select(u => new UserDetails
+                .Select(u => new UserDetailsDTO
                 {
                     UserId = u.UserId,
                     Name = u.Name,

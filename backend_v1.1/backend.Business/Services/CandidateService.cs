@@ -11,7 +11,7 @@ namespace backend.Business.Services
         public CandidateService(ICandidateRepository candidateRepository)
         { _candidateRepository = candidateRepository; }
 
-        public async Task<bool> RegisterCandidate(CandidateRegister dto)
+        public async Task<bool> RegisterCandidate(CandidateRegisterDTO dto)
         {
             var existCandidate = await _candidateRepository.GetCandidateByEmail(dto.Email);
             if (existCandidate != null) return false;
@@ -27,12 +27,12 @@ namespace backend.Business.Services
             return true;
         }
 
-        public async Task<IReadOnlyList<CandidateDetails>> GetAllCandidatets()
+        public async Task<IReadOnlyList<CandidateDetailsDTO>> GetAllCandidatets()
         {
             return await _candidateRepository.GetAllCandidates();
         }
 
-        public async Task<bool> UpdateCandidate(CandidateDetails dto)
+        public async Task<bool> UpdateCandidate(CandidateDetailsDTO dto)
         {
             var candidate = await _candidateRepository.GetCandidateById(dto.CandidateId);
             if (candidate == null) return false;
@@ -41,8 +41,7 @@ namespace backend.Business.Services
             candidate.Email = dto.Email ?? candidate.Email;
             candidate.Phone = dto.Phone ?? candidate.Phone;
             candidate.Resume = dto.Resume ?? candidate.Resume;
-            candidate.Stage = dto.Stage ?? candidate.Stage;
-            candidate.Status = dto.Status ?? candidate.Status;
+            candidate.ActiveStatus = dto.ActiveStatus ?? candidate.ActiveStatus;
             candidate.DateOdBirth = dto.DateOdBirth ?? candidate.DateOdBirth;
             candidate.Skills = dto.Skills ?? candidate.Skills;
             candidate.Summary = dto.Summary ?? candidate.Summary;

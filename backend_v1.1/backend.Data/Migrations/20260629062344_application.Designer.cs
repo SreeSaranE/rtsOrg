@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using backend.Data.Context;
 
@@ -11,9 +12,11 @@ using backend.Data.Context;
 namespace backend.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260629062344_application")]
+    partial class application
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,40 +24,6 @@ namespace backend.Data.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("backend.Models.DataBase.ApplicationHistory", b =>
-                {
-                    b.Property<Guid>("ApplicationHistoryId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("ApplicationId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid?>("CreatedBy")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime?>("ModifiedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid?>("ModifiedBy")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("NewStatus")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("OldStatus")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("ApplicationHistoryId");
-
-                    b.HasIndex("ApplicationId");
-
-                    b.ToTable("ApplicationHistory");
-                });
 
             modelBuilder.Entity("backend.Models.DataBase.Candidate", b =>
                 {
@@ -113,6 +82,40 @@ namespace backend.Data.Migrations
                     b.HasKey("CandidateId");
 
                     b.ToTable("Candidates");
+                });
+
+            modelBuilder.Entity("backend.Models.DataBase.History", b =>
+                {
+                    b.Property<Guid>("HistoryId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("ApplicationId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("CreatedBy")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("ModifiedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("ModifiedBy")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("NewStatus")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("OldStatus")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("HistoryId");
+
+                    b.HasIndex("ApplicationId");
+
+                    b.ToTable("History");
                 });
 
             modelBuilder.Entity("backend.Models.DataBase.Interview", b =>
@@ -302,10 +305,10 @@ namespace backend.Data.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("backend.Models.DataBase.ApplicationHistory", b =>
+            modelBuilder.Entity("backend.Models.DataBase.History", b =>
                 {
                     b.HasOne("backend.Models.DataBase.JobApplication", "jobApplication")
-                        .WithMany("ApplicationHistory")
+                        .WithMany("Histories")
                         .HasForeignKey("ApplicationId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -389,7 +392,7 @@ namespace backend.Data.Migrations
 
             modelBuilder.Entity("backend.Models.DataBase.JobApplication", b =>
                 {
-                    b.Navigation("ApplicationHistory");
+                    b.Navigation("Histories");
                 });
 
             modelBuilder.Entity("backend.Models.DataBase.User", b =>

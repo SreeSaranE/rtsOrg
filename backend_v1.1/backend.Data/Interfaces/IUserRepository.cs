@@ -13,7 +13,7 @@ namespace backend.Data.Interfaces
 
         Task AddUser(User user);
 
-        Task<IReadOnlyList<UserDetails>> GetAllUsers();
+        Task<IReadOnlyList<UserDetailsDTO>> GetAllUsers();
 
         Task AlterUserStatus(User user);
 

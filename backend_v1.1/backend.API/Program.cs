@@ -21,11 +21,13 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IJobRepository, JobRepository>();
 builder.Services.AddScoped<ICandidateRepository, CandidateRepository>();
+builder.Services.AddScoped<IApplicationRepository, ApplicationRepository>();
 
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IAdminService, AdminService>();
 builder.Services.AddScoped<IRecruiterService, RecruiterService>();
 builder.Services.AddScoped<ICandidateService, CandidateService>();
+builder.Services.AddScoped<IApplicationService, ApplicationService>();
 
 builder.Services.AddScoped<IJwtService, JwtService>();
 

@@ -13,7 +13,7 @@ namespace backend.Business.Services
             _jobRepository = repository;
         }
 
-        public async Task<Boolean> AddJob(JobRegister job)
+        public async Task<Boolean> AddJob(JobRegisterDTO job)
         {
             var existJob = await _jobRepository.CheckJob(job.Name, job.Dept);
 
@@ -37,7 +37,7 @@ namespace backend.Business.Services
             return true;
         }
 
-        public async Task<IReadOnlyList<JobDetails>> GetAllJobs()
+        public async Task<IReadOnlyList<JobDetailsDTO>> GetAllJobs()
         {
             return await _jobRepository.GetAllJob();
         }

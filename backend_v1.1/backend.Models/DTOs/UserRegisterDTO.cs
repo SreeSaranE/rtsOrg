@@ -1,12 +1,15 @@
 ﻿namespace backend.Models.DTOs
 {
-    public class UserDetails
+    public class UserRegisterDTO
     {
-        public Guid UserId { get; set; } = Guid.NewGuid();
         public string Name { get; set; } = string.Empty;
+
         public string Email { get; set; } = string.Empty;
-        public string Role { get; set; } = string.Empty;
+
+        public string Password { get; set; } = string.Empty;
+
+        public String Role { get; set; } = String.Empty;
+
         public bool IsActive { get; set; }
-        public DateTime? CreatedAt { get; set; }
     }
 }
