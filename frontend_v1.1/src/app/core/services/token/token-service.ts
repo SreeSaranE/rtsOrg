@@ -18,11 +18,11 @@ export class TokenService {
     return jwtDecode(token);
   }
 
-  getUserId(): number | null {
+  getUserId(): string | null {
     const token: any = this.getDecodedToken();
 
     return token
-      ? Number(token['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier'])
+      ? String(token['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier'])
       : null;
   }
 

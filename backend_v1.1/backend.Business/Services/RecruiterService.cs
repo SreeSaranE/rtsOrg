@@ -2,7 +2,7 @@
 using backend.Data.Interfaces;
 using backend.Models.DataBase;
 using backend.Models.DTOs;
-
+    
 namespace backend.Business.Services
 {
     public class RecruiterService : IRecruiterService
@@ -39,7 +39,8 @@ namespace backend.Business.Services
 
         public async Task<IReadOnlyList<JobDetailsDTO>> GetAllJobs()
         {
-            return await _jobRepository.GetAllJob();
+            var jobs = await _jobRepository.GetAllJob();
+            return jobs;
         }
 
         public async Task<Boolean> DeleteJob(Guid jobId)

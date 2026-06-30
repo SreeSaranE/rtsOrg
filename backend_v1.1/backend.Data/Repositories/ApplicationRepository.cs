@@ -18,6 +18,19 @@ namespace backend.Data.Repositories
             await _context.SaveChangesAsync();
         }
 
+        public async Task<IReadOnlyList<ApplicationDetailsDTO>> GetAllApplication()
+        {
+            return await _context.JobApplications
+                .Select(a => new  ApplicationDetailsDTO
+                {
+                    JobApplicationId = a.JobApplicationId,
+                    JobId = a.JobId,
+                    CandidateId = a.CandidateId,
+                    Stage  = a.Stage,
+                    CreatedAt = a.CreatedAt
+                }).ToListAsync();
+        }
+
         public async Task<JobApplication?> GetApplication(Guid jobId, Guid candId)
         {
             return await _context.JobApplications

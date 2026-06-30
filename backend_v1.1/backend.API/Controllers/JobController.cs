@@ -18,7 +18,11 @@ namespace backend.API.Controllers
         public async Task<IActionResult> AddJob([FromBody] JobRegisterDTO job)
         {
             var result = await _recruiterService.AddJob(job);
-            if(result) return Ok("Job Added");
+            if(result) return Ok(new
+            {
+                success = true,
+                message = "Job Added"
+            });
 
             return BadRequest("Job Already present");
         }
@@ -27,7 +31,11 @@ namespace backend.API.Controllers
         public async Task<IActionResult> AlterJobStatus(Guid jobId)
         {
             var result = await _recruiterService.AlterJobStatus(jobId);
-            if (result) return Ok("Job status Updated");
+            if (result) return Ok(new
+            {
+                success = true,
+                message = "Job status Updated"
+            });
             return NotFound("No job found");
         }
 
@@ -41,7 +49,11 @@ namespace backend.API.Controllers
         public async Task<IActionResult> DeleteJob(Guid jobId) 
         {
             var result = await _recruiterService.DeleteJob(jobId);
-            if (result) return Ok("Job deleted");
+            if (result) return Ok(new
+            {
+                success = true,
+                message = "Job deleted"
+            });
             return NotFound("No job found");
         }
     }

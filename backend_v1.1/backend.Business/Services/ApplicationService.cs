@@ -9,8 +9,17 @@ namespace backend.Business.Services
     public class ApplicationService : IApplicationService
     {
         private readonly IApplicationRepository _applicationRepository;
-        public ApplicationService(IApplicationRepository repository)
-        { _applicationRepository = repository; }
+        private readonly ICandidateRepository _candidateRepository;
+        private readonly IJobRepository _jobRepository;
+        public ApplicationService(
+            IApplicationRepository repository,
+            ICandidateRepository candidateRepository,
+            IJobRepository jobRepository)
+        { 
+            _applicationRepository = repository;
+            _candidateRepository = candidateRepository;
+            _jobRepository = jobRepository;
+        }
 
         public async Task<bool> AddApplication(Guid jobId, Guid candId)
         {
@@ -25,6 +34,22 @@ namespace backend.Business.Services
 
             await _applicationRepository.AddApplication(application);
             return true;
+        }
+
+        public async Task<IReadOnlyList<ApplicationDetailsDTO>> GetAllApplication()
+        {
+            var applications = await _applicationRepository.GetAllApplication();
+
+            foreach (var application in applications)
+            {
+                var candidate = await _candidateRepository.GetCandidateById(application.CandidateId);
+                application.CandidateName = candidate?.Name;
+
+                var job = await _jobRepository.GetJobById(application.JobId);
+                application.JobName = job?.Name;
+            }
+
+            return applications;
         }
 
         public async Task<int> UpdateApplicationStage(UpdateStageDTO stage)

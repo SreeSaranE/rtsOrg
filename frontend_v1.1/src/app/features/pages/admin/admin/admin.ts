@@ -1,13 +1,18 @@
 import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Sidebar } from '../../../../shared/components/sidebar/sidebar';
+import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-admin-dashboard',
   imports: [Sidebar, RouterOutlet],
-  templateUrl: './admin-dashboard.html',
-  styleUrl: './admin-dashboard.css',
+  templateUrl: './admin.html',
+  styleUrl: './admin.css',
 })
-export class AdminDashboard {
+export class Admin {
+
+  constructor(private router: Router)
+  { router.navigate(["admin/dashboard"]) }
   
   navList = ["Dashboard", "Users", "Candidates"]
 

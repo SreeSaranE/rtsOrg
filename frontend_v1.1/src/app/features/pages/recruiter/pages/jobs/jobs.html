@@ -1,0 +1,70 @@
+<div class="main-content">
+
+    <div class="head">
+        <p>Manage Jobs</p>
+        
+        <div class="btn">
+
+            <app-button
+                class="addBtn"
+                label="Add Job"
+                maxWidth="150px"`
+                minWidth="150px"
+                (clicked)="addJob()">
+            </app-button>
+
+            <app-add-dialog
+                [isOpen]="showAddJob"
+                title="Add Job"
+                (save)="saveJob()"
+                (cancel)="showAddJob = false">
+
+                <form [formGroup]="jobForm">
+
+                    <input
+                        class="inputField"
+                        type="text"
+                        placeholder="Job Name"
+                        formControlName="name">
+
+                    <input
+                        class="inputField"
+                        type="text"
+                        placeholder="Department"
+                        formControlName="dept">
+
+                </form>
+
+            </app-add-dialog>
+
+            <app-button
+                class="refreshBtn"
+                label="Refresh Data"
+                maxWidth="150px"
+                minWidth="150px"
+                (clicked)="jobStore.refresh()">
+            </app-button>
+
+        </div>
+    
+    </div>
+
+    <app-data-table
+        [data]="jobStore.jobs()"
+        [columns]="columns"
+        [showDelete]="true"
+        [showStatus]="true"
+        (delete)="delete($event)"
+        (statusChange)="updateStatus($event)"
+    ></app-data-table>
+
+    <app-confirmation-dialog
+        [isOpen]="showDeleteDialog"
+        [title]="'Delete ' + selectedJob?.name"
+        [message]="'You are about to delete ' + selectedJob?.name"
+        confirmText="Delete"
+        cancelText="Cancel"
+        (confirmed)="confirmDelete()"
+        (cancelled)="cancelDelete()">
+    </app-confirmation-dialog>
+</div>

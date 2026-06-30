@@ -13,81 +13,20 @@
 
     </div>
 
-    <table class="userTable">
-        <thead>
-            <tr>
-                <th (click)="sort('name')">
-                    NAME {{ getSortIcon('name') }}
-                </th>
-
-                <th (click)="sort('email')">
-                    EMAIL {{ getSortIcon('email') }}
-                </th>
-
-                <th (click)="sort('role')">
-                    ROLE {{ getSortIcon('role') }}
-                </th>
-
-                <th (click)="sort('createdAt')">
-                    CREATED AT {{ getSortIcon('createdAt') }}
-                </th>
-
-                <th (click)="sort('isActive')">
-                    STATUS {{ getSortIcon('isActive') }}
-                </th>
-
-                <th>Delete</th>
-            </tr>
-        </thead>
-
-        <tbody>
-            @for (user of pagedUsers; track user.userId) {
-                @if(user.role != "Admin"){
-                    <tr>
-                        <td>{{ user.name }}</td>
-                        <td>{{ user.email }}</td>
-                        <td>{{ user.role }}</td>
-                        <td>{{ user.createdAt | date:'dd/MM/yyyy' }}</td>
-
-                        <td>
-                            <select
-                                [value]="user.isActive ? 'true' : 'false'"
-                                (change)="updateStatus(user, $event)">
-                                <option value="true">Active</option>
-                                <option value="false">Inactive</option>
-                            </select>
-                        </td>
-                        
-                        <td id="deleteUser" (click)="delete(user)">Ⅹ</td>
-                    </tr>
-                }
-            }
-        </tbody>
+    <app-data-table
+        [data]="userStore.users()"
+        [columns]="columns"
+        [showDelete]="true"
+        [showStatus]="true"
+        (delete)="delete($event)"
+        (statusChange)="updateStatus($event)"
         
-    </table>
-
-    <div class="pagination">
-        <button
-            (click)="previousPage()"
-            [disabled]="currentPage === 1">
-            <
-        </button>
-
-        <span id="page">
-            {{ currentPage }} of {{ totalPages }}
-        </span>
-
-        <button
-            (click)="nextPage()"
-            [disabled]="currentPage === totalPages">
-            >
-        </button>
-    </div>
+        ></app-data-table>
 
     <app-confirmation-dialog
-        [isOpen]="showDeteteDialog"
-        title="Delete {{tempUser[1]}}"
-        message="You are going to delete user {{tempUser[1]}}."
+        [isOpen]="showDeleteDialog"
+        [title]="'Delete' + selectedUser?.name"
+        [message]="'You are going to delete user ' + selectedUser?.name"
         confirmText="Delete"
         cancelText="Cancel"
         (confirmed)="confirmDelete()"

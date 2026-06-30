@@ -8,7 +8,7 @@ import { CandidateStore } from '../../../../services/candidate/candidate.store';
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css',
 })
-export class Dashboard {
+export class AdminDashboard {
 
   constructor(
     public userStore: UserStore,

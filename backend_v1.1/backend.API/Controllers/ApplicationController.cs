@@ -32,6 +32,12 @@ namespace backend.API.Controllers
             return BadRequest("Application is already in that stage");
         }
 
+        [HttpGet("applications")]
+        public async Task<IActionResult> GetAllApplications()
+        {
+            return Ok(await _applicationService.GetAllApplication());
+        }
+
         [HttpGet("candidate/{candId}")]
         public async Task<IActionResult> GetCadidateApplications(Guid candId)
         {

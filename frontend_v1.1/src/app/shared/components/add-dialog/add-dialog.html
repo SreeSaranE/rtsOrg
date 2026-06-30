@@ -1,0 +1,39 @@
+@if(isOpen){
+
+<div class="overlay">
+
+    <div class="dialog">
+
+        <p id="title">{{ title }}</p>
+
+        <hr>
+
+        <div class="content">
+            <ng-content></ng-content>
+        </div>
+
+        <div class="actions">
+
+            <button
+                class="cancel-btn style-btn"
+                (click)="cancel.emit()">
+
+                {{ cancelText }}
+
+            </button>
+
+            <button
+                class="confirm-btn style-btn"
+                (click)="save.emit()">
+
+                {{ saveText }}
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+}

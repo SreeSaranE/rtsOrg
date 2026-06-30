@@ -22,6 +22,8 @@ export class Sidebar {
 
   @Output() sidebarChange = new EventEmitter<boolean>();
 
+
+  @Input() path = ""
   @Input() title = "";
   @Input() naviList = ["Settings"]
 
@@ -29,7 +31,7 @@ export class Sidebar {
 
   clickBtn(page: string){
     console.log(page.toLowerCase());
-    this.router.navigate(["/admin/"+page.toLowerCase()])
+    this.router.navigate([`/${this.path}/${page.toLowerCase()}`])
   }
 
   hide(){

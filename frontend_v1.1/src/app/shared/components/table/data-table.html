@@ -1,0 +1,123 @@
+<table class="data-table">
+
+    <thead>
+        <tr>
+
+            @for (column of columns; track column.key) {
+
+                <th
+                    [style.width]="column.width"
+                    (click)="column.sortable !== false && sort(column.key)"
+                    [class.sortable]="column.sortable !== false">
+
+                    {{ column.label }}
+
+                    @if (column.sortable !== false) {
+                        {{ getSortIcon(column.key) }}
+                    }
+
+                </th>
+
+            }
+
+            @if (showDelete) {
+                <th>Delete</th>
+            }
+
+        </tr>
+    </thead>
+
+    <tbody>
+
+        @for (item of pagedData; track $index) {
+
+            <tr>
+
+                @for (column of columns; track column.key) {
+
+                    <td>
+
+                        @switch (column.type) {
+
+                            @case ('date') {
+                                {{ $any(item)[column.key] | date:'dd/MM/yyyy' }}
+                            }
+
+                            @case ('boolean') {
+
+                                @if (showStatus) {
+
+                                    <select
+                                        [value]="$any(item)[column.key] ? 'true' : 'false'"
+                                        (change)="onStatusChange(item, $event)">
+
+                                        <option value="true">
+                                            Active
+                                        </option>
+
+                                        <option value="false">
+                                            Inactive
+                                        </option>
+
+                                    </select>
+
+                                } @else {
+
+                                    {{ $any(item)[column.key] ? 'Yes' : 'No' }}
+
+                                }
+
+                            }
+
+                            @default {
+                                {{ $any(item)[column.key] }}
+                            }
+
+                        }
+
+                    </td>
+
+                }
+
+                @if (showDelete) {
+
+                    <td
+                        class="delete-btn"
+                        (click)="onDelete(item)">
+
+                        ✕
+                    </td>
+
+                }
+
+            </tr>
+
+        }
+
+    </tbody>
+
+</table>
+
+<div class="pagination">
+
+    <button
+        (click)="previousPage()"
+        [disabled]="currentPage === 1">
+
+        <
+    </button>
+
+    <span>
+
+        {{ currentPage }} of {{ totalPages }}
+
+    </span>
+
+    <button
+        (click)="nextPage()"
+        [disabled]="currentPage === totalPages">
+
+        >
+    </button>
+
+</div>

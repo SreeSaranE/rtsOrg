@@ -10,19 +10,14 @@
             minWidth="150px"
             (clicked)="candidateStore.refresh()">
         </app-button>
-
     </div>
 
     <app-data-table
         [data]="candidateStore.candidates()"
         [columns]="columns"
         [showDelete]="true"
-        [showStatus]="true"
-        (delete)="delete($event)"
-        (statusChange)="updateStatus($event)">
+        (delete)="delete($event)">
     </app-data-table>
-
-
 
     <app-confirmation-dialog
         [isOpen]="showDeleteDialog"

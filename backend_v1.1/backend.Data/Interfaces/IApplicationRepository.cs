@@ -13,6 +13,8 @@ namespace backend.Data.Interfaces
 
         Task UpdateStage();
 
+        Task<IReadOnlyList<ApplicationDetailsDTO>> GetAllApplication();
+
         Task<IReadOnlyList<CandidateApplicationDTO>> CandidateApplications(Guid candId);
 
         Task AddApplicationHistory(ApplicationHistory data);

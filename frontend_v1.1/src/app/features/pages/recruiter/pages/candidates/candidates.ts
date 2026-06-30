@@ -17,7 +17,7 @@ import { TableColumn } from '../../../../../shared/components/table/table-column
   templateUrl: './candidates.html',
   styleUrl: './candidates.css',
 })
-export class Candidates {
+export class RecruiterCandidates {
 
   constructor(
     private candidateService: CandidateService,
@@ -25,7 +25,7 @@ export class Candidates {
   ) {
     this.candidateStore.refresh();
   }
-
+  
   columns: TableColumn<candidateDetails>[] = [
     {
       key: 'name',
@@ -34,11 +34,6 @@ export class Candidates {
     {
       key: 'email',
       label: 'Email'
-    },
-    {
-      key: 'isActive',
-      label: 'Status',
-      type: 'boolean'
     },
     {
       key: 'createdAt',

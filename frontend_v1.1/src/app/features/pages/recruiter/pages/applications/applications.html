@@ -8,26 +8,21 @@
             label="Refresh Data"
             maxWidth="150px"
             minWidth="150px"
-            (clicked)="candidateStore.refresh()">
+            (clicked)="applicationStore.refresh()">
         </app-button>
-
     </div>
 
     <app-data-table
-        [data]="candidateStore.candidates()"
+        [data]="applicationStore.applications()"
         [columns]="columns"
         [showDelete]="true"
-        [showStatus]="true"
-        (delete)="delete($event)"
-        (statusChange)="updateStatus($event)">
+        (delete)="delete($event)">
     </app-data-table>
-
-
 
     <app-confirmation-dialog
         [isOpen]="showDeleteDialog"
-        [title]="'Delete ' + selectedCandidate?.name"
-        [message]="'You are about to delete ' + selectedCandidate?.name"
+        [title]="'Delete ' + selectedApplication?.jobApplicationId"
+        [message]="'You are about to delete ' + selectedApplication?.jobApplicationId"
         confirmText="Delete"
         cancelText="Cancel"
         (confirmed)="confirmDelete()"
