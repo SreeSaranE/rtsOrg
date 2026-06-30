@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { InputField } from '../../../../shared/components/input-field/input-field';
-import { ButtonComponent } from '../../../../shared/components/button/button';
+import { InputField } from '../../../../../shared/components/input-field/input-field';
+import { ButtonComponent } from '../../../../../shared/components/button/button';
 import { Router } from '@angular/router';
-import { SignupService } from '../../../../core/services/signup/signup-service';
+import { SignupService } from '../../../../../core/services/signup/signup-service';
 import { SharedService } from '../../shared/shared-service';
 
 @Component({

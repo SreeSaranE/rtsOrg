@@ -1,0 +1,90 @@
+
+
+.refreshBtn{
+    justify-self: right;
+    display: block;
+    padding: 30px 5vw;
+}
+
+.head{
+    display: flex;
+    justify-content: space-between;
+    padding-left: 5vw;
+    font-size: 1.5rem;
+}
+
+.userTable {
+    width: 90%;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    justify-self: center;
+    max-width: 80vw;
+}
+
+.userTable th {
+    background: var(--border-color);
+    padding: 12px;
+    text-align: left;
+    font-weight: 500;
+    cursor: pointer;
+    user-select: none;
+    transition: background-color .2s;
+}
+
+.userTable td {
+    padding: 12px;
+    border-bottom: 1px solid #dad9d9;
+    background-color: var(--surface-color);
+}
+
+.userTable th:hover {
+    background-color: #f5f5f5;
+}
+
+.userTable tr:hover {
+    background: #fafafa;
+}
+
+.userTable select {
+    padding: 6px 10px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    background: white;
+}
+
+.pagination {
+    margin-top: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+    justify-self: right;
+    display: block;
+    padding: 10px 5vw;
+}
+
+.pagination button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 6px;
+    background: #4c7fef;
+    color: white;
+    cursor: pointer;
+}
+
+.pagination button:disabled {
+    background: #cbd5e1;
+    cursor: not-allowed;
+}
+
+#page{
+    font-size: small;
+}
+
+#deleteUser{
+    cursor: pointer;
+    color: red;
+    font-weight: 900;
+}

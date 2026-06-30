@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ButtonComponent } from '../../../../shared/components/button/button';
-import { InputField } from '../../../../shared/components/input-field/input-field';
+import { ButtonComponent } from '../../../../../shared/components/button/button';
+import { InputField } from '../../../../../shared/components/input-field/input-field';
 import { Router } from '@angular/router';
-import { SignupService } from '../../../../core/services/signup/signup-service';
-import { LoginService } from '../../../../core/services/login/login-service';
+import { SignupService } from '../../../../../core/services/signup/signup-service';
+import { LoginService } from '../../../../../core/services/login/login-service';
 import { SharedService } from '../../shared/shared-service';
-import { NavigationService } from '../../../../core/services/navigation/navigation-service';
+import { NavigationService } from '../../../../../core/services/navigation/navigation-service';
 
 @Component({
   selector: 'app-personal-details',

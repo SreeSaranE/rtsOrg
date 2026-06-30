@@ -28,14 +28,22 @@ namespace backend.API.Controllers
             if (!result)
                 return NotFound("No user found");
 
-            return Ok("Role changed");
+            return Ok(new
+            {
+                success = true,
+                message = "Role changed"
+            });
         }
 
         [HttpPut("delete/{userId}")]
         public async Task<IActionResult> DeleteUser(Guid userId)
         {
             var result = await _adminService.DeleteUser(userId);
-            if (result) return Ok("User deleted");
+            if (result) return Ok(new
+            {
+                success = true,
+                message = "User deleted"
+            });
             return NotFound("No user found");
         }
     }

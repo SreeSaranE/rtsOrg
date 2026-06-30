@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { ButtonComponent } from '../../../../shared/components/button/button';
-import { InputField } from '../../../../shared/components/input-field/input-field';
+import { ButtonComponent } from '../../../../../shared/components/button/button';
+import { InputField } from '../../../../../shared/components/input-field/input-field';
 import { Router } from '@angular/router';
-import { LoginService } from '../../../../core/services/login/login-service';
-import { NavigationService } from '../../../../core/services/navigation/navigation-service';
+import { LoginService } from '../../../../../core/services/login/login-service';
+import { NavigationService } from '../../../../../core/services/navigation/navigation-service';
 
 @Component({
   selector: 'app-login',

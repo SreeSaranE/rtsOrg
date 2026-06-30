@@ -1,0 +1,93 @@
+<div class="main-content">
+
+    <div class="head">
+        <p>Manage Candidates</p>
+
+        <app-button
+            class="refreshBtn"
+            label="Refresh Data"
+            maxWidth="150px"
+            minWidth="150px"
+            (clicked)="candidateStore.refresh()">
+        </app-button>
+
+    </div>
+
+    <table class="userTable">
+        <thead>
+            <tr>
+                <th (click)="sort('name')">
+                    NAME {{ getSortIcon('name') }}
+                </th>
+
+                <th (click)="sort('email')">
+                    EMAIL {{ getSortIcon('email') }}
+                </th>
+
+                <th (click)="sort('isActive')">
+                    STATUS {{ getSortIcon('isActive') }}
+                </th>
+
+                <th (click)="sort('createdAt')">
+                    CREATED AT {{ getSortIcon('createdAt') }}
+                </th>
+
+                <th>Delete</th>
+            </tr>
+        </thead>
+
+                <tbody>
+            @for (candidate of pagedUsers; track candidate.candidateId) {
+                
+                <tr>
+                    <td>{{ candidate.name }}</td>
+                    <td>{{ candidate.email }}</td>
+
+                    <td>
+                        <select
+                            [value]="candidate.isActive ? 'true' : 'false'"
+                            (change)="updateStatus(candidate, $event)">
+                            <option value="true">Active</option>
+                            <option value="false">Inactive</option>
+                        </select>
+                    </td>
+
+                    <td>{{ candidate.createdAt | date:'dd/MM/yyyy' }}</td>
+
+                    <td id="deletecandidate" (click)="delete(candidate)">Ⅹ</td>
+
+                </tr>
+            }
+        </tbody>
+        
+    </table>
+
+    <div class="pagination">
+        <button
+            (click)="previousPage()"
+            [disabled]="currentPage === 1">
+            <
+        </button>
+
+        <span id="page">
+            {{ currentPage }} of {{ totalPages }}
+        </span>
+
+        <button
+            (click)="nextPage()"
+            [disabled]="currentPage === totalPages">
+            >
+        </button>
+    </div>
+
+    <app-confirmation-dialog
+        [isOpen]="showDeteteDialog"
+        title="Delete {{tempCandidate[1]}}"
+        message="You are going to delete candidate {{tempCandidate[1]}}."
+        confirmText="Delete"
+        cancelText="Cancel"
+        (confirmed)="confirmDelete()"
+        (cancelled)="cancelDelete()">
+    </app-confirmation-dialog>
+
+</div>

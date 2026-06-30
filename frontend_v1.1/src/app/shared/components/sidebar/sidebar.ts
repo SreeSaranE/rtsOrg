@@ -1,7 +1,8 @@
-import { Component, input } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { ButtonComponent } from "../button/button";
-import { Input } from '@angular/core';
+import { Input, Output } from '@angular/core';
 import { Router } from '@angular/router';
+import { EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-sidebar',
@@ -13,7 +14,13 @@ export class Sidebar {
 
   constructor(
     private router: Router
-  ){}
+  ){
+    this.hide()
+  }
+  
+  showSidebar = signal<boolean>(false);
+
+  @Output() sidebarChange = new EventEmitter<boolean>();
 
   @Input() title = "";
   @Input() naviList = ["Settings"]
@@ -21,6 +28,12 @@ export class Sidebar {
   minWidth = 20;
 
   clickBtn(page: string){
-    console.log(this.router.url+'/'+page.toLowerCase());    
+    console.log(page.toLowerCase());
+    this.router.navigate(["/admin/"+page.toLowerCase()])
+  }
+
+  hide(){
+    this.showSidebar.update(value => !value);
+    this.sidebarChange.emit(this.showSidebar());
   }
 }

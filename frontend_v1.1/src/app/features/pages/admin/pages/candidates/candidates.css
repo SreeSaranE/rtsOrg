@@ -1,12 +1,16 @@
-.main-content{
-    margin-left: 250px;
-    padding: 20px;
-}
+
 
 .refreshBtn{
     justify-self: right;
     display: block;
     padding: 30px 5vw;
+}
+
+.head{
+    display: flex;
+    justify-content: space-between;
+    padding-left: 5vw;
+    font-size: 1.5rem;
 }
 
 .userTable {
@@ -24,12 +28,19 @@
     padding: 12px;
     text-align: left;
     font-weight: 500;
+    cursor: pointer;
+    user-select: none;
+    transition: background-color .2s;
 }
 
 .userTable td {
     padding: 12px;
     border-bottom: 1px solid #dad9d9;
     background-color: var(--surface-color);
+}
+
+.userTable th:hover {
+    background-color: #f5f5f5;
 }
 
 .userTable tr:hover {
@@ -70,4 +81,10 @@
 
 #page{
     font-size: small;
+}
+
+#deletecandidate{
+    cursor: pointer;
+    color: red;
+    font-weight: 900;
 }

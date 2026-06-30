@@ -30,7 +30,11 @@ namespace backend.API.Controllers
         public async Task<IActionResult> DeleteCandidate(Guid candId)
         {
             var result = await _candidateService.DeleteCandidate(candId);
-            if (result) return Ok("Candidate deleted");
+            if (result) return Ok(new
+            {
+                success = true,
+                message = "Candidate deleted"
+            });
             return NotFound("No candidate Found");
         }
 

@@ -1,0 +1,10 @@
+<app-sidebar
+    title="Admin"
+    [naviList]="navList"
+
+     (sidebarChange)="onSidebarChange($event)"
+></app-sidebar>
+
+<div [class]="showSidebar() ? 'full' : 'short'">
+    <router-outlet></router-outlet>
+</div>

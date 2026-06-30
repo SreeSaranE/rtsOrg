@@ -3,14 +3,36 @@
     position: fixed;
     top: 0;
     left: 0;
-    height: 100%;
+    height: 100%;  
+}
+
+.fullSidebar{
     width: 250px;
 }
 
+.hiddenSidebar{
+    width: 80px;
+}
 #title{
     padding-left: 20px;
 }
 
 .lis{
     padding-left: 10px;
+}
+
+#fullSidebarHead{
+    display: flex;
+    justify-content: space-between;
+    padding-right: 20px;
+}
+
+#hiddenSidebarHead{
+    justify-self: center;
+}
+
+#hideSidebar{
+    font-weight: 900;
+    cursor: pointer;
+    transition: background-color 4.2s;
 }
