@@ -52,6 +52,21 @@ namespace backend.Business.Services
             return applications;
         }
 
+        public async Task<IReadOnlyList<ApplicationDetailsDTO>> GetCandidateApplications(Guid candId)
+        {
+            var candApplication = await _applicationRepository.CandidateApplications(candId);
+
+            foreach (var application in candApplication)
+            {
+                var candidate = await _candidateRepository.GetCandidateById(application.CandidateId);
+                application.CandidateName = candidate?.Name;
+
+                var job = await _jobRepository.GetJobById(application.JobId);
+                application.JobName = job?.Name;
+            }
+
+            return candApplication;
+        }
 
         public async Task<int> UpdateApplicationStage(UpdateStageDTO stage)
         {
@@ -78,10 +93,7 @@ namespace backend.Business.Services
             return 1;
         }
 
-        public async Task<IReadOnlyList<CandidateApplicationDTO>> GetCandidateApplications(Guid candId)
-        {
-            return await _applicationRepository.CandidateApplications(candId);
-        }
+
 
         public async Task<bool> DeleteApplication(Guid applicationId)
         {

@@ -58,11 +58,11 @@ namespace backend.Data.Repositories
         public async Task UpdateStage()
         { await _context.SaveChangesAsync(); }
 
-        public async Task<IReadOnlyList<CandidateApplicationDTO>> CandidateApplications(Guid candId)
+        public async Task<IReadOnlyList<ApplicationDetailsDTO>> CandidateApplications(Guid candId)
         {
             return await _context.JobApplications
                 .Where(a => a.CandidateId == candId)
-                .Select(a => new CandidateApplicationDTO
+                .Select(a => new ApplicationDetailsDTO
                 {
                     JobApplicationId = a.JobApplicationId,
                     JobId = a.JobId,

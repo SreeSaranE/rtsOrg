@@ -1,0 +1,39 @@
+<div class="main-content">
+
+    <div class="head">
+        <p>Manage Jobs</p>
+        
+        <div class="btn">
+
+            <app-button
+                class="refreshBtn"
+                label="Refresh Data"
+                maxWidth="150px"
+                minWidth="150px"
+                (clicked)="jobStore.refresh()">
+            </app-button>
+
+        </div>
+    
+    </div>
+
+    <app-data-table
+        [data]="jobStore.jobs()"
+        [columns]="columns"
+        [showEdit]= "true"
+        placeHolder="Apply"
+        (edit)="apply($event)"
+    ></app-data-table>
+
+    <app-confirmation-dialog
+        [isOpen]="showApply"
+        [title]="'Apply ' + selectedJob?.name"
+        [message]="'Apply for ' + selectedJob?.name+ ' in ' + selectedJob?.dept"
+        confirmText="Apply"
+        cancelText="Cancel"
+        (confirmed)="saveApplication()"
+        (cancelled)="showApply = false">
+    </app-confirmation-dialog>
+
+
+</div>

@@ -1,0 +1,36 @@
+<div class="main-content">
+
+  <div class="head">
+    <p>Manage Applications</p>
+
+    <div class="btn">
+      <app-button
+        class="refreshBtn"
+        label="Refresh Data"
+        maxWidth="150px"
+        minWidth="150px"
+        (clicked)="applicationStore.candRefresh(candId)">
+      </app-button>
+    </div>
+  </div>
+
+  <app-data-table
+    class="dataTbl"
+    [data]="applicationStore.candidateApplicaitons()"
+    [columns]="columns"
+    [showDelete]="true"
+    (delete)="delete($event)">
+  </app-data-table>
+
+  <!-- DELETE CONFIRMATION -->
+  <app-confirmation-dialog
+        [isOpen]="showDeleteDialog"
+        [title]="'Delete ' + selectedApplication?.jobName"
+        [message]="'You are about to delete applicatoion - ' + selectedApplication?.jobName"
+        confirmText="Delete"
+        cancelText="Cancel"
+        (confirmed)="confirmDelete()"
+        (cancelled)="cancelDelete()">
+    </app-confirmation-dialog>
+
+</div>

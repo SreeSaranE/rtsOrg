@@ -10,7 +10,7 @@ namespace backend.Business.Interfaces
 
         Task<IReadOnlyList<ApplicationDetailsDTO>> GetAllApplication();
 
-        Task<IReadOnlyList<CandidateApplicationDTO>> GetCandidateApplications(Guid candId);
+        Task<IReadOnlyList<ApplicationDetailsDTO>> GetCandidateApplications(Guid candId);
 
         Task<bool> DeleteApplication(Guid applicationId);
 

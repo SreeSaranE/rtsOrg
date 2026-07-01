@@ -21,10 +21,17 @@ export class LoginService {
   ){}
 
   private apiUrl = 'https://localhost:7033/api/auth';
+  private candidateApiUrl = 'https://localhost:7033/api/candidate'
 
   login(data: LoginRequest): Observable<LoginResponse> {    
     return this.http.post<LoginResponse>(
       `${this.apiUrl}/login`, data
     )
   };
+
+  candidateLogin(data: LoginRequest): Observable<LoginResponse> {
+    return this.http.post<LoginResponse>(
+      `${this.candidateApiUrl}/login`, data
+    )
+  }
 }

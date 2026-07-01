@@ -3,7 +3,7 @@ import { Admin } from './features/pages/admin/admin/admin';
 import { HrDashboard } from './features/pages/hr/hr-dashboard/hr-dashboard';
 import { InterviewerDashboard } from './features/pages/interviewer/interviewer-dashboard/interviewer-dashboard';
 import { Recruiter } from './features/pages/recruiter/recruiter/recruiter';
-import { CandidateDashboard } from './features/pages/candidate/candidate-dashboard/candidate-dashboard';
+import { Candidate } from './features/pages/candidate/candidate/candidate';
 import { Login } from './features/pages/auth/pages/login/login';
 import { Signup } from './features/pages/auth/pages/signup/signup';
 import { Unauthorized } from './pages/unauthorized/unauthorized';
@@ -24,6 +24,9 @@ import { RecruiterJobs } from './features/pages/recruiter/pages/jobs/jobs';
 import { RecruiterApplications } from './features/pages/recruiter/pages/applications/applications';
 import { RecruiterInterviews } from './features/pages/recruiter/pages/interviews/interviews';
 import { RecruiterCandidates } from './features/pages/recruiter/pages/candidates/candidates';
+import { CandidateJobs } from './features/pages/candidate/pages/jobs/jobs';
+import { CandidateAppliedJobs } from './features/pages/candidate/pages/applied-jobs/applied-jobs';
+import { CandidatePersonalDetails } from './features/pages/candidate/pages/candidate-personal-details/candidate-personal-details';
 
 export const routes: Routes = [
     {path: "", component: Startup},
@@ -50,11 +53,17 @@ export const routes: Routes = [
             {path: "interviews", component: RecruiterInterviews}
         ]},
 
+    {path: "candidate", component: Candidate,
+        canActivate: [authGuard, roleGuard], data: {role: 'Candidate'},
+        children: [
+            {path: "jobs", component: CandidateJobs},
+            {path: "applied", component: CandidateAppliedJobs},
+            {path: "details", component: CandidatePersonalDetails}
+        ]},
 
     {path: "interviewer", component: InterviewerDashboard,
         canActivate: [authGuard, roleGuard], data: {role: 'Interviewer'}},
-    {path: "candidate", component: CandidateDashboard,
-        canActivate: [authGuard, roleGuard], data: {role: 'Candidate'}},
+    
 
     {path: "login", component: Login},
     {path: "signup", component: Signup},

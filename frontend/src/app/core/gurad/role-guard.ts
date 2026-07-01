@@ -15,7 +15,7 @@ export const roleGuard: CanActivateFn = (route, state) => {
     router.navigate(['/unauthorized']);
     return false;
   }
-  if (!isActive){    
+  if (!isActive){  
     router.navigate(['/verification'])
     return false;
   }

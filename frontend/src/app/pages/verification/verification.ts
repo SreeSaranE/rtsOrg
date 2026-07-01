@@ -13,7 +13,7 @@ export class Verification {
     private router: Router,
   ){}
 
-  navigateHome(){
-    this.router.navigate(['.'])
+  navigateLogin(){
+    this.router.navigate(['/login'])
   }
 }

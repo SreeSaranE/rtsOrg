@@ -17,7 +17,7 @@ namespace backend.Data.Interfaces
 
         Task<string?> GetJobNameByApplicationId(Guid applicationId);
 
-        Task<IReadOnlyList<CandidateApplicationDTO>> CandidateApplications(Guid candId);
+        Task<IReadOnlyList<ApplicationDetailsDTO>> CandidateApplications(Guid candId);
 
         Task AddApplicationHistory(ApplicationHistory data);
 

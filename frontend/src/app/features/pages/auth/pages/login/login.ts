@@ -50,6 +50,22 @@ export class Login {
         this.navigationService.navigateByRole()
       },
       error: (error) => {
+        this.candidateLogin();
+      }
+    });
+  }
+
+  candidateLogin(){
+    this.loginService.candidateLogin({
+      Email: this.email,
+      Password: this.password
+    }).subscribe({
+      next: (response) => {
+        localStorage.setItem('Token', response.token)
+        this.navigationService.navigateByRole()
+        // this.router.navigate(["/settings"])
+      },
+      error: (error) => {
         this.contextText = "Incorrect email or password";
         this.hideValid = false;
         console.log(error.error);

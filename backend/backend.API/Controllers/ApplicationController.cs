@@ -19,15 +19,27 @@ namespace backend.API.Controllers
         public async Task<IActionResult> AddApplicaiton([FromBody] JobApplication application)
         {
             var result = await _applicationService.AddApplication(application.JobId, application.CandidateId);
-            if (result) return Ok("Application Successfully submitted");
-            return BadRequest("Application already submitted");
+            if (result) return Ok(new
+            {
+                success = true,
+                message = "Application Successfully submitted"
+            });
+            return BadRequest(new
+            {
+                success = false,
+                message = "Application already submitted"
+            });
         }
 
         [HttpPost("updatestage")]
         public async Task<IActionResult> UpdateStage([FromBody] UpdateStageDTO stage)
         {
             var result = await _applicationService.UpdateApplicationStage(stage);
-            if (result == 1) return Ok("Done");
+            if (result == 1) return Ok(new
+            {
+                success = true,
+                message = "Done"
+            });
             else if (result == 2) return NotFound("Application Not Found");
             return BadRequest("Application is already in that stage");
         }
@@ -49,7 +61,11 @@ namespace backend.API.Controllers
         public async Task<IActionResult> DeleteApplication(Guid applicationId)
         {
             var result = await _applicationService.DeleteApplication(applicationId);
-            if(result) return Ok("Application deleted successfully");
+            if(result) return Ok(new
+            {
+                success = true,
+                message = "Application deleted successfully"
+            });
             return NotFound("No application with that id found");
         }
     }

@@ -45,7 +45,6 @@ export class TokenService {
   getRole(): string | null {
     
     const token: any = this.getDecodedToken();
-
     return token
       ? token['http://schemas.microsoft.com/ws/2008/06/identity/claims/role']
       : null;
@@ -53,7 +52,6 @@ export class TokenService {
 
   isActive(): boolean {
     const token: any = this.getDecodedToken();
-
     return token
       ? token['IsActive'] === 'True'
       : false;

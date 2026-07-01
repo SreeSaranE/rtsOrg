@@ -12,12 +12,39 @@ namespace backend.API.Controllers
         public CandidateController(ICandidateService candidateService)
         { _candidateService = candidateService; }
 
+        [HttpPost("login")]
+        public async Task<IActionResult> Login([FromBody] UserLoginDTO dto)
+        {
+            var user = await _candidateService.Login(dto);
+            if (user.State == "incorrectEmail")
+            {
+                return Unauthorized("No Email");
+            }
+
+            if (user.State == "incorrectPassword")
+            {
+                return Unauthorized("Incorrect Password");
+            }
+
+            return Ok(new
+            {
+                user.Token
+            }
+            );
+        }
+
         [HttpPost("register")]
         public async Task<IActionResult> RegisterCandidate(CandidateRegisterDTO dto)
         {
             var result = await _candidateService.RegisterCandidate(dto);
             if (result) return Ok("Candidate added successfully");
             return BadRequest("Candidate not added");
+        }
+
+        [HttpGet("{candId}")]
+        public async Task<IActionResult> GetCandidateById(Guid candId)
+        {
+            return Ok(await _candidateService.GetCandidateById(candId));
         }
 
         [HttpGet("candidates")]
@@ -42,7 +69,11 @@ namespace backend.API.Controllers
         public async Task<IActionResult> UpdateCandidate([FromBody] CandidateDetailsDTO dto)
         {
             var result = await _candidateService.UpdateCandidate(dto);
-            if (result) return Ok("Candidate updated successfully");
+            if (result) return Ok(new
+            {
+                success = true,
+                message = "Candidate updated successfully"
+            });
             return NotFound("No candidate found");
         }
     }

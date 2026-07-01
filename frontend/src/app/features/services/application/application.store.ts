@@ -20,4 +20,17 @@ export class ApplicationStore{
             error: (err) => console.error(err)
         });
     }
+
+    //candidate app
+
+    candidateApplicaitons = signal<ApplicationDetails[]>([])
+    candRefresh(guid: string)
+    {
+        this.applicationService.getCandidateApplication(guid).subscribe({
+            next: (response) => {
+                this.candidateApplicaitons.set(response);
+            },
+            error: (err) => console.error(err)
+        });
+    }
 }

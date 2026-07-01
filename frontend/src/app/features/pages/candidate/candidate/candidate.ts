@@ -4,17 +4,17 @@ import { Sidebar } from '../../../../shared/components/sidebar/sidebar';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-recruiter-dashboard',
+  selector: 'app-candidate',
   imports: [RouterOutlet, Sidebar],
-  templateUrl: './recruiter.html',
-  styleUrl: './recruiter.css',
+  templateUrl: './candidate.html',
+  styleUrl: './candidate.css',
 })
-export class Recruiter {
+export class Candidate {
 
   constructor(private router: Router)
-  { router.navigate(["recruiter/dashboard"]) }
+  { router.navigate(["candidate/jobs"]) }
 
-  navList = ["Dashboard", "Jobs", "Applications", "Candidates", "Interviews"]
+  navList = ["Jobs", "Applied", "Details"]
 
   showSidebar = signal<boolean>(true);
 

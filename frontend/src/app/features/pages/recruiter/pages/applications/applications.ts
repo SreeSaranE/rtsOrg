@@ -54,7 +54,6 @@ export class RecruiterApplications {
     );
   }
 
-  // ===================== TABLE =====================
   columns: TableColumn<ApplicationDetails>[] = [
     { key: 'candidateName', label: 'Candidate' },
     { key: 'jobName', label: 'Job' },
@@ -62,7 +61,6 @@ export class RecruiterApplications {
     { key: 'createdAt', label: 'Created At', type: 'date' }
   ];
 
-  // ===================== DELETE =====================
   showDeleteDialog = false;
   selectedApplication!: ApplicationDetails;
 
@@ -87,7 +85,6 @@ export class RecruiterApplications {
       });
   }
 
-  // ===================== INTERVIEW =====================
   showAddInterview = false;
   selectedApplicationForInterview!: ApplicationDetails;
 
@@ -101,7 +98,6 @@ export class RecruiterApplications {
     createdBy: this.userId
   });
 
-  // ✅ OPEN INTERVIEW MODAL (LIKE DELETE FLOW)
   addInterview(application: ApplicationDetails) {
 
     this.selectedApplicationForInterview = application;
@@ -113,7 +109,6 @@ export class RecruiterApplications {
     this.showAddInterview = true;
   }
 
-  // ===================== SAVE INTERVIEW =====================
   saveInterview() {
     const {
       jobApplicationId,
@@ -150,11 +145,4 @@ export class RecruiterApplications {
       error: err => console.log(err)
     });
   }
-
-  //temp
-  edit(application: ApplicationDetails) {
-  console.log('Edit clicked:', application);
-
-  // example: open dialog or patch form
-}
 }

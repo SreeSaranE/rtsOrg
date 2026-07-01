@@ -18,8 +18,8 @@ import { TokenService } from '../../../../../core/services/token/token-service';
     ConfirmationDialog,
     DataTableComponent,
     AddDialogComponent,
-    ReactiveFormsModule,
-    AddDialogComponent],
+    ReactiveFormsModule
+    ],
   templateUrl: './jobs.html',
   styleUrl: './jobs.css',
 })

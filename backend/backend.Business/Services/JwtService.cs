@@ -48,5 +48,30 @@ namespace backend.Business.Services
 
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
+
+        public string CandidateGenerateToken(Candidate candidate)
+        {
+            var key = _configuration["Jwt:Key"];
+            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key!));
+            var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
+
+            var claims = new[]
+            {
+                new Claim(ClaimTypes.NameIdentifier, candidate.CandidateId.ToString()),
+                new Claim(ClaimTypes.Name, candidate.Name),
+                new Claim(ClaimTypes.Email, candidate.Email),
+                new Claim(ClaimTypes.Role, "Candidate"),
+                new Claim("IsActive", candidate.ActiveStatus.ToString())
+            };
+
+            var token = new JwtSecurityToken(
+                issuer: _configuration["Jwt:Issuer"],
+                audience: _configuration["Jwt:Audience"],
+                claims: claims,
+                expires: DateTime.UtcNow.AddDays(1),
+                signingCredentials: credentials);
+
+            return new JwtSecurityTokenHandler().WriteToken(token);
+        }
     }
 }
