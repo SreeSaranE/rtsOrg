@@ -1,1 +1,145 @@
-<p>dashboard works!</p>
+<div class="dashboard">
+
+  <h2>Recruiter Dashboard</h2>
+
+  <!-- Statistics -->
+  <div class="stats-grid">
+
+    <div class="card">
+      <h3>Total Jobs</h3>
+      <span>{{ totalJobs }}</span>
+    </div>
+
+    <div class="card">
+      <h3>Applications</h3>
+      <span>{{ totalApplications }}</span>
+    </div>
+
+    <div class="card">
+      <h3>Candidates</h3>
+      <span>{{ totalCandidates }}</span>
+    </div>
+
+    <div class="card">
+      <h3>Interviews</h3>
+      <span>{{ totalInterviews }}</span>
+    </div>
+
+  </div>
+
+  <!-- Secondary Cards -->
+  <div class="info-grid">
+
+    <div class="card">
+      <h3>Job Status</h3>
+
+      <div class="info-row">
+        <span>Active Jobs</span>
+        <strong>{{ activeJobs }}</strong>
+      </div>
+
+      <div class="info-row">
+        <span>Closed Jobs</span>
+        <strong>{{ closedJobs }}</strong>
+      </div>
+
+    </div>
+
+    <div class="card">
+      <h3>Interview Results</h3>
+
+      <div class="info-row">
+        <span>Pending</span>
+        <strong>{{ pendingInterviews }}</strong>
+      </div>
+
+      <div class="info-row">
+        <span>Selected</span>
+        <strong>{{ selectedCandidates }}</strong>
+      </div>
+
+      <div class="info-row">
+        <span>Rejected</span>
+        <strong>{{ rejectedCandidates }}</strong>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- Tables -->
+  <div class="table-grid">
+
+    <!-- Recent Applications -->
+    <div class="card">
+
+      <h3>Recent Applications</h3>
+
+      <table>
+
+        <thead>
+          <tr>
+            <th>Candidate</th>
+            <th>Job</th>
+            <th>Stage</th>
+            <th>Applied</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          @for(application of recentApplications; track application.jobApplicationId){
+
+          <tr>
+            <td>{{ application.candidateName }}</td>
+            <td>{{ application.jobName }}</td>
+            <td>{{ application.stage }}</td>
+            <td>{{ application.createdAt | date:'mediumDate' }}</td>
+          </tr>
+
+          }
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <!-- Upcoming Interviews -->
+    <div class="card">
+
+      <h3>Upcoming Interviews</h3>
+
+      <table>
+
+        <thead>
+          <tr>
+            <th>Job</th>
+            <th>Interviewer</th>
+            <th>Start</th>
+            <th>Result</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          @for(interview of upcomingInterviews; track interview.interviewId){
+
+          <tr>
+            <td>{{ interview.jobName }}</td>
+            <td>{{ interview.interviewerName }}</td>
+            <td>{{ interview.startTime | date:'short' }}</td>
+            <td>{{ interview.result || 'Pending' }}</td>
+          </tr>
+
+          }
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+  </div>
+
+</div>

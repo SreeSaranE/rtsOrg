@@ -29,6 +29,22 @@ namespace backend.Data.Repositories
             await _context.SaveChangesAsync();
         }
 
+        public async Task<IReadOnlyList<InterviewDetailsDTO>> GetAllInterviews()
+        {
+            return await _context.Interviews
+                .Select(i => new InterviewDetailsDTO
+                {
+                    InterviewId = i.InterviewId,
+                    JobApplicationId = i.JobApplicationId,
+                    InterviewerId = i.InterviewerId,
+                    StartTime = i.StartTime,
+                    EndTime = i.EndTime,
+                    Result = i.Result,
+                    CreatedBy = i.CreatedBy,
+                    CreatedAt = i.CreatedAt,
+                }).ToListAsync();
+        }
+
         public async Task<IReadOnlyList<InterviewResponseDTO?>> GetInterviews(Guid interviewerId)
         {
             return await _context.Interviews

@@ -17,8 +17,18 @@ namespace backend.API.Controllers
         public async Task<IActionResult> ScheduleInterview([FromBody] Interview interview)
         {
             var result = await _interviewService.ScheduleInterview(interview);
-            if (result) return Ok("Interiew Scheduled");
+            if (result) return Ok(new
+            {
+                success = true,
+                message = "Interiew Scheduled"
+            });
             return BadRequest("Something went wrong");
+        }
+
+        [HttpGet("interviews")]
+        public async Task<IActionResult> GetAllInterivews()
+        {
+            return Ok(await _interviewService.GetAllInterviews());
         }
 
         [HttpPost("update")]
@@ -35,7 +45,11 @@ namespace backend.API.Controllers
         public async Task<IActionResult> DeleteInterview(Guid interviewId)
         {
             var result = await _interviewService.DeleteInterview(interviewId);
-            if (result) return Ok("Intervew deleted successfully");
+            if (result) return Ok(new
+            {
+                success = true,
+                message = "Intervew deleted successfully"
+            });
             return NotFound("Interview not found");
         }
     }

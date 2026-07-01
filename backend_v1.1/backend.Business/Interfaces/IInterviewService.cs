@@ -9,6 +9,8 @@ namespace backend.Business.Interfaces
 
         Task<int> UpdateInterview(InterviewResponseDTO dto);
 
+        Task<IReadOnlyList<InterviewDetailsDTO>> GetAllInterviews();
+
         Task<bool> DeleteInterview(Guid interviewId);
     }
 }

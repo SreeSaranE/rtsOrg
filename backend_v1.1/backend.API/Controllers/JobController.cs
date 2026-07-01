@@ -14,7 +14,7 @@ namespace backend.API.Controllers
             _recruiterService = recruiterService;
         }
 
-        [HttpPost("addjob")]
+        [HttpPost("add")]
         public async Task<IActionResult> AddJob([FromBody] JobRegisterDTO job)
         {
             var result = await _recruiterService.AddJob(job);

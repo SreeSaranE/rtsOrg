@@ -42,6 +42,19 @@ namespace backend.Data.Repositories
             return await _context.JobApplications.FindAsync(applicationId);
         }
 
+        public async Task<string?> GetJobNameByApplicationId(Guid applicationId)
+        {
+            return await _context.JobApplications
+                .Where(a => a.JobApplicationId == applicationId)
+                .Join(
+                    _context.Jobs,
+                    app => app.JobId,
+                    job => job.JobId,
+                    (app, job) => job.Name
+                )
+                .FirstOrDefaultAsync();
+        }
+
         public async Task UpdateStage()
         { await _context.SaveChangesAsync(); }
 

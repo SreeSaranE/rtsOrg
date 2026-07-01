@@ -1,5 +1,6 @@
 ﻿using backend.Business.Interfaces;
 using backend.Data.Interfaces;
+using backend.Data.Repositories;
 using backend.Models.DataBase;
 using backend.Models.DTOs;
 
@@ -8,8 +9,17 @@ namespace backend.Business.Services
     public class InterviewService : IInterviewService
     {
         private readonly IInterviewRepository _interviewRepository;
-        public InterviewService(IInterviewRepository interviewRepository)
-        { _interviewRepository = interviewRepository; }
+        private readonly IUserRepository _userRepository;
+        private readonly IApplicationRepository _applicationRepository;
+        public InterviewService(
+            IInterviewRepository interviewRepository,
+            IUserRepository userRepository,
+            IApplicationRepository applicationRepository)
+        {
+            _interviewRepository = interviewRepository;
+            _userRepository = userRepository;
+            _applicationRepository = applicationRepository;
+        }
 
         public async Task<bool> ScheduleInterview(Interview interview)
         {
@@ -57,6 +67,21 @@ namespace backend.Business.Services
 
             await _interviewRepository.UpdateInterview();
             return 1;
+        }
+
+        public async Task<IReadOnlyList<InterviewDetailsDTO>> GetAllInterviews()
+        {
+            var interviews = await _interviewRepository.GetAllInterviews();
+
+            foreach (var interview in interviews)
+            {
+                var interviewer = await _userRepository.GetById(interview.InterviewerId);
+                interview.InterviewerName = interviewer?.Name;
+
+                interview.JobName = await _applicationRepository.GetJobNameByApplicationId(interview.JobApplicationId);
+            }
+
+            return interviews;
         }
 
         public async Task<bool> DeleteInterview(Guid interviewId)

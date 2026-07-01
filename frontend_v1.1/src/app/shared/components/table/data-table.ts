@@ -18,46 +18,61 @@ import { TableColumn } from './table-column';
 })
 export class DataTableComponent<T extends object> implements OnChanges {
 
-  // ---------------- Inputs ----------------
+  // ================= INPUTS =================
 
-  @Input({ required: true })
-  data: T[] = [];
+  @Input({ required: true }) data: T[] = [];
+  @Input({ required: true }) columns: TableColumn<T>[] = [];
 
-  @Input({ required: true })
-  columns: TableColumn<T>[] = [];
+  @Input() pageSize = 10;
 
-  @Input()
-  pageSize = 10;
+  @Input() showDelete = false;
+  @Input() showEdit = false;
+  @Input() placeHolder = "edit";
+  @Input() showStatus = false;
 
-  @Input()
-  showDelete = false;
+  // ================= OUTPUTS =================
 
-  @Input()
-  showStatus = false;
+  @Output() delete = new EventEmitter<T>();
+  @Output() edit = new EventEmitter<T>();
 
-  // ---------------- Outputs ----------------
-
-  @Output()
-  delete = new EventEmitter<T>();
-
-  @Output()
-  statusChange = new EventEmitter<{
+  @Output() statusChange = new EventEmitter<{
     item: T;
     value: boolean;
   }>();
 
-  // ---------------- Pagination ----------------
+  // ✅ NEW: row click output
+  @Output() clicked = new EventEmitter<T>();
+
+  // ================= INTERNAL STATE =================
 
   currentPage = 1;
 
+  private sortedData: T[] = [];
+
+  sortColumn: keyof T | '' = '';
+  sortDirection: 'asc' | 'desc' = 'asc';
+
+  // ================= GETTERS =================
+
   get totalPages(): number {
-    return Math.max(1, Math.ceil(this.data.length / this.pageSize));
+    return Math.max(1, Math.ceil(this.sortedData.length / this.pageSize));
   }
 
   get pagedData(): T[] {
     const start = (this.currentPage - 1) * this.pageSize;
-    return this.data.slice(start, start + this.pageSize);
+    return this.sortedData.slice(start, start + this.pageSize);
   }
+
+  // ================= LIFECYCLE =================
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['data']) {
+      this.sortedData = [...this.data];
+      this.currentPage = 1;
+    }
+  }
+
+  // ================= PAGINATION =================
 
   nextPage(): void {
     if (this.currentPage < this.totalPages) {
@@ -71,38 +86,36 @@ export class DataTableComponent<T extends object> implements OnChanges {
     }
   }
 
-  // ---------------- Sorting ----------------
-
-  sortColumn: keyof T | '' = '';
-  sortDirection: 'asc' | 'desc' = 'asc';
+  // ================= SORTING =================
 
   sort(column: keyof T): void {
 
     if (this.sortColumn === column) {
       this.sortDirection =
-        this.sortDirection === 'asc'
-          ? 'desc'
-          : 'asc';
+        this.sortDirection === 'asc' ? 'desc' : 'asc';
     } else {
       this.sortColumn = column;
       this.sortDirection = 'asc';
     }
 
-    this.data = [...this.data].sort((a, b) => {
+    this.sortedData = [...this.sortedData].sort((a, b) => {
 
       let valueA: any = a[column];
       let valueB: any = b[column];
 
+      // string
       if (typeof valueA === 'string') {
         valueA = valueA.toLowerCase();
         valueB = valueB.toLowerCase();
       }
 
+      // boolean
       if (typeof valueA === 'boolean') {
         valueA = Number(valueA);
         valueB = Number(valueB);
       }
 
+      // date detection
       if (
         valueA instanceof Date ||
         column.toString().toLowerCase().includes('date') ||
@@ -112,11 +125,13 @@ export class DataTableComponent<T extends object> implements OnChanges {
         valueB = new Date(valueB).getTime();
       }
 
-      if (valueA < valueB)
+      if (valueA < valueB) {
         return this.sortDirection === 'asc' ? -1 : 1;
+      }
 
-      if (valueA > valueB)
+      if (valueA > valueB) {
         return this.sortDirection === 'asc' ? 1 : -1;
+      }
 
       return 0;
     });
@@ -125,24 +140,25 @@ export class DataTableComponent<T extends object> implements OnChanges {
   }
 
   getSortIcon(column: keyof T): string {
-
-    if (this.sortColumn !== column) {
-      return '↕';
-    }
-
-    return this.sortDirection === 'asc'
-      ? '▲'
-      : '▼';
+    if (this.sortColumn !== column) return '↕';
+    return this.sortDirection === 'asc' ? '▲' : '▼';
   }
 
-  // ---------------- Events ----------------
+  // ================= EVENTS =================
+
+  onRowClick(item: T): void {
+    this.clicked.emit(item);
+  }
 
   onDelete(item: T): void {
     this.delete.emit(item);
   }
 
-  onStatusChange(item: T, event: Event): void {
+  onEdit(item: T): void {
+    this.edit.emit(item);
+  }
 
+  onStatusChange(item: T, event: Event): void {
     const value =
       (event.target as HTMLSelectElement).value === 'true';
 
@@ -150,21 +166,5 @@ export class DataTableComponent<T extends object> implements OnChanges {
       item,
       value
     });
-  }
-
-  // ---------------- Lifecycle ----------------
-
-  ngOnChanges(changes: SimpleChanges): void {
-
-    if (changes['data']) {
-
-      if (this.currentPage > this.totalPages) {
-        this.currentPage = this.totalPages;
-      }
-
-      if (this.currentPage < 1) {
-        this.currentPage = 1;
-      }
-    }
   }
 }

@@ -15,7 +15,7 @@ namespace backend.API.Controllers
             _applicationService = applicationService;
         }
 
-        [HttpPost("new")]
+        [HttpPost("add")]
         public async Task<IActionResult> AddApplicaiton([FromBody] JobApplication application)
         {
             var result = await _applicationService.AddApplication(application.JobId, application.CandidateId);

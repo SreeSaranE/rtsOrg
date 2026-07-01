@@ -24,6 +24,10 @@
                 <th>Delete</th>
             }
 
+            @if (showEdit) {
+                <th>{{placeHolder}}</th>
+            }
+
         </tr>
     </thead>
 
@@ -31,68 +35,74 @@
 
         @for (item of pagedData; track $index) {
 
-            <tr>
+    <tr (click)="onRowClick(item)">
 
-                @for (column of columns; track column.key) {
+        @for (column of columns; track column.key) {
 
-                    <td>
+            <td>
 
-                        @switch (column.type) {
+                @switch (column.type) {
 
-                            @case ('date') {
-                                {{ $any(item)[column.key] | date:'dd/MM/yyyy' }}
-                            }
+                    @case ('date') {
+                        {{ $any(item)[column.key] | date:'dd/MM/yyyy' }}
+                    }
 
-                            @case ('boolean') {
+                    @case ('boolean') {
 
-                                @if (showStatus) {
+                        @if (showStatus) {
 
-                                    <select
-                                        [value]="$any(item)[column.key] ? 'true' : 'false'"
-                                        (change)="onStatusChange(item, $event)">
+                            <select
+                                [value]="$any(item)[column.key] ? 'true' : 'false'"
+                                (change)="onStatusChange(item, $event)"
+                                (click)="$event.stopPropagation()">
 
-                                        <option value="true">
-                                            Active
-                                        </option>
+                                <option value="true">Active</option>
+                                <option value="false">Inactive</option>
 
-                                        <option value="false">
-                                            Inactive
-                                        </option>
+                            </select>
 
-                                    </select>
+                        } @else {
 
-                                } @else {
-
-                                    {{ $any(item)[column.key] ? 'Yes' : 'No' }}
-
-                                }
-
-                            }
-
-                            @default {
-                                {{ $any(item)[column.key] }}
-                            }
+                            {{ $any(item)[column.key] ? 'Yes' : 'No' }}
 
                         }
 
-                    </td>
+                    }
+
+                    @default {
+                        {{ $any(item)[column.key] }}
+                    }
 
                 }
 
-                @if (showDelete) {
-
-                    <td
-                        class="delete-btn"
-                        (click)="onDelete(item)">
-
-                        ✕
-                    </td>
-
-                }
-
-            </tr>
+            </td>
 
         }
+
+        @if (showDelete) {
+
+            <td
+                class="delete-btn"
+                (click)="onDelete(item); $event.stopPropagation()">
+
+                ✕
+            </td>
+
+        }
+
+        @if (showEdit) {
+
+            <td
+                class="delete-btn"
+                (click)="onEdit(item); $event.stopPropagation()">
+
+                ✏️
+            </td>
+
+        }
+
+    </tr>
+}
 
     </tbody>
 

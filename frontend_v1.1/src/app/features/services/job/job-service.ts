@@ -35,7 +35,7 @@ export class JobService {
 
   addJob(dto: AddJobDTO){
     return this.http.post(
-      `${this.jobApiUrl}/addjob`, dto
+      `${this.jobApiUrl}/add`, dto
     )
   }
 }

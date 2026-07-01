@@ -6,6 +6,7 @@ import { ApplicationDetails } from './models/applicationDetails';
   providedIn: 'root'
 })
 export class ApplicationStore{
+
     constructor(private applicationService: ApplicationService){}
 
     applications = signal<ApplicationDetails[]>([])
@@ -17,7 +18,6 @@ export class ApplicationStore{
                 this.applications.set(response);
             },
             error: (err) => console.error(err)
-            }
-        );
+        });
     }
 }

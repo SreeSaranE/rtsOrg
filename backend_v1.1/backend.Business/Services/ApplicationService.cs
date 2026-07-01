@@ -52,6 +52,7 @@ namespace backend.Business.Services
             return applications;
         }
 
+
         public async Task<int> UpdateApplicationStage(UpdateStageDTO stage)
         {
             var applicaiton = await _applicationRepository.GetApplicationById(stage.ApplicationId);

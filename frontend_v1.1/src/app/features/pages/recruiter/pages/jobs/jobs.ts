@@ -58,65 +58,65 @@ export class RecruiterJobs {
 
   updateStatus(event: { item: jobDetails; value: boolean }) {
   
-      event.item.jobStatus = event.value;
+    event.item.jobStatus = event.value;
   
-      this.jobservice
-        .updateJobStatus(event.item.jobId)
-        .subscribe(() => this.jobStore.refresh());
-    }
+    this.jobservice
+      .updateJobStatus(event.item.jobId)
+      .subscribe(() => this.jobStore.refresh());
+  }
 
-    showDeleteDialog = false;
-    selectedJob!: jobDetails;
+  showDeleteDialog = false;
+  selectedJob!: jobDetails;
 
-    delete(job: jobDetails){
-      this.selectedJob = job;
-      this.showDeleteDialog = true;
-    }
+  delete(job: jobDetails){
+    this.selectedJob = job;
+    this.showDeleteDialog = true;
+  }
 
-    cancelDelete() {
-      this.showDeleteDialog = false;
-    }
+  cancelDelete() {
+    this.showDeleteDialog = false;
+  }
 
-    confirmDelete() {
-      this.jobservice
-        .deletejob(this.selectedJob.jobId)
-        .subscribe({
-          next: () => {
-            this.jobStore.refresh();
-            this.showDeleteDialog = false;
-          },
-          error: err => console.log(err)
-        });
-    }
-
-    userId: string = this.tokenService.getUserId() ?? '';
-
-    showAddJob = false;
-    jobForm = this.fb.nonNullable.group({
-      name: '',
-      dept: '',
-      createdBy: this.userId
-    });
-
-    addJob(){
-      this.showAddJob = true;
-    }
-
-    saveJob(){
-      const { name, dept } = this.jobForm.getRawValue();
-
-      if (!name.trim() || !dept.trim()) {
-        return;
-      }
-
-      const data = this.jobForm.getRawValue()
-      this.jobservice.addJob(data).subscribe({
+  confirmDelete() {
+    this.jobservice
+      .deletejob(this.selectedJob.jobId)
+      .subscribe({
         next: () => {
           this.jobStore.refresh();
-          this.showAddJob = false;
-          this.jobForm.reset();
+          this.showDeleteDialog = false;
         },
         error: err => console.log(err)
-      })
+      });
+  }
+
+  userId: string = this.tokenService.getUserId() ?? '';
+
+  showAddJob = false;
+  jobForm = this.fb.nonNullable.group({
+    name: '',
+    dept: '',
+    createdBy: this.userId
+  });
+
+  addJob(){
+    this.showAddJob = true;
+  }
+
+  saveJob(){
+    const { name, dept } = this.jobForm.getRawValue();
+
+    if (!name.trim() || !dept.trim()) {
+      return;
     }
+
+    const data = this.jobForm.getRawValue()
+    this.jobservice.addJob(data).subscribe({
+      next: () => {
+        this.jobStore.refresh();
+        this.showAddJob = false;
+        this.jobForm.reset();
+      },
+      error: err => console.log(err)
+    })
+  }
 }

@@ -1,32 +1,79 @@
 <div class="main-content">
 
-    <div class="head">
-        <p>Manage Candidates</p>
+  <div class="head">
+    <p>Manage Applications</p>
 
-        <app-button
-            class="refreshBtn"
-            label="Refresh Data"
-            maxWidth="150px"
-            minWidth="150px"
-            (clicked)="applicationStore.refresh()">
-        </app-button>
+    <div class="btn">
+      <app-button
+        class="refreshBtn"
+        label="Refresh Data"
+        maxWidth="150px"
+        minWidth="150px"
+        (clicked)="applicationStore.refresh()">
+      </app-button>
     </div>
+  </div>
 
-    <app-data-table
-        [data]="applicationStore.applications()"
-        [columns]="columns"
-        [showDelete]="true"
-        (delete)="delete($event)">
-    </app-data-table>
+  <app-data-table
+    class="dataTbl"
+    [data]="applicationStore.applications()"
+    [columns]="columns"
+    [showDelete]="true"
+    (delete)="delete($event)"
+    (clicked)="addInterview($event)">
+  </app-data-table>
 
-    <app-confirmation-dialog
+  <!-- DELETE CONFIRMATION -->
+  <app-confirmation-dialog
         [isOpen]="showDeleteDialog"
-        [title]="'Delete ' + selectedApplication?.jobApplicationId"
-        [message]="'You are about to delete ' + selectedApplication?.jobApplicationId"
+        [title]="'Delete ' + selectedApplication?.jobName"
+        [message]="'You are about to delete ' + selectedApplication?.jobName"
         confirmText="Delete"
         cancelText="Cancel"
         (confirmed)="confirmDelete()"
         (cancelled)="cancelDelete()">
     </app-confirmation-dialog>
+
+    <!-- ADD INTERVIEW DIALOG -->
+    <app-add-dialog
+        [isOpen]="showAddInterview"
+        title="Schedule Interview"
+        (save)="saveInterview()"
+        (cancel)="showAddInterview = false">
+
+        <form [formGroup]="interviewForm">
+
+        <select
+            class="inputField"
+            formControlName="interviewerId">
+
+            <option value="" disabled selected>
+                Select Interviewer
+            </option>
+
+            <option
+                *ngFor="let user of interviewers"
+                [value]="user.userId">
+
+                {{ user.name }}
+            </option>
+
+        </select>
+
+        <input
+            class="inputField"
+            type="datetime-local"
+            placeholder="Start Date"
+            formControlName="startTime">
+
+        <input
+            class="inputField"
+            type="datetime-local"
+            placeholder="End Date"
+            formControlName="endTime">
+
+        </form>
+
+    </app-add-dialog>
 
 </div>
