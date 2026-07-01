@@ -2,7 +2,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-confirmation-dialog',
-  imports: [],
+  standalone: true,
   templateUrl: './confirmation-dialog.html',
   styleUrl: './confirmation-dialog.css',
 })

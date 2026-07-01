@@ -9,6 +9,7 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="10.0.9" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.9" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="10.0.9" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="10.0.9">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -16,8 +17,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\backend.data\backend.data.csproj" />
-    <ProjectReference Include="..\backend.Logic\backend.Service.csproj" />
+    <ProjectReference Include="..\backend.Business\backend.Business.csproj" />
+    <ProjectReference Include="..\backend.Data\backend.Data.csproj" />
     <ProjectReference Include="..\backend.Models\backend.Models.csproj" />
   </ItemGroup>
 

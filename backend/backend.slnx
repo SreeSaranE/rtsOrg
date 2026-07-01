@@ -1,6 +1,6 @@
 <Solution>
   <Project Path="backend.API/backend.API.csproj" />
-  <Project Path="backend.data/backend.data.csproj" />
-  <Project Path="backend.Logic/backend.Service.csproj" />
+  <Project Path="backend.Business/backend.Business.csproj" />
+  <Project Path="backend.Data/backend.Data.csproj" />
   <Project Path="backend.Models/backend.Models.csproj" />
 </Solution>

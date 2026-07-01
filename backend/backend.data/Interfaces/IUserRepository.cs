@@ -1,11 +1,11 @@
-﻿using backend.data.DTOs;
-using backend.Models;
+﻿using backend.Models.DataBase;
+using backend.Models.DTOs;
 
-namespace backend.data.Interfaces
+namespace backend.Data.Interfaces
 {
     public interface IUserRepository
     {
-        Task<User?> GetById(int id);
+        Task<User?> GetById(Guid id);
 
         Task<User?> GetByEmail(string email);
 
@@ -13,8 +13,10 @@ namespace backend.data.Interfaces
 
         Task AddUser(User user);
 
-        Task UpdateUser(User user);
+        Task<IReadOnlyList<UserDetailsDTO>> GetAllUsers();
 
-        Task DeleteUser(int id);
+        Task AlterUserStatus(User user);
+
+        Task DeleteUser(User user);
     }
 }

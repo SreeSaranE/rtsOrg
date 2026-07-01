@@ -1,92 +1,55 @@
-﻿using backend.data.DTOs;
-using backend.Service.Interfaces;
-using Microsoft.AspNetCore.Authorization;
+﻿using backend.Business.Interfaces;
+using backend.Models.DTOs;
 using Microsoft.AspNetCore.Mvc;
 
 namespace backend.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class AuthController : ControllerBase
+    public class AuthController : Controller
     {
-        private readonly IUserService _userService;
-
-        public AuthController(IUserService userService)
-        {
-            _userService = userService;
-        }
-
-        [HttpPost("register")]
-        public async Task<IActionResult> Register(RegisterDto dto)
-        {
-            var result = await _userService.RegisterUser(dto);
-
-            if (!result)
-            {
-                return BadRequest("Email already exist.");
-            }
-
-            return Ok("User registered Successfully.");
-        }
+        private readonly IUserService _service;
+        public AuthController(IUserService service)
+            { _service = service; }
 
         [HttpPost("login")]
-        public async Task<IActionResult> Login([FromBody] LoginDto dto)
+        public async Task<IActionResult> Login([FromBody]  UserLoginDTO dto)
         {
-            var user = await _userService.Login(dto);
-
-            if (user == null)
+            var user = await _service.Login(dto);
+            if (user.State == "incorrectEmail")
             {
-                return Unauthorized("Invalid Email or Password");
+                return Unauthorized("No Email");
             }
-            return Ok(new
+
+            if (user.State == "incorrectPassword")
             {
-                user.Token,
-                user.Name,
-                user.Email,
-                user.Role
-            });
+                return Unauthorized("Incorrect Password");
+            }
+
+            return Ok(new
+                {
+                    user.Token
+                }
+            );
+        }
+
+
+        [HttpPost("register")]
+        public async Task<IActionResult> Register([FromBody] UserRegisterDTO dto)
+        {
+            var result = await _service.RegisterUser(dto);
+            if (!result)
+            {
+                return BadRequest("Login Failed");
+            }return Ok("User registered Successfully");
         }
 
 
         [HttpGet("email")]
-        public async Task<ActionResult<bool>> CheckEmail([FromQuery] string email)
+        public async Task<IActionResult> CheckEmail([FromQuery] string email)
         {
-            return Ok(await _userService.CheckEmail(email));
+            return Ok(await _service.CheckEmail(email));
         }
 
-        [Authorize]
-        [HttpGet("profile")]
-        public IActionResult Profile()
-        {
-            var userId = User.FindFirst(
-                System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
-
-            var email = User.FindFirst(
-                System.Security.Claims.ClaimTypes.Email)?.Value;
-
-            var role = User.FindFirst(
-                System.Security.Claims.ClaimTypes.Role)?.Value;
-
-            return Ok(new
-            {
-                UserId = userId,
-                Email = email,
-                Role = role
-            });
-        }
-
-        [Authorize(Roles = "Candidate")]
-        [HttpGet("candidate-dashboard")]
-        public IActionResult CandidateDashboard()
-        {
-            return Ok("Wlecome Candidate!");
-        }
-
-        [Authorize(Roles = "Recruiter")]
-        [HttpGet("recruiter-dashboard")]
-        public IActionResult RecruiterDashboard()
-        {
-            return Ok("Welcome Recruiter");
-        }
     }
 }

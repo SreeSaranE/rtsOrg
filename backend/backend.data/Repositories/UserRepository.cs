@@ -1,10 +1,11 @@
-﻿using backend.data.Context;
-using backend.data.Interfaces;
-using backend.Models;
-
+﻿using backend.Data.Context;
+using backend.Data.Interfaces;
+using backend.Models.DataBase;
+using backend.Models.DTOs;
+using backend.Models.Enum;
 using Microsoft.EntityFrameworkCore;
 
-namespace backend.data.Repositories
+namespace backend.Data.Repositories
 {
     public class UserRepository : IUserRepository
     {
@@ -15,15 +16,15 @@ namespace backend.data.Repositories
             _context = context;
         }
 
-        public async Task<User?> GetById(int id)
+        public async Task<User?> GetById(Guid id)
         {
             return await _context.Users.FindAsync(id);
         }
 
         public async Task<User?> GetByEmail(string email)
         {
-            return await _context.Users
-                .FirstOrDefaultAsync(u => u.Email.ToLower() == email.ToLower());
+            return await _context.Users.
+                FirstOrDefaultAsync(x => x.Email.ToLower() == email.ToLower());
         }
 
         public async Task<bool> CheckEmail(string email)
@@ -38,21 +39,30 @@ namespace backend.data.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task UpdateUser(User user)
+        public async Task<IReadOnlyList<UserDetailsDTO>> GetAllUsers()
         {
-            _context.Users.Update(user);
+            return await _context.Users
+                .Select(u => new UserDetailsDTO
+                {
+                    UserId = u.UserId,
+                    Name = u.Name,
+                    Email = u.Email,
+                    Role = ((UserRole)u.Role).ToString(),
+                    IsActive = u.IsActive,
+                    CreatedAt = u.CreatedAt
+                }).ToListAsync();
+        }
+
+        public async Task AlterUserStatus(User user)
+        {
+            user.IsActive = !user.IsActive;
             await _context.SaveChangesAsync();
         }
 
-        public async Task DeleteUser(int id)
+        public async Task DeleteUser(User user)
         {
-            var user = await _context.Users.FindAsync(id);
-
-            if (user != null)
-            {
-                _context.Users.Remove(user);
-                await _context.SaveChangesAsync();
-            }
+            _context.Users.Remove(user);
+            await _context.SaveChangesAsync();
         }
     }
 }

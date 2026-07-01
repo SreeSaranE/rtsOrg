@@ -15,6 +15,6 @@ export class NotFound {
   ){}
 
   navigateHome(){
-    this.router.navigate(['./dashboard'])
+    this.router.navigate(['.'])
   }
 }

@@ -1,12 +1,10 @@
+using backend.Business.Interfaces;
+using backend.Business.Services;
+using backend.Data.Context;
+using backend.Data.Interfaces;
+using backend.Data.Repositories;
+
 using Microsoft.EntityFrameworkCore;
-
-using backend.data.Context;
-using backend.data.Interfaces;
-using backend.data.Repositories;
-
-using backend.Service.Interfaces;
-using backend.Service.Services;
-
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
@@ -21,7 +19,18 @@ builder.Services.AddDbContext<AppDbContext>(options =>
         builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IJobRepository, JobRepository>();
+builder.Services.AddScoped<ICandidateRepository, CandidateRepository>();
+builder.Services.AddScoped<IApplicationRepository, ApplicationRepository>();
+builder.Services.AddScoped<IInterviewRepository, InterviewRepository>();
+
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IAdminService, AdminService>();
+builder.Services.AddScoped<IRecruiterService, RecruiterService>();
+builder.Services.AddScoped<ICandidateService, CandidateService>();
+builder.Services.AddScoped<IApplicationService, ApplicationService>();
+builder.Services.AddScoped<IInterviewService, InterviewService>();
+
 builder.Services.AddScoped<IJwtService, JwtService>();
 
 builder.Services.AddAuthentication(

@@ -3,9 +3,14 @@ button {
     font-size: 18px;
     height: 40px;
     width: 25vw;
+    min-width: var(--btn-minWidth);
+    max-width: var(--btn-maxWidth);
     border: 0px;
-    color: var(--background-color);
-    background-color: var(--text-primary);
+    color: var(--btn-color);
+    background-color: var(--btn-bgColor);
+    text-align: var(--btn-position);
+    padding-left: var(--btn-leftPad);
+    
 }
 
 button:hover{
