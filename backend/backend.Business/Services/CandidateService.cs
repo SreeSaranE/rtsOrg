@@ -93,37 +93,14 @@ namespace backend.Business.Services
             var candidate = await _candidateRepository.GetCandidateById(dto.CandidateId);
             if (candidate == null) return false;
 
-            candidate.Name = string.IsNullOrWhiteSpace(dto.Name)
-                ? candidate.Name
-                : dto.Name;
-
-            candidate.Email = string.IsNullOrWhiteSpace(dto.Email)
-                ? candidate.Email
-                : dto.Email;
-
-            candidate.Phone = string.IsNullOrWhiteSpace(dto.Phone)
-                ? candidate.Phone
-                : dto.Phone;
-
-            candidate.Resume = string.IsNullOrWhiteSpace(dto.Resume)
-                ? candidate.Resume
-                : dto.Resume;
-
-            candidate.Skills = string.IsNullOrWhiteSpace(dto.Skills)
-                ? candidate.Skills
-                : dto.Skills;
-
-            candidate.Summary = string.IsNullOrWhiteSpace(dto.Summary)
-                ? candidate.Summary
-                : dto.Summary;
-
-            candidate.Education = string.IsNullOrWhiteSpace(dto.Education)
-                ? candidate.Education
-                : dto.Education;
-
-            candidate.Location = string.IsNullOrWhiteSpace(dto.Location)
-                ? candidate.Location
-                : dto.Location;
+            candidate.Name = IfNotEmpty(dto.Name, candidate.Name);
+            candidate.Email = IfNotEmpty(dto.Email, candidate.Email);
+            candidate.Phone = IfNotEmpty(dto.Phone, candidate.Phone);
+            candidate.Resume = IfNotEmpty(dto.Resume, candidate.Resume);
+            candidate.Skills = IfNotEmpty(dto.Skills, candidate.Skills);
+            candidate.Summary = IfNotEmpty(dto.Summary, candidate.Summary);
+            candidate.Education = IfNotEmpty(dto.Education, candidate.Education);
+            candidate.Location = IfNotEmpty(dto.Location, candidate.Location);
 
             candidate.ActiveStatus = dto.ActiveStatus ?? candidate.ActiveStatus;
             candidate.DateOdBirth = dto.DateOdBirth ?? candidate.DateOdBirth;
@@ -139,6 +116,14 @@ namespace backend.Business.Services
 
             await _candidateRepository.DeleteCandidate(candidate);
             return true;
+        }
+
+
+        //----------
+
+        private string IfNotEmpty(string newValue, string existingValue)
+        {
+            return string.IsNullOrWhiteSpace(newValue) ? existingValue : newValue;
         }
     }
 }

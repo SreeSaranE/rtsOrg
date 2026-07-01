@@ -8,9 +8,9 @@ namespace backend.Business.Interfaces
 
         Task<int> UpdateApplicationStage(UpdateStageDTO stage);
 
-        Task<IReadOnlyList<ApplicationDetailsDTO>> GetAllApplication();
+        Task<IReadOnlyList<ApplicationResponseDTO>> GetAllApplication();
 
-        Task<IReadOnlyList<ApplicationDetailsDTO>> GetCandidateApplications(Guid candId);
+        Task<IReadOnlyList<ApplicationResponseDTO>> GetCandidateApplications(Guid candId);
 
         Task<bool> DeleteApplication(Guid applicationId);
 

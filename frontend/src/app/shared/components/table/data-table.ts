@@ -27,23 +27,21 @@ export class DataTableComponent<T extends object> implements OnChanges {
 
   @Input() showDelete = false;
   @Input() showEdit = false;
-  @Input() placeHolder = "edit";
-  @Input() showStatus = false;
+  @Input() placeHolder = 'Edit';
 
   // ================= OUTPUTS =================
 
   @Output() delete = new EventEmitter<T>();
   @Output() edit = new EventEmitter<T>();
-
-  @Output() statusChange = new EventEmitter<{
-    item: T;
-    value: boolean;
-  }>();
-
-  // ✅ NEW: row click output
   @Output() clicked = new EventEmitter<T>();
 
-  // ================= INTERNAL STATE =================
+  @Output() selectChange = new EventEmitter<{
+    item: T;
+    key: keyof T;
+    value: any;
+  }>();
+
+  // ================= INTERNAL =================
 
   currentPage = 1;
 
@@ -66,10 +64,18 @@ export class DataTableComponent<T extends object> implements OnChanges {
   // ================= LIFECYCLE =================
 
   ngOnChanges(changes: SimpleChanges): void {
+
     if (changes['data']) {
+
       this.sortedData = [...this.data];
+
+      if (this.sortColumn) {
+        this.sort(this.sortColumn, false);
+      }
+
       this.currentPage = 1;
     }
+
   }
 
   // ================= PAGINATION =================
@@ -88,41 +94,48 @@ export class DataTableComponent<T extends object> implements OnChanges {
 
   // ================= SORTING =================
 
-  sort(column: keyof T): void {
+  sort(column: keyof T, toggle = true): void {
 
-    if (this.sortColumn === column) {
-      this.sortDirection =
-        this.sortDirection === 'asc' ? 'desc' : 'asc';
-    } else {
-      this.sortColumn = column;
-      this.sortDirection = 'asc';
+    if (toggle) {
+
+      if (this.sortColumn === column) {
+
+        this.sortDirection =
+          this.sortDirection === 'asc'
+            ? 'desc'
+            : 'asc';
+
+      } else {
+
+        this.sortColumn = column;
+        this.sortDirection = 'asc';
+
+      }
+
     }
+
+    const columnDef = this.columns.find(c => c.key === column);
 
     this.sortedData = [...this.sortedData].sort((a, b) => {
 
       let valueA: any = a[column];
       let valueB: any = b[column];
 
-      // string
-      if (typeof valueA === 'string') {
-        valueA = valueA.toLowerCase();
-        valueB = valueB.toLowerCase();
-      }
+      if (columnDef?.type === 'date') {
 
-      // boolean
-      if (typeof valueA === 'boolean') {
-        valueA = Number(valueA);
-        valueB = Number(valueB);
-      }
-
-      // date detection
-      if (
-        valueA instanceof Date ||
-        column.toString().toLowerCase().includes('date') ||
-        column.toString().toLowerCase().includes('at')
-      ) {
         valueA = new Date(valueA).getTime();
         valueB = new Date(valueB).getTime();
+
+      } else if (typeof valueA === 'string') {
+
+        valueA = valueA.toLowerCase();
+        valueB = valueB.toLowerCase();
+
+      } else if (typeof valueA === 'boolean') {
+
+        valueA = Number(valueA);
+        valueB = Number(valueB);
+
       }
 
       if (valueA < valueB) {
@@ -134,14 +147,21 @@ export class DataTableComponent<T extends object> implements OnChanges {
       }
 
       return 0;
+
     });
 
-    this.currentPage = 1;
   }
 
   getSortIcon(column: keyof T): string {
-    if (this.sortColumn !== column) return '↕';
-    return this.sortDirection === 'asc' ? '▲' : '▼';
+
+    if (this.sortColumn !== column) {
+      return '↕';
+    }
+
+    return this.sortDirection === 'asc'
+      ? '▲'
+      : '▼';
+
   }
 
   // ================= EVENTS =================
@@ -158,13 +178,18 @@ export class DataTableComponent<T extends object> implements OnChanges {
     this.edit.emit(item);
   }
 
-  onStatusChange(item: T, event: Event): void {
-    const value =
-      (event.target as HTMLSelectElement).value === 'true';
+  onSelectChange(
+    item: T,
+    column: TableColumn<T>,
+    event: Event
+  ): void {
 
-    this.statusChange.emit({
+    this.selectChange.emit({
       item,
-      value
+      key: column.key,
+      value: (event.target as HTMLSelectElement).value
     });
+
   }
+
 }

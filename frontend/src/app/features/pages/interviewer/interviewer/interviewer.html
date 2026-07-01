@@ -1,9 +1,8 @@
 <app-sidebar
-    path="recruiter"
+    path="interviewer"
     [naviList]="navList"
-    (sidebarChange)="onSidebarChange($event)"
-></app-sidebar>
-
+    (sidebarChange)="onSidebarChange($event)">
+</app-sidebar>
 
 <div [class]="showSidebar() ? 'full' : 'short'">
     <router-outlet></router-outlet>

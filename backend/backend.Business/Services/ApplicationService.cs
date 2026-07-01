@@ -36,36 +36,56 @@ namespace backend.Business.Services
             return true;
         }
 
-        public async Task<IReadOnlyList<ApplicationDetailsDTO>> GetAllApplication()
+        public async Task<IReadOnlyList<ApplicationResponseDTO>> GetAllApplication()
         {
             var applications = await _applicationRepository.GetAllApplication();
+
+            var response = new List<ApplicationResponseDTO>();
 
             foreach (var application in applications)
             {
                 var candidate = await _candidateRepository.GetCandidateById(application.CandidateId);
-                application.CandidateName = candidate?.Name;
-
                 var job = await _jobRepository.GetJobById(application.JobId);
-                application.JobName = job?.Name;
+
+                response.Add(new ApplicationResponseDTO
+                {
+                    JobApplicationId = application.JobApplicationId,
+                    JobId = application.JobId,
+                    CandidateId = application.CandidateId,
+                    CandidateName = candidate?.Name,
+                    JobName = job?.Name,
+                    Stage = ((ApplicationStage)application.Stage).ToString(),
+                    CreatedAt = application.CreatedAt
+                });
             }
 
-            return applications;
+            return response;
         }
 
-        public async Task<IReadOnlyList<ApplicationDetailsDTO>> GetCandidateApplications(Guid candId)
+        public async Task<IReadOnlyList<ApplicationResponseDTO>> GetCandidateApplications(Guid candId)
         {
-            var candApplication = await _applicationRepository.CandidateApplications(candId);
+            var applications = await _applicationRepository.CandidateApplications(candId);
 
-            foreach (var application in candApplication)
+            var response = new List<ApplicationResponseDTO>();
+
+            foreach (var application in applications)
             {
                 var candidate = await _candidateRepository.GetCandidateById(application.CandidateId);
-                application.CandidateName = candidate?.Name;
-
                 var job = await _jobRepository.GetJobById(application.JobId);
-                application.JobName = job?.Name;
+
+                response.Add(new ApplicationResponseDTO
+                {
+                    JobApplicationId = application.JobApplicationId,
+                    JobId = application.JobId,
+                    CandidateId = application.CandidateId,
+                    CandidateName = candidate?.Name,
+                    JobName = job?.Name,
+                    Stage = ((ApplicationStage)application.Stage).ToString(),
+                    CreatedAt = application.CreatedAt
+                });
             }
 
-            return candApplication;
+            return response;
         }
 
         public async Task<int> UpdateApplicationStage(UpdateStageDTO stage)
@@ -76,7 +96,6 @@ namespace backend.Business.Services
             int stageId = (int)Enum.Parse<ApplicationStage>(stage.Stage);
 
             if (stageId == applicaiton.Stage) return 3;
-
 
             int oldStage = applicaiton.Stage;
             var historyData = new ApplicationHistory
@@ -92,7 +111,6 @@ namespace backend.Business.Services
             await _applicationRepository.UpdateStage();
             return 1;
         }
-
 
 
         public async Task<bool> DeleteApplication(Guid applicationId)

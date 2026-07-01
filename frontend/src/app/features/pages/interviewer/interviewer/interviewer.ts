@@ -1,19 +1,19 @@
 import { Component, signal } from '@angular/core';
+import { Sidebar } from "../../../../shared/components/sidebar/sidebar";
 import { Router, RouterOutlet } from '@angular/router';
-import { Sidebar } from '../../../../shared/components/sidebar/sidebar';
 
 @Component({
-  selector: 'app-admin-dashboard',
+  selector: 'app-interviewer',
   imports: [Sidebar, RouterOutlet],
-  templateUrl: './admin.html',
-  styleUrl: './admin.css',
+  templateUrl: './interviewer.html',
+  styleUrl: './interviewer.css',
 })
-export class Admin {
+export class Interviewer {
 
   constructor(private router: Router)
-  { router.navigate(["admin/dashboard"]) }
+  { router.navigate(["interviewer/assigned"]) }
   
-  navList = ["Dashboard", "Users", "Candidates"]
+  navList = ["Assigned", "History"]
 
   showSidebar = signal<boolean>(true);
 

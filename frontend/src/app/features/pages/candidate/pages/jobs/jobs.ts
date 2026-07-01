@@ -39,20 +39,11 @@ export class CandidateJobs {
   private tokenService = inject(TokenService)
 
   columns: TableColumn<jobDetails>[] = [
-      {
-        key: 'name',
-        label: 'Name'
-      },
-      {
-        key: 'dept',
-        label: 'Department'
-      },
-      {
-        key: 'createdAt',
-        label: 'Created At',
-        type: 'date'
-      }
+      { key: 'name', label: 'Name' },
+      { key: 'dept', label: 'Department' },
+      { key: 'createdAt', label: 'Created At', type: 'date' }
     ];
+    
 // ===============application
   candidateId: string = this.tokenService.getUserId() ?? '';
 

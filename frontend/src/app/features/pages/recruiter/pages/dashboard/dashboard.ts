@@ -61,21 +61,21 @@ export class RecruiterDashboard {
   get pendingInterviews(): number {
     return this.interviewStore
       .interviews()
-      .filter(i => !i.result || i.result === 1)
+      .filter(i => !i.result || i.result === "OnHold")
       .length;
   }
 
   get selectedCandidates(): number {
     return this.interviewStore
       .interviews()
-      .filter(i => i.result === 0)
+      .filter(i => i.result === "Passes")
       .length;
   }
 
   get rejectedCandidates(): number {
     return this.interviewStore
       .interviews()
-      .filter(i => i.result === 2)
+      .filter(i => i.result === "Failed")
       .length;
   }
 
@@ -98,12 +98,7 @@ export class RecruiterDashboard {
 
     return this.interviewStore
       .interviews()
-      .filter(i => new Date(i.startTime) > now)
-      .sort(
-        (a, b) =>
-          new Date(a.startTime).getTime() -
-          new Date(b.startTime).getTime()
-      )
+      
       .slice(0, 5);
   }
 }

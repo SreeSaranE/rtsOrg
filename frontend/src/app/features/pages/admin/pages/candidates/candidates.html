@@ -17,11 +17,9 @@
         [data]="candidateStore.candidates()"
         [columns]="columns"
         [showDelete]="true"
-        [showStatus]="true"
         (delete)="delete($event)"
-        (statusChange)="updateStatus($event)">
+        (selectChange)="updateStatus($event)">
     </app-data-table>
-
 
 
     <app-confirmation-dialog

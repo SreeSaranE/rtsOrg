@@ -7,13 +7,23 @@ import { interviewDetails } from './models/interviewDetails';
 })
 export class InterviewStore{
 
-    constructor(private interviewServiceer: InterviewService){}
+    constructor(private interviewServicer: InterviewService){}
 
     interviews = signal<interviewDetails[]>([]);
     interviewsCount = computed(() => this.interviews().length);
 
+    notStarted = computed(() => 
+        this.interviews().filter(
+            interview => interview.result === "NotStarted")
+    )
+
+    Started = computed(() => 
+        this.interviews().filter(
+            interview => interview.result !== "NotStarted")
+    )
+
     refresh() {
-        this.interviewServiceer.getAllInterviews().subscribe({
+        this.interviewServicer.getAllInterviews().subscribe({
            next: (response) => {
                 this.interviews.set(response);
             },
@@ -21,5 +31,14 @@ export class InterviewStore{
         });
     }
 
-    
+    refreshAssignedInterviews(guid: string) {
+        this.interviewServicer.assignedInterviews(guid).subscribe({
+           next: (response) => {
+                this.interviews.set(response);
+            },
+            error: (err) => console.error(err) 
+        });
+    }
+
+    updateResult(){}
 }

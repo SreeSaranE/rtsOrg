@@ -31,11 +31,21 @@ namespace backend.API.Controllers
             return Ok(await _interviewService.GetAllInterviews());
         }
 
+        [HttpGet("{interviewerId}")]
+        public async Task<IActionResult> assignedInterviews(Guid interviewerId)
+        {
+            return Ok(await _interviewService.assignedInterviews(interviewerId));
+        }
+
         [HttpPost("update")]
         public async Task<IActionResult> UpdateInterview(InterviewResponseDTO dto)
         {
             var result = await _interviewService.UpdateInterview(dto);
-            if (result == 1) return Ok("Interview Updated");
+            if (result == 1) return Ok(new
+            {
+                success = true,
+                message = "Interview Updated"
+            });
             else if (result == 2) return BadRequest("Schedule time collapses");
             else if (result == 3) return NotFound("No interview with that is found");
             return BadRequest();

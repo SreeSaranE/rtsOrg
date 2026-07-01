@@ -4,6 +4,6 @@ export interface ApplicationDetails{
     jobName: string
     candidateId: string,
     candidateName: string,
-    stage:string,
+    stage: string,
     createdAt: Date
 }

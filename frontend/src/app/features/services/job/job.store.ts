@@ -11,6 +11,11 @@ export class jobStore {
     jobs = signal<jobDetails[]>([])
     jobCount = computed(() => this.jobs().length);
 
+    activeJobs = computed(() =>
+        this.jobs().filter(job => job.jobStatus)
+    );
+    activeJobCount = computed(() => this.activeJobs().length);
+
     refresh() {
         this.jobbService.getAllJobs().subscribe({
             next: (response) => {

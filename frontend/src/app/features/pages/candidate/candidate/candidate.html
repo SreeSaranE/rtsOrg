@@ -1,11 +1,8 @@
 <app-sidebar
     path="candidate"
-    title="Candidate"
     [naviList]="navList"
-
-     (sidebarChange)="onSidebarChange($event)"
+    (sidebarChange)="onSidebarChange($event)"
 ></app-sidebar>
-
 
 <div [class]="showSidebar() ? 'full' : 'short'">
     <router-outlet></router-outlet>

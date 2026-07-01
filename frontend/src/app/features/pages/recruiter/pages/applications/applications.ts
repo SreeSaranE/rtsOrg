@@ -131,18 +131,35 @@ export class RecruiterApplications {
       interviewerId,
       createdBy: this.userId,
 
-      // ✅ convert dates properly
       startTime: new Date(startTime).toISOString(),
       endTime: new Date(endTime).toISOString(),
     };
 
     this.interviewService.addInterview(payload).subscribe({
       next: () => {
+        this.afterInterviewScheduled(jobApplicationId, this.userId)
+
         this.interviewStore.refresh();
         this.showAddInterview = false;
         this.interviewForm.reset();
       },
       error: err => console.log(err)
     });
+  }
+
+  afterInterviewScheduled(applicationId: string, modifiedBy: string){
+    const payload = {
+      applicationId,
+      stage: "Interview_Scheduled",
+      modifiedBy
+    }
+    this.applicationService.updateApplicationStage(payload)
+    .subscribe({
+      next: () => {
+        console.log("Updated");
+        this.applicationStore.refresh();
+      },
+      error: err => console.log(err)      
+    })
   }
 }

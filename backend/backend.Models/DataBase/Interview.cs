@@ -1,4 +1,6 @@
-﻿namespace backend.Models.DataBase
+﻿using backend.Models.Enum;
+
+namespace backend.Models.DataBase
 {
     public class Interview
     {
@@ -10,7 +12,7 @@
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
 
-        public int Result { get; set; } = 1;
+        public Result Result { get; set; } = Result.NotStarted;
 
         public Guid CreatedBy { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;

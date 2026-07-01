@@ -3,6 +3,7 @@ import { ButtonComponent } from "../button/button";
 import { Input, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { EventEmitter } from '@angular/core';
+import { TokenService } from '../../../core/services/token/token-service';
 
 @Component({
   selector: 'app-sidebar',
@@ -13,7 +14,8 @@ import { EventEmitter } from '@angular/core';
 export class Sidebar {
 
   constructor(
-    private router: Router
+    private router: Router,
+    public tokenService: TokenService
   ){
     this.hide()
   }
@@ -22,9 +24,7 @@ export class Sidebar {
 
   @Output() sidebarChange = new EventEmitter<boolean>();
 
-
   @Input() path = ""
-  @Input() title = "";
   @Input() naviList = ["Settings"]
 
   minWidth = 20;

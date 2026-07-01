@@ -11,7 +11,8 @@ import { Router } from '@angular/router';
 })
 export class Recruiter {
 
-  constructor(private router: Router)
+  constructor(
+    private router: Router)
   { router.navigate(["recruiter/dashboard"]) }
 
   navList = ["Dashboard", "Jobs", "Applications", "Candidates", "Interviews"]
@@ -20,6 +21,5 @@ export class Recruiter {
 
   onSidebarChange(value: boolean) {
     this.showSidebar.set(value);
-    console.log(value);
   } 
 }

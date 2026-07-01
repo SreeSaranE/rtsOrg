@@ -13,7 +13,7 @@ namespace backend.Data.Interfaces
 
         Task<IReadOnlyList<InterviewDetailsDTO>> GetAllInterviews();
 
-        Task<IReadOnlyList<InterviewResponseDTO?>> GetInterviews(Guid interviewerId);
+        Task<IReadOnlyList<InterviewDetailsDTO?>> assignedInterviews(Guid interviewerId);
 
         Task<bool> HasScheduleConflict(Guid interviewerId, DateTime startTime, DateTime endTime, Guid? excludeInterviewId = null);
 

@@ -2,17 +2,16 @@
 {
     public enum ApplicationStage
     {
-        None = 1,
-        Applied = 2,
-        Review = 3,
-        Shortlisted = 4,
-        Assessment = 5,
-        Interview_Scheduled = 6,
-        Interview_Completed = 7,
-        Final_Review = 8,
-        Offer_Extended = 9,
-        Hired = 10,
-        Rejected = 11,
-        Withdrawn= 12
+        Applied = 1,
+        Review = 2,
+        Shortlisted = 3,
+        Assessment = 4,
+        Interview_Scheduled = 5,
+        Interview_Completed = 6,
+        Final_Review = 7,
+        Offer_Extended = 8,
+        Hired = 9,
+        Rejected = 10,
+        Withdrawn= 11
     }
 }

@@ -1,0 +1,34 @@
+<div class="main-content">
+
+  <div class="head">
+    <p>Manage Interview</p>
+
+    <app-button
+      class="refreshBtn"
+      label="Refresh Data"
+      maxWidth="150px"
+      minWidth="150px"
+      (clicked)="interviewStore.refresh()">
+    </app-button>
+
+  </div>
+
+  <app-data-table
+    [data]="interviewStore.notStarted()"
+    [columns]="columns"
+    [showDelete]="true"
+    (delete)="delete($event)"
+    (selectChange)="updateResult($event)">
+  </app-data-table>
+
+  <app-confirmation-dialog
+    [isOpen]="showDeleteDialog"
+    [title]="'Delete ' + selectedInterview?.jobApplicationId"
+    [message]="'You are about to delete ' + selectedInterview?.jobApplicationId"
+    confirmText="Delete"
+    cancelText="Cancel"
+    (confirmed)="confirmDelete()"
+    (cancelled)="cancelDelete()">
+  </app-confirmation-dialog>
+
+</div>

@@ -41,9 +41,9 @@ namespace backend.Business.Services
             var interview = await _interviewRepository.GetInterviewById(dto.InterviewId);
             if (interview == null) return 3;
 
-            Guid interviewer = dto.InterviewerId ?? interview.InterviewerId;
-            DateTime startTime = dto.StartTime ?? interview.StartTime;
-            DateTime endTime = dto.EndTime ?? interview.EndTime;
+            var interviewer = dto.InterviewerId ?? interview.InterviewerId;
+            var startTime = dto.StartTime ?? interview.StartTime;
+            var endTime = dto.EndTime ?? interview.EndTime;
 
             bool scheduleChanged =
                 interviewer != interview.InterviewerId ||
@@ -60,13 +60,38 @@ namespace backend.Business.Services
                 return 2;
             }
 
-            interview.InterviewerId = dto.InterviewerId ?? interview.InterviewerId;
-            interview.StartTime = dto.StartTime ?? interview.StartTime;
-            interview.EndTime = dto.EndTime ?? interview.EndTime;
-            interview.Result = dto.Result ?? interview.Result;
+            ApplyInterviewUpdates(interview, dto);
 
             await _interviewRepository.UpdateInterview();
             return 1;
+        }
+        //helper
+        private void ApplyInterviewUpdates(Interview interview, InterviewResponseDTO dto)
+        {
+            interview.InterviewerId = dto.InterviewerId ?? interview.InterviewerId;
+            interview.StartTime = dto.StartTime ?? interview.StartTime;
+            interview.EndTime = dto.EndTime ?? interview.EndTime;
+
+            if (!string.IsNullOrWhiteSpace(dto.Result) &&
+                Enum.TryParse<backend.Models.Enum.Result>(dto.Result, true, out var result))
+            {
+                interview.Result = result;
+            }
+        }
+
+        public async Task<IReadOnlyList<InterviewDetailsDTO>> assignedInterviews(Guid interviewerId)
+        {
+            var interviews = await _interviewRepository.assignedInterviews(interviewerId);
+
+            foreach (var interview in interviews)
+            {
+                var interviewer = await _userRepository.GetById(interview.InterviewerId);
+                interview.InterviewerName = interviewer?.Name;
+
+                interview.JobName = await _applicationRepository.GetJobNameByApplicationId(interview.JobApplicationId);
+            }
+
+            return interviews;
         }
 
         public async Task<IReadOnlyList<InterviewDetailsDTO>> GetAllInterviews()

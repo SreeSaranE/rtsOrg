@@ -38,7 +38,11 @@ export class Candidates {
     {
       key: 'isActive',
       label: 'Status',
-      type: 'boolean'
+      type: 'select',
+      options: [
+        { label: 'Active', value: true },
+        { label: 'Inactive', value: false }
+      ]
     },
     {
       key: 'createdAt',
@@ -47,7 +51,7 @@ export class Candidates {
     }
   ];
 
-  updateStatus(event: { item: candidateDetails; value: boolean }) {
+  updateStatus(event: { item: candidateDetails; value: any }) {
 
     event.item.isActive = event.value;
 

@@ -47,7 +47,11 @@ export class RecruiterJobs {
       {
         key: 'jobStatus',
         label: 'Status',
-        type: 'boolean'
+        type: 'select',
+        options: [
+          { label: 'Active', value: true },
+          { label: 'Inactive', value: false }
+        ]
       },
       {
         key: 'createdAt',

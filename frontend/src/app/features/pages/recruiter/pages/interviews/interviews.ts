@@ -9,6 +9,8 @@ import { interviewDetails } from '../../../../services/interview/models/intervie
 import { TokenService } from '../../../../../core/services/token/token-service';
 import { AddDialogComponent } from "../../../../../shared/components/add-dialog/add-dialog";
 import { ReactiveFormsModule, FormBuilder } from '@angular/forms';
+import { ApplicationService } from '../../../../services/application/application-service';
+import { ApplicationStore } from '../../../../services/application/application.store';
 
 @Component({
   selector: 'app-interviews',
@@ -26,38 +28,22 @@ export class RecruiterInterviews {
 
   constructor(
     private interviewService: InterviewService,
-    public interviewStore: InterviewStore
+    public interviewStore: InterviewStore,
+    private applicationService: ApplicationService,
+    private applicationStore: ApplicationStore
   ){ this.interviewStore.refresh(); }
 
   private fb = inject(FormBuilder);
   private tokenService = inject(TokenService)
 
   columns: TableColumn<interviewDetails>[] = [
-    {
-      key: 'jobName',
-      label: 'Job'
-    },
-    {
-      key: 'interviewerName',
-      label: 'Interviewer'
-    },
-    {
-      key: 'startTime',
-      label: 'Start Time',
-    },
-    {
-      key: 'endTime',
-      label: 'End Time',
-    },
-    {
-      key: 'createdAt',
-      label: 'Created At',
-      type: 'date'
-    },
-    {
-      key: 'result',
-      label: 'Result'
-    }
+  { key: 'jobName', label: 'Job' },
+  { key: 'candidateName', label: 'Candidate' },
+  { key: 'interviewerName', label: 'Interviewer' },
+  { key: 'startTime', label: 'Start Time' },
+  { key: 'endTime', label: 'End Time' },
+  { key: 'createdAt', label: 'Created At', type: 'date' },
+  { key: 'result', label: 'Result' }
   ]
 
   showDeleteDialog = false;
@@ -77,11 +63,32 @@ export class RecruiterInterviews {
       .deleteInterview(this.selectedInterview.interviewId)
       .subscribe({
         next: () => {
+          this.afterInterviewDeleted(
+            this.selectedInterview.jobApplicationId,
+            this.tokenService.getUserId() ?? '')
+          
           this.interviewStore.refresh();
           this.showDeleteDialog = false;
+
         },
         error: err => console.log(err)
       });
+  }
+
+  afterInterviewDeleted(applicationId: string, modifiedBy: string){
+    const payload = {
+      applicationId,
+      stage: "Applied",
+      modifiedBy
+    }
+    this.applicationService.updateApplicationStage(payload)
+    .subscribe({
+      next: () => {
+        console.log("Updated");
+        this.applicationStore.refresh();
+      },
+      error: err => console.log(err)      
+    })
   }
 
   userId: string = this.tokenService.getUserId() ?? '';

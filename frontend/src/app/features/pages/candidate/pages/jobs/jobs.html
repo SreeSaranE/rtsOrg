@@ -1,7 +1,7 @@
 <div class="main-content">
 
     <div class="head">
-        <p>Manage Jobs</p>
+        <p>Active Jobs</p>
         
         <div class="btn">
 
@@ -12,13 +12,12 @@
                 minWidth="150px"
                 (clicked)="jobStore.refresh()">
             </app-button>
-
         </div>
     
     </div>
 
     <app-data-table
-        [data]="jobStore.jobs()"
+        [data]="jobStore.activeJobs()"
         [columns]="columns"
         [showEdit]= "true"
         placeHolder="Apply"
@@ -34,6 +33,5 @@
         (confirmed)="saveApplication()"
         (cancelled)="showApply = false">
     </app-confirmation-dialog>
-
 
 </div>

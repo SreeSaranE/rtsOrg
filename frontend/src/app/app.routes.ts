@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
 import { Admin } from './features/pages/admin/admin/admin';
 import { HrDashboard } from './features/pages/hr/hr-dashboard/hr-dashboard';
-import { InterviewerDashboard } from './features/pages/interviewer/interviewer-dashboard/interviewer-dashboard';
+import { Interviewer } from './features/pages/interviewer/interviewer/interviewer';
 import { Recruiter } from './features/pages/recruiter/recruiter/recruiter';
 import { Candidate } from './features/pages/candidate/candidate/candidate';
 import { Login } from './features/pages/auth/pages/login/login';
@@ -27,6 +27,8 @@ import { RecruiterCandidates } from './features/pages/recruiter/pages/candidates
 import { CandidateJobs } from './features/pages/candidate/pages/jobs/jobs';
 import { CandidateAppliedJobs } from './features/pages/candidate/pages/applied-jobs/applied-jobs';
 import { CandidatePersonalDetails } from './features/pages/candidate/pages/candidate-personal-details/candidate-personal-details';
+import { InterviewerAssigned } from './features/pages/interviewer/pages/assigned/assigned';
+import { InterviewerHistory } from './features/pages/interviewer/pages/history/history';
 
 export const routes: Routes = [
     {path: "", component: Startup},
@@ -61,9 +63,12 @@ export const routes: Routes = [
             {path: "details", component: CandidatePersonalDetails}
         ]},
 
-    {path: "interviewer", component: InterviewerDashboard,
-        canActivate: [authGuard, roleGuard], data: {role: 'Interviewer'}},
-    
+    {path: "interviewer", component: Interviewer,
+        canActivate: [authGuard, roleGuard], data: {role: 'Interviewer'},
+        children: [
+            {path: "assigned", component: InterviewerAssigned},
+            {path: "history", component: InterviewerHistory}
+        ]},  
 
     {path: "login", component: Login},
     {path: "signup", component: Signup},

@@ -36,30 +36,48 @@ namespace backend.Data.Repositories
                 {
                     InterviewId = i.InterviewId,
                     JobApplicationId = i.JobApplicationId,
+
+                    JobName = i.JobApplication!.Job!.Name,
+                    candidateName = i.JobApplication.Candidate!.Name,
+
                     InterviewerId = i.InterviewerId,
+                    InterviewerName = i.Interviewer!.Name,
+
                     StartTime = i.StartTime,
                     EndTime = i.EndTime,
-                    Result = i.Result,
+
+                    Result = i.Result.ToString(),
+
                     CreatedBy = i.CreatedBy,
                     CreatedAt = i.CreatedAt,
-                }).ToListAsync();
+                })
+                .ToListAsync();
         }
 
-        public async Task<IReadOnlyList<InterviewResponseDTO?>> GetInterviews(Guid interviewerId)
+        public async Task<IReadOnlyList<InterviewDetailsDTO?>> assignedInterviews(Guid interviewerId)
         {
             return await _context.Interviews
-                .Where(i => (i.InterviewerId == interviewerId))
-                .Select(i => new InterviewResponseDTO
+                .Where(i => i.InterviewerId == interviewerId)
+                .Select(i => new InterviewDetailsDTO
                 {
                     InterviewId = i.InterviewId,
                     JobApplicationId = i.JobApplicationId,
+
+                    JobName = i.JobApplication!.Job!.Name,
+                    candidateName = i.JobApplication.Candidate!.Name,
+
                     InterviewerId = i.InterviewerId,
+                    InterviewerName = i.Interviewer!.Name,
+
                     StartTime = i.StartTime,
                     EndTime = i.EndTime,
-                    Result = i.Result,
+
+                    Result = i.Result.ToString(),
+
                     CreatedBy = i.CreatedBy,
                     CreatedAt = i.CreatedAt
-                }).ToListAsync();
+                })
+                .ToListAsync();
         }
 
         public async Task<bool> HasScheduleConflict(

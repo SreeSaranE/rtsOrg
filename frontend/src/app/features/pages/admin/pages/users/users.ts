@@ -39,7 +39,11 @@ export class Users {
       {
         key: 'isActive',
         label: 'Status',
-        type: 'boolean'
+        type: 'select',
+        options: [
+          { label: 'Active', value: true },
+          { label: 'Inactive', value: false }
+        ]
       },
       {
         key: 'createdAt',
@@ -50,13 +54,12 @@ export class Users {
 
   updateStatus(event: { item: userDetails; value: boolean }) {
   
-      event.item.isActive = event.value;
+    event.item.isActive = event.value;
   
-      this.adminService
-        .updateStatus(event.item.userId)
-        .subscribe(() => this.userStore.refresh());
-  
-    }
+    this.adminService
+      .updateStatus(event.item.userId)
+      .subscribe(() => this.userStore.refresh());
+  }
 
   showDeleteDialog = false;
   selectedUser!: userDetails;

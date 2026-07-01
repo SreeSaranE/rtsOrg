@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ApplicationDetails } from './models/applicationDetails';
 import { addApplicationDTO } from './models/addApplicationDTO';
+import { updateApplicationDTO } from './models/updateApplicationDTO';
 
 @Injectable({
   providedIn: 'root',
@@ -30,6 +31,12 @@ export class ApplicationService {
   getCandidateApplication(guid: string): Observable<ApplicationDetails[]>{
     return this.http.get<ApplicationDetails[]>(
       `${this.applicationApiUrl}/candidate/${guid}`
+    )
+  }
+//https://localhost:7033/api/application/updatestage
+  updateApplicationStage(dto: updateApplicationDTO){
+    return this.http.post(
+      `${this.applicationApiUrl}/updatestage`, dto
     )
   }
 
